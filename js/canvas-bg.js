@@ -1,175 +1,132 @@
 /* ==========================================================================
-   Cyber-Data Node Network Canvas Background (canvas-bg.js)
-   Optimised particle system reflecting active theme tokens with energy saving.
+   Ambient background — a slow drifting constellation.
+   Deliberately restrained: it should read as texture, not as an effect.
+   Skips entirely for reduced-motion users and pauses when the tab is hidden.
    ========================================================================== */
+(function () {
+    'use strict';
 
-class DataNodeNetwork {
-    constructor(canvasId) {
-        this.canvas = document.getElementById(canvasId);
-        if (!this.canvas) return;
-        this.ctx = this.canvas.getContext('2d');
-        
-        this.particles = [];
-        this.mouse = { x: null, y: null, radius: 150 };
-        this.particleCount = 65;
-        this.connectionDistance = 110;
-        this.baseSpeed = 0.4;
-        
-        this.init();
-        this.bindEvents();
-        this.animate();
+    var canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        canvas.remove();
+        return;
     }
 
-    init() {
-        this.resizeCanvas();
-        this.particles = [];
-        
-        // Dynamically scale particle count based on screen size
-        if (window.innerWidth < 768) {
-            this.particleCount = 25;
-            this.connectionDistance = 80;
-        } else {
-            this.particleCount = 75;
-            this.connectionDistance = 120;
-        }
+    var ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
 
-        for (let i = 0; i < this.particleCount; i++) {
-            this.particles.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * this.baseSpeed,
-                vy: (Math.random() - 0.5) * this.baseSpeed,
-                radius: Math.random() * 2 + 1.5,
-                pulseSpeed: Math.random() * 0.05 + 0.01,
-                pulseVal: Math.random() * Math.PI
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = 0, h = 0;
+    var nodes = [];
+    var raf = null;
+    var running = true;
+
+    var LINK_DIST = 130;
+    var SPEED = 0.16;
+
+    function accent() {
+        var light = document.documentElement.getAttribute('data-theme') === 'light';
+        return light ? '3, 105, 161' : '56, 189, 248';
+    }
+
+    function density() {
+        // Roughly one node per 18k device-independent pixels, clamped at both ends.
+        return Math.max(24, Math.min(80, Math.round((w * h) / 18000)));
+    }
+
+    function seed() {
+        var count = density();
+        nodes = [];
+        for (var i = 0; i < count; i++) {
+            nodes.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * SPEED,
+                vy: (Math.random() - 0.5) * SPEED,
+                r: Math.random() * 1.3 + 0.6
             });
         }
     }
 
-    resizeCanvas() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+    function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
     }
 
-    bindEvents() {
-        window.addEventListener('resize', () => {
-            this.resizeCanvas();
-            this.init();
-        });
+    function frame() {
+        if (!running) return;
 
-        window.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
-        });
+        ctx.clearRect(0, 0, w, h);
+        var rgb = accent();
 
-        window.addEventListener('mouseleave', () => {
-            this.mouse.x = null;
-            this.mouse.y = null;
-        });
-    }
+        for (var i = 0; i < nodes.length; i++) {
+            var a = nodes[i];
 
-    // Helper to get raw HSL tokens from CSS variables
-    getThemeColors() {
-        const rootStyles = getComputedStyle(document.documentElement);
-        const huePrimary = rootStyles.getPropertyValue('--hue-primary').trim();
-        const isLightTheme = document.documentElement.classList.contains('light-theme');
-        
-        // Return standard representation
-        return {
-            particleColor: `hsla(${huePrimary}, 100%, ${isLightTheme ? '45%' : '60%'}, `,
-            lineColor: `hsla(${huePrimary}, 100%, ${isLightTheme ? '40%' : '50%'}, `
-        };
-    }
+            // Links first, so the dots sit on top of them.
+            for (var j = i + 1; j < nodes.length; j++) {
+                var b = nodes[j];
+                var dx = a.x - b.x;
+                var dy = a.y - b.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
 
-    animate() {
-        // Power-saving mode: Pause canvas calculations when tab is hidden or minimized
-        if (document.hidden) {
-            requestAnimationFrame(() => this.animate());
-            return;
+                if (dist < LINK_DIST) {
+                    ctx.strokeStyle = 'rgba(' + rgb + ',' + (0.13 * (1 - dist / LINK_DIST)).toFixed(3) + ')';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+
+            a.x += a.vx;
+            a.y += a.vy;
+
+            // Wrap rather than bounce — bouncing makes the viewport edges obvious.
+            if (a.x < -10) a.x = w + 10;
+            if (a.x > w + 10) a.x = -10;
+            if (a.y < -10) a.y = h + 10;
+            if (a.y > h + 10) a.y = -10;
+
+            ctx.fillStyle = 'rgba(' + rgb + ',0.4)';
+            ctx.beginPath();
+            ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+            ctx.fill();
         }
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        const colors = this.getThemeColors();
-        const length = this.particles.length;
-
-        for (let i = 0; i < length; i++) {
-            const p = this.particles[i];
-            
-            // Adjust position
-            p.x += p.vx;
-            p.y += p.vy;
-            
-            // Pulse radius slightly to simulate data pulsing
-            p.pulseVal += p.pulseSpeed;
-            const radiusOffset = Math.sin(p.pulseVal) * 0.5;
-            const currentRadius = Math.max(1, p.radius + radiusOffset);
-
-            // Screen boundary bounce
-            if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
-            if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
-
-            // Draw Node
-            this.ctx.beginPath();
-            this.ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
-            this.ctx.fillStyle = colors.particleColor + '0.7)';
-            this.ctx.fill();
-
-            // Handle mouse interactions (subtle gravitational pull towards cursor)
-            if (this.mouse.x !== null && this.mouse.y !== null) {
-                const dx = p.x - this.mouse.x;
-                const dy = p.y - this.mouse.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                if (dist < this.mouse.radius) {
-                    const force = (this.mouse.radius - dist) / this.mouse.radius;
-                    // Move slightly towards/away from mouse (cyber gravity)
-                    p.x -= dx * force * 0.02;
-                    p.y -= dy * force * 0.02;
-                }
-            }
-
-            // Connection checks
-            for (let j = i + 1; j < length; j++) {
-                const p2 = this.particles[j];
-                const dx = p.x - p2.x;
-                const dy = p.y - p2.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < this.connectionDistance) {
-                    const alpha = (1 - distance / this.connectionDistance) * 0.18;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(p.x, p.y);
-                    this.ctx.lineTo(p2.x, p2.y);
-                    this.ctx.strokeStyle = colors.lineColor + `${alpha})`;
-                    this.ctx.lineWidth = 0.8;
-                    this.ctx.stroke();
-                }
-            }
-
-            // Interactive connection to mouse
-            if (this.mouse.x !== null && this.mouse.y !== null) {
-                const dx = p.x - this.mouse.x;
-                const dy = p.y - this.mouse.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < this.mouse.radius) {
-                    const alpha = (1 - distance / this.mouse.radius) * 0.25;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(p.x, p.y);
-                    this.ctx.lineTo(this.mouse.x, this.mouse.y);
-                    this.ctx.strokeStyle = colors.lineColor + `${alpha})`;
-                    this.ctx.lineWidth = 1;
-                    this.ctx.stroke();
-                }
-            }
-        }
-
-        requestAnimationFrame(() => this.animate());
+        raf = requestAnimationFrame(frame);
     }
-}
 
-// Initialise when the document is ready
-document.addEventListener('DOMContentLoaded', () => {
-    new DataNodeNetwork('cyber-bg-canvas');
-});
+    function start() {
+        if (raf) return;
+        running = true;
+        raf = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+        running = false;
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+    }
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 150);
+    });
+
+    // Don't burn cycles on a tab nobody is looking at.
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { stop(); } else { start(); }
+    });
+
+    resize();
+    start();
+}());

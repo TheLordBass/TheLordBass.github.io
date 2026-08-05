@@ -1,576 +1,865 @@
 /* ==========================================================================
-   Cyberpunk-Corporate Portfolio Core Controller (app.js)
-   Integrates Theme customization, Terminal simulation, SVG charts, and interactive systems.
+   Ibomeno Basiekanem — portfolio behaviour
+   No dependencies. Everything degrades to readable HTML if this fails.
    ========================================================================== */
+(function () {
+    'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Customizer & Theme Engine ---
-    const customizerToggle = document.querySelector('.customizer-toggle');
-    const customizerPanel = document.querySelector('.customizer-panel');
-    const themeButtons = document.querySelectorAll('.theme-btn');
-    const themeCheckbox = document.getElementById('theme-toggle-checkbox');
-    const canvasToggle = document.getElementById('canvas-toggle-checkbox');
-    const canvasContainer = document.getElementById('canvas-container');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var $  = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-    // Toggle customizer floating glass panel
-    if (customizerToggle && customizerPanel) {
-        customizerToggle.addEventListener('click', () => {
-            customizerPanel.classList.toggle('active');
-        });
+    /* ----------------------------------------------------------------------
+       1. Theme
+       ---------------------------------------------------------------------- */
+    (function theme() {
+        var root = document.documentElement;
+        var btn = $('#theme-toggle');
+        var KEY = 'ib-theme';
 
-        // Close when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!customizerToggle.contains(e.target) && !customizerPanel.contains(e.target)) {
-                customizerPanel.classList.remove('active');
+        function apply(mode) {
+            root.setAttribute('data-theme', mode);
+            if (btn) {
+                btn.setAttribute('aria-label',
+                    mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
             }
-        });
-    }
-
-    // Set dynamic HSL primary and secondary hues
-    const setThemeHue = (themeName) => {
-        const root = document.documentElement;
-        switch (themeName) {
-            case 'cyan':
-                root.style.setProperty('--hue-primary', '180');
-                root.style.setProperty('--hue-secondary', '295');
-                break;
-            case 'emerald':
-                root.style.setProperty('--hue-primary', '140');
-                root.style.setProperty('--hue-secondary', '190');
-                break;
-            case 'magenta':
-                root.style.setProperty('--hue-primary', '320');
-                root.style.setProperty('--hue-secondary', '205');
-                break;
-            case 'electric':
-                root.style.setProperty('--hue-primary', '215');
-                root.style.setProperty('--hue-secondary', '180');
-                break;
+            var meta = $('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', mode === 'dark' ? '#0a0e14' : '#f7f8fa');
         }
-        localStorage.setItem('cyber-hue-theme', themeName);
-    };
 
-    themeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const themeClass = btn.classList[1]; // Get theme name from second class
-            setThemeHue(themeClass);
-        });
-    });
+        var stored = null;
+        try { stored = localStorage.getItem(KEY); } catch (e) {}
 
-    // Dark/Light Theme Switcher
-    if (themeCheckbox) {
-        themeCheckbox.addEventListener('change', () => {
-            if (themeCheckbox.checked) {
-                document.documentElement.classList.add('light-theme');
-                localStorage.setItem('cyber-mode', 'light');
-            } else {
-                document.documentElement.classList.remove('light-theme');
-                localStorage.setItem('cyber-mode', 'dark');
-            }
-        });
-    }
-
-    // Interactive canvas toggle
-    if (canvasToggle && canvasContainer) {
-        canvasToggle.addEventListener('change', () => {
-            if (canvasToggle.checked) {
-                canvasContainer.style.display = 'block';
-                localStorage.setItem('cyber-canvas', 'on');
-            } else {
-                canvasContainer.style.display = 'none';
-                localStorage.setItem('cyber-canvas', 'off');
-            }
-        });
-    }
-
-    // Restore cached styling configs
-    const cachedHue = localStorage.getItem('cyber-hue-theme');
-    if (cachedHue) setThemeHue(cachedHue);
-
-    const cachedMode = localStorage.getItem('cyber-mode');
-    if (cachedMode === 'light' && themeCheckbox) {
-        themeCheckbox.checked = true;
-        document.documentElement.classList.add('light-theme');
-    }
-
-    const cachedCanvas = localStorage.getItem('cyber-canvas');
-    if (cachedCanvas === 'off' && canvasToggle && canvasContainer) {
-        canvasToggle.checked = false;
-        canvasContainer.style.display = 'none';
-    }
-
-    // --- 2. Hero Interactive Command Prompt typing effect ---
-    const terminalBody = document.getElementById('terminal-body');
-    const heroCommands = [
-        "SELECT * FROM expertise WHERE analyst = 'Data';",
-        "python etl_cleaner.py --input=sales_report.csv",
-        "SELECT department, SUM(revenue) FROM sales GROUP BY department;",
-        "SELECT insights FROM raw_data GROUP BY high_impact ORDER BY value DESC;"
-    ];
-    let currentCommandIndex = 0;
-    let currentCommandCharIndex = 0;
-    let terminalLineElement = null;
-
-    const runHeroTerminalSimulator = () => {
-        if (!terminalBody) return;
-        
-        // Print welcome text on load
-        if (terminalBody.children.length === 0) {
-            appendTerminalLine("SYSTEM BOOT: ACCESS GRANTED. Initialising Secure Data Pipeline...", "output");
-            appendTerminalLine("Connected to remote cluster db_node_42...", "output");
-            startNextCommand();
-        }
-    };
-
-    const appendTerminalLine = (text, type = "output") => {
-        const line = document.createElement("div");
-        line.className = `terminal-line ${type}`;
-        line.innerText = type === "command" ? "> " + text : text;
-        terminalBody.appendChild(line);
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-        return line;
-    };
-
-    const startNextCommand = () => {
-        if (currentCommandIndex >= heroCommands.length) {
-            currentCommandIndex = 0; // Loop queries
-        }
-        
-        appendTerminalLine("", "command"); // Blank command line
-        terminalLineElement = terminalBody.lastChild;
-        
-        currentCommandCharIndex = 0;
-        typeCommandChar();
-    };
-
-    const typeCommandChar = () => {
-        const fullCommand = heroCommands[currentCommandIndex];
-        if (currentCommandCharIndex < fullCommand.length) {
-            terminalLineElement.innerText = "> " + fullCommand.substring(0, currentCommandCharIndex + 1);
-            currentCommandCharIndex++;
-            setTimeout(typeCommandChar, Math.random() * 50 + 30);
+        if (stored) {
+            apply(stored);
         } else {
-            // Typing complete, simulate processing latency
-            setTimeout(simulateQueryExecution, 600);
+            apply(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
         }
-    };
 
-    const simulateQueryExecution = () => {
-        const command = heroCommands[currentCommandIndex];
-        
-        if (command.includes("SELECT * FROM expertise")) {
-            appendTerminalLine("Running database query...", "output");
-            setTimeout(() => {
-                appendTerminalLine("Skills loaded successfully (3 rows found):", "output");
-                appendTerminalLine("| core_category | expertise_level | focus_tech |", "output");
-                appendTerminalLine("| Relational_DB | 95.8% (Expert)  | SQL, PostgreSQL, MySQL |", "output");
-                appendTerminalLine("| Data_Cleaning | 92.4% (Advanced)| Python, Pandas, Excel |", "output");
-                appendTerminalLine("| BI_Dashboards | 96.5% (Expert)  | Tableau, PowerBI |", "output");
-                completeCommandCycle();
-            }, 500);
-        } 
-        else if (command.includes("python etl_cleaner.py")) {
-            appendTerminalLine("Loading sales_report.csv (45,820 observations)...", "output");
-            setTimeout(() => {
-                appendTerminalLine("[INFO] Parsing dates and casting data types...", "output");
-                appendTerminalLine("[INFO] Removing 142 rows containing NULL values...", "output");
-                appendTerminalLine("[SUCCESS] Cleaned records exported to sanitized_sales.csv.", "output");
-                completeCommandCycle();
-            }, 800);
-        } 
-        else if (command.includes("SELECT department")) {
-            appendTerminalLine("Aggregating sales revenue grouped by operational division...", "output");
-            setTimeout(() => {
-                appendTerminalLine("| department  | total_revenue |", "output");
-                appendTerminalLine("| Logistics   | £450,210      |", "output");
-                appendTerminalLine("| Marketing   | £280,140      |", "output");
-                completeCommandCycle();
-            }, 700);
-        } 
-        else {
-            appendTerminalLine("Executing SELECT query on high_impact insights...", "output");
-            setTimeout(() => {
-                appendTerminalLine("| insight_description        | impact_coefficient |", "output");
-                appendTerminalLine("| Customer_Churn_Prevention  | 0.84 (Critical)     |", "output");
-                appendTerminalLine("| Inventory_Cost_Reduction   | 0.72 (Substantial)  |", "output");
-                completeCommandCycle();
-            }, 600);
+        if (btn) {
+            btn.addEventListener('click', function () {
+                var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                apply(next);
+                try { localStorage.setItem(KEY, next); } catch (e) {}
+            });
         }
-    };
+    }());
 
-    const completeCommandCycle = () => {
-        currentCommandIndex++;
-        // Clear terminal after a few lines to avoid infinite scroll length
-        setTimeout(() => {
-            if (terminalBody.children.length > 12) {
-                terminalBody.innerHTML = "";
-                appendTerminalLine("[INFO] Clear screen log buffer flush.", "output");
-            }
-            startNextCommand();
-        }, 3000);
-    };
+    /* ----------------------------------------------------------------------
+       2. Header: mobile nav, stuck state, scroll spy
+       ---------------------------------------------------------------------- */
+    (function header() {
+        var toggle = $('#menu-toggle');
+        var nav = $('#nav');
+        var head = $('#site-header');
 
-    runHeroTerminalSimulator();
-
-    // --- 3. Interactive SQL Sandbox emulator ---
-    const queryChips = document.querySelectorAll('.query-chip');
-    const sandboxTerminal = document.getElementById('sandbox-terminal');
-
-    const sandboxDb = {
-        skills: `
-            <table class="terminal-table">
-                <thead>
-                    <tr><th>Skill Class</th><th>Tool / Engine</th><th>Competency Coefficient</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>SQL Database</td><td>PostgreSQL, MySQL, SQL Server</td><td>95%</td></tr>
-                    <tr><td>Python Analysis</td><td>Python, Pandas, NumPy, ETL</td><td>92%</td></tr>
-                    <tr><td>BI & Dashboards</td><td>Tableau, PowerBI, Excel</td><td>96%</td></tr>
-                    <tr><td>Data Modeling</td><td>Relational Schemas, Excel Modeling</td><td>90%</td></tr>
-                </tbody>
-            </table>`,
-        optimizations: `
-            <table class="terminal-table">
-                <thead>
-                    <tr><th>Data Cluster</th><th>Refactoring Measure</th><th>Performance Yield</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Sales Ingestion DB</td><td>SQL Index & Query Optimisation</td><td>+240% Speedup</td></tr>
-                    <tr><td>Marketing Reports</td><td>Automated ETL pipeline script</td><td>-15 hours/week manual work</td></tr>
-                    <tr><td>Warehouse Database</td><td>Schema Redesign (Star Schema)</td><td>+180% faster report loads</td></tr>
-                </tbody>
-            </table>`,
-        highlights: `
-            <table class="terminal-table">
-                <thead>
-                    <tr><th>Telemetry Project</th><th>Analytic Value</th><th>Impact Factor</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Revenue Leakage Audit</td><td>$340K Discovered Leakage</td><td>High Impact</td></tr>
-                    <tr><td>Marketing ROI Analyst</td><td>22% CPA Reduction yield</td><td>Critical Priority</td></tr>
-                    <tr><td>Operations KPI Dashboard</td><td>15 Hours/week manual labor saved</td><td>High Impact</td></tr>
-                </tbody>
-            </table>`
-    };
-
-    const runSandboxQuery = (queryType, clickedChip) => {
-        if (!sandboxTerminal) return;
-
-        // Toggle chip active state
-        queryChips.forEach(chip => chip.classList.remove('active'));
-        clickedChip.classList.add('active');
-
-        // Extract SQL query command from button text
-        const sqlQuery = clickedChip.getAttribute('data-query');
-
-        // Clear output and print interactive execution steps
-        sandboxTerminal.innerHTML = `<div class="terminal-line command">> ${sqlQuery}</div>`;
-        sandboxTerminal.innerHTML += `<div class="terminal-line output">Scanning local memory buffers...</div>`;
-
-        setTimeout(() => {
-            // Append formatted output table
-            sandboxTerminal.innerHTML += `<div class="terminal-line output">Query resolved in 0.042 seconds. Result dataset:</div>`;
-            sandboxTerminal.innerHTML += sandboxDb[queryType] || '<div class="terminal-line error">Error: Table not found.</div>';
-            sandboxTerminal.scrollTop = sandboxTerminal.scrollHeight;
-        }, 400);
-    };
-
-    queryChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            const queryType = chip.getAttribute('data-type');
-            runSandboxQuery(queryType, chip);
-        });
-    });
-
-    // Run first sandbox query automatically to populate
-    if (queryChips.length > 0) {
-        queryChips[0].click();
-    }
-
-    // --- 4. Interactive SVG Chart Tooltips & Dots ---
-    const chartPoints = document.querySelectorAll('.chart-point');
-    const chartTooltip = document.getElementById('chart-tooltip');
-
-    if (chartPoints.length > 0 && chartTooltip) {
-        chartPoints.forEach(point => {
-            point.addEventListener('mouseenter', (e) => {
-                const label = point.getAttribute('data-label');
-                const val = point.getAttribute('data-value');
-                
-                chartTooltip.innerHTML = `<strong>${label}</strong><br/>Pipeline efficiency: ${val}`;
-                chartTooltip.style.display = 'block';
-                
-                // Track positions to render floating tooltip accurately
-                const rect = point.getBoundingClientRect();
-                const containerRect = point.closest('.svg-chart-container').getBoundingClientRect();
-                
-                chartTooltip.style.left = `${rect.left - containerRect.left + 15}px`;
-                chartTooltip.style.top = `${rect.top - containerRect.top - 45}px`;
-                
-                // Add soft active glow on point hover
-                point.setAttribute('r', '8');
+        if (toggle && nav) {
+            toggle.addEventListener('click', function () {
+                var open = nav.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', String(open));
+                toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
             });
-            
-            point.addEventListener('mouseleave', () => {
-                chartTooltip.style.display = 'none';
-                point.setAttribute('r', '5');
-            });
-        });
-    }
 
-    // --- 5. Project Card Filter System ---
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    if (filterButtons.length > 0 && projectCards.length > 0) {
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Clear active
-                filterButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    
-                    if (filterValue === 'all' || cardCategory === filterValue) {
-                        card.parentElement.style.display = 'block';
-                        // Add fade-in transition
-                        card.style.opacity = '0';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'scale(1)';
-                        }, 50);
-                    } else {
-                        card.parentElement.style.display = 'none';
-                    }
+            $$('a', nav).forEach(function (a) {
+                a.addEventListener('click', function () {
+                    nav.classList.remove('is-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.setAttribute('aria-label', 'Open menu');
                 });
             });
-        });
-    }
 
-    // --- 6. Cybernetic Project Modals Manager ---
-    const projectTriggers = document.querySelectorAll('.project-modal-trigger');
-    const cyberModal = document.getElementById('project-modal');
-    const modalInner = document.getElementById('modal-inner-content');
-    const modalClose = document.querySelector('.modal-close');
-
-    // Rich dossier content mapping
-    const projectDossiers = {
-        revenue: `
-            <div class="cyber-tag">SQL & Excel Analytics</div>
-            <h2 class="section-title" style="margin-bottom:1.5rem">Revenue Leakage Audit</h2>
-            <div style="display:grid; grid-template-columns:1fr; gap:1.5rem; margin-bottom:2rem">
-                <div>
-                    <h3 style="color:var(--color-primary); font-family:var(--font-heading); font-size:1rem; margin-bottom:0.5rem">Executive Summary</h3>
-                    <p style="color:var(--color-text-muted)">Conducted a comprehensive revenue leak audit across historical customer invoicing databanks. Identified discrepancies between service usage logging and actual financial drafts using advanced multi-table SQL queries and Excel forecasting.</p>
-                </div>
-                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem">
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">+$340K</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Discovered Leakage</div>
-                    </div>
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">120+ Hrs</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Audit Log Time</div>
-                    </div>
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">99.8%</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Billing Accuracy</div>
-                    </div>
-                </div>
-            </div>
-            <h3 style="color:var(--color-primary); font-family:var(--font-heading); font-size:1rem; margin-bottom:0.5rem">Methodology & Tech Stack</h3>
-            <p style="color:var(--color-text-muted); margin-bottom:1.5rem">Queried billing databases using recursive Common Table Expressions (CTEs) in **SQL (PostgreSQL)**, cross-compared records using **Excel VLOOKUP/INDEX-MATCH**, and created dynamic, interactive summaries in **Tableau** to present the discrepancies to stakeholders.</p>
-            <h4 style="color:var(--color-text-white); font-family:var(--font-mono); font-size:0.85rem; margin-bottom:0.5rem">> Discrepancy Matching SQL Query:</h4>
-            <pre style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:1rem; border-radius:6px; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-muted); overflow-x:auto">
-WITH billed_amounts AS (
-    SELECT customer_id, DATE_TRUNC('month', invoice_date) as billing_month, SUM(amount) as total_billed
-    FROM invoices GROUP BY 1, 2
-),
-actual_usage AS (
-    SELECT customer_id, DATE_TRUNC('month', session_start) as billing_month, SUM(duration_minutes * 0.12) as actual_cost
-    FROM service_sessions GROUP BY 1, 2
-)
-SELECT b.customer_id, b.billing_month, b.total_billed, u.actual_cost, (u.actual_cost - b.total_billed) as leakage
-FROM billed_amounts b JOIN actual_usage u ON b.customer_id = u.customer_id AND b.billing_month = u.billing_month
-WHERE (u.actual_cost - b.total_billed) > 50 ORDER BY leakage DESC;
-            </pre>`,
-        marketing: `
-            <div class="cyber-tag">Python & BI Analytics</div>
-            <h2 class="section-title" style="margin-bottom:1.5rem">Marketing ROI Analytics</h2>
-            <div style="display:grid; grid-template-columns:1fr; gap:1.5rem; margin-bottom:2rem">
-                <div>
-                    <h3 style="color:var(--color-primary); font-family:var(--font-heading); font-size:1rem; margin-bottom:0.5rem">Executive Summary</h3>
-                    <p style="color:var(--color-text-muted)">Engineered an automated data pipeline using Python scripts to clean and unify disparate ad spend reports across platforms (Google Ads, Meta, LinkedIn). Built a responsive metrics dashboard mapping exact Cost Per Acquisition (CPA) and customer lifetime yields.</p>
-                </div>
-                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem">
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">-22%</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">CPA Reduction</div>
-                    </div>
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">+14.5%</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Campaign ROI</div>
-                    </div>
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">3 Platforms</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Unified Streams</div>
-                    </div>
-                </div>
-            </div>
-            <h3 style="color:var(--color-primary); font-family:var(--font-heading); font-size:1rem; margin-bottom:0.5rem">Methodology & Tech Stack</h3>
-            <p style="color:var(--color-text-muted); margin-bottom:1.5rem">Developed data loaders and parsers using **Python (Pandas, NumPy, OS)** to automatically consume ad channel CSV/JSON extracts, perform anomaly checks, merge user identifiers, and push aggregate structures into **SQL Server** for ingestion by **PowerBI** dashboards.</p>
-            <h4 style="color:var(--color-text-white); font-family:var(--font-mono); font-size:0.85rem; margin-bottom:0.5rem">> Pandas Data Integration Snippet:</h4>
-            <pre style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:1rem; border-radius:6px; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-muted); overflow-x:auto">
-import pandas as pd
-
-# Load and standardise ad cost frames
-google_df = pd.read_csv('google_ads.csv').rename(columns={'Cost': 'ad_spend', 'Date': 'campaign_date'})
-meta_df = pd.read_csv('meta_ads.csv').rename(columns={'AmountSpent': 'ad_spend', 'ReportingDate': 'campaign_date'})
-
-# Add channel markers and concat
-google_df['channel'] = 'Google'
-meta_df['channel'] = 'Meta'
-unified_spend = pd.concat([google_df, meta_df], ignore_index=True)
-unified_spend['campaign_date'] = pd.to_datetime(unified_spend['campaign_date'])
-            </pre>`,
-        dashboard: `
-            <div class="cyber-tag">Business Intelligence</div>
-            <h2 class="section-title" style="margin-bottom:1.5rem">Operations KPI Console</h2>
-            <div style="display:grid; grid-template-columns:1fr; gap:1.5rem; margin-bottom:2rem">
-                <div>
-                    <h3 style="color:var(--color-primary); font-family:var(--font-heading); font-size:1rem; margin-bottom:0.5rem">Executive Summary</h3>
-                    <p style="color:var(--color-text-muted)">Created a robust warehouse metrics operational console designed for logistics managers. Automated historical inventory audit streams, replacing weekly manual reports with a live dashboard showing shipment delays and volume peaks.</p>
-                </div>
-                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem">
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">-15 Hours</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Weekly Labor Saved</div>
-                    </div>
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">-14%</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Shipment Delays</div>
-                    </div>
-                    <div style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:0.75rem; border-radius:6px; text-align:center">
-                        <div style="color:var(--color-primary); font-size:1.5rem; font-weight:700; font-family:var(--font-heading)">18+ Units</div>
-                        <div style="color:var(--color-text-muted); font-size:0.7rem; text-transform:uppercase">Warehouses Unified</div>
-                    </div>
-                </div>
-            </div>
-            <h3 style="color:var(--color-primary); font-family:var(--font-heading); font-size:1rem; margin-bottom:0.5rem">Methodology & Tech Stack</h3>
-            <p style="color:var(--color-text-muted); margin-bottom:1.5rem">Parsed logistic pipeline datasets via **SQL** queries into a **PostgreSQL** schema. Modeled parameters in **Excel** for verification. Visualized live KPIs, warehouse inventory levels, and geographic shipment routes inside **Tableau**.</p>
-            <h4 style="color:var(--color-text-white); font-family:var(--font-mono); font-size:0.85rem; margin-bottom:0.5rem">> Warehouse Inventory Status SQL Query:</h4>
-            <pre style="background:var(--color-bg-terminal); border:1px solid var(--color-border); padding:1rem; border-radius:6px; font-family:var(--font-mono); font-size:0.75rem; color:var(--color-text-muted); overflow-x:auto">
-SELECT 
-    w.warehouse_name,
-    w.region,
-    COUNT(i.item_id) as total_items_in_stock,
-    SUM(CASE WHEN i.status = 'Delayed' THEN 1 ELSE 0 END) as delayed_shipments,
-    ROUND(SUM(CASE WHEN i.status = 'Delayed' THEN 1.0 ELSE 0.0 END) / COUNT(i.item_id) * 100, 2) as delay_ratio
-FROM warehouses w
-LEFT JOIN inventory_items i ON w.warehouse_id = i.warehouse_id
-GROUP BY w.warehouse_name, w.region
-ORDER BY delay_ratio DESC;
-            </pre>`
-    };
-
-    if (projectTriggers && cyberModal && modalInner && modalClose) {
-        projectTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                const key = trigger.getAttribute('data-project-key');
-                const content = projectDossiers[key];
-                
-                if (content) {
-                    modalInner.innerHTML = content;
-                    cyberModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden'; // Stop background scroll
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+                    nav.classList.remove('is-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.focus();
                 }
             });
-        });
+        }
 
-        const closeModalFunc = () => {
-            cyberModal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scroll
+        if (head) {
+            var onScroll = function () {
+                head.classList.toggle('is-stuck', window.scrollY > 8);
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        }
+
+        // Scroll spy
+        var links = $$('.nav-link');
+        var sections = links
+            .map(function (l) { return $(l.getAttribute('href')); })
+            .filter(Boolean);
+
+        if (sections.length && 'IntersectionObserver' in window) {
+            var spy = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    links.forEach(function (l) {
+                        l.classList.toggle('is-active',
+                            l.getAttribute('href') === '#' + entry.target.id);
+                    });
+                });
+            }, { rootMargin: '-45% 0px -50% 0px' });
+
+            sections.forEach(function (s) { spy.observe(s); });
+        }
+    }());
+
+    /* ----------------------------------------------------------------------
+       3. Hero terminal — an honest intro, typed out
+       ---------------------------------------------------------------------- */
+    (function terminal() {
+        var body = $('#terminal-body');
+        if (!body) return;
+
+        var script = [
+            { t: 'cmd',  v: 'SELECT * FROM analyst WHERE name = \'Ibomeno\';' },
+            { t: 'dim',  v: '' },
+            { t: 'head', v: ' role          | Business Analyst' },
+            { t: 'out',  v: ' employer      | British Airways' },
+            { t: 'out',  v: ' location      | Manchester, UK' },
+            { t: 'out',  v: ' education     | BSc (Hons), First Class' },
+            { t: 'out',  v: ' stack         | SQL, Python, Tableau, Power BI' },
+            { t: 'dim',  v: '(1 row)' },
+            { t: 'dim',  v: '' },
+            { t: 'cmd',  v: 'SELECT area, count(*) FROM projects GROUP BY area;' },
+            { t: 'dim',  v: '' },
+            { t: 'head', v: ' area        | count' },
+            { t: 'out',  v: ' SQL         |     6' },
+            { t: 'out',  v: ' Tableau     |     3' },
+            { t: 'out',  v: ' Power BI    |     2' },
+            { t: 'out',  v: ' Python      |     1' },
+            { t: 'out',  v: ' Excel       |     1' },
+            { t: 'dim',  v: '' },
+            { t: 'ok',   v: '-- all public. code on GitHub, dashboards live. scroll down.' }
+        ];
+
+        var CLASS = { cmd: 't-cmd', out: 't-out', dim: 't-dim', ok: 't-ok', head: 't-head' };
+
+        function line(item, text) {
+            var el = document.createElement('div');
+            el.className = 't-line ' + (CLASS[item.t] || 't-out');
+            el.textContent = (item.t === 'cmd' ? '=> ' : '') + text;
+            body.appendChild(el);
+            return el;
+        }
+
+        // Reduced motion (or no JS animation wanted): render it all at once.
+        if (reduceMotion) {
+            script.forEach(function (item) { line(item, item.v); });
+            return;
+        }
+
+        var i = 0;
+
+        function next() {
+            if (i >= script.length) {
+                var caret = document.createElement('div');
+                caret.className = 't-line t-caret';
+                body.appendChild(caret);
+                return;
+            }
+
+            var item = script[i++];
+
+            // Commands type character by character; output appears whole.
+            if (item.t === 'cmd') {
+                var el = line(item, '');
+                var c = 0;
+                (function type() {
+                    if (c <= item.v.length) {
+                        el.textContent = '=> ' + item.v.slice(0, c++);
+                        setTimeout(type, 26);
+                    } else {
+                        setTimeout(next, 420);
+                    }
+                }());
+            } else {
+                line(item, item.v);
+                setTimeout(next, item.v === '' ? 60 : 130);
+            }
+        }
+
+        // Start once it is on screen — but never leave the panel empty. If the
+        // observer hasn't fired by the time the fallback lands (odd rendering
+        // conditions, prerendering, a tab that never composites), start anyway.
+        var started = false;
+        function begin(delay) {
+            if (started) return;
+            started = true;
+            setTimeout(next, delay);
+        }
+
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries, obs) {
+                if (entries[0].isIntersecting) { obs.disconnect(); begin(400); }
+            }, { threshold: 0.15 });
+            io.observe(body);
+            setTimeout(function () { begin(0); }, 1600);
+        } else {
+            begin(400);
+        }
+    }());
+
+    /* ----------------------------------------------------------------------
+       4. Query sandbox
+       ---------------------------------------------------------------------- */
+    (function sandbox() {
+        var out = $('#sandbox-out');
+        var chips = $$('.chip');
+        if (!out || !chips.length) return;
+
+        var data = {
+            skills: {
+                sql: 'SELECT * FROM toolkit;',
+                cols: ['tool', 'used_for', 'since'],
+                rows: [
+                    ['SQL',       'Querying, joins, window functions', '2019'],
+                    ['Python',    'Cleaning, automation, Pandas',      '2020'],
+                    ['Power BI',  'Executive reporting, DAX',          '2022'],
+                    ['Tableau',   'Operational dashboards',            '2022'],
+                    ['Excel',     'Modelling, pivots, quick analysis', '2018']
+                ]
+            },
+            focus: {
+                sql: 'SELECT area, focus FROM day_to_day;',
+                cols: ['area', 'focus'],
+                rows: [
+                    ['Reporting',   'Replacing manual reports with scheduled queries'],
+                    ['Analysis',    'Finding where a process actually breaks down'],
+                    ['Dashboards',  'Building for the decision, not for every field'],
+                    ['Stakeholders','Turning a vague ask into a defined requirement']
+                ]
+            },
+            projects: {
+                sql: 'SELECT name, type, published_on FROM projects ORDER BY name;',
+                cols: ['name', 'type', 'published_on'],
+                rows: [
+                    ['AdventureWorks Report',   'Power BI', 'GitHub'],
+                    ['Call Centre Manager',     'Tableau',  'Tableau Public'],
+                    ['Contact Centre Agent',    'Tableau',  'Tableau Public'],
+                    ['COVID-19 Analysis',       'SQL',      'GitHub'],
+                    ['DVD Rental Analysis',     'SQL',      'GitHub'],
+                    ['Maven Market Dashboard',  'Power BI', 'GitHub'],
+                    ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
+                    ['Telecom Churn',           'Tableau',  'Tableau Public']
+                ]
+            }
         };
 
-        modalClose.addEventListener('click', closeModalFunc);
-        cyberModal.addEventListener('click', (e) => {
-            if (e.target === cyberModal) closeModalFunc();
-        });
-    }
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
 
-    // --- 7. Ingestion Data Pipeline Form (Contact) Handler ---
-    const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
+        function render(key) {
+            var d = data[key];
+            if (!d) return;
 
-    if (contactForm && formStatus) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Extract values
-            const name = document.getElementById('name-field').value;
-            const email = document.getElementById('email-field').value;
-            const msg = document.getElementById('message-field').value;
+            out.innerHTML =
+                '<div class="t-line t-cmd">=> ' + esc(d.sql) + '</div>' +
+                '<div class="t-line t-dim">running…</div>';
 
-            if (!name || !email || !msg) return;
+            var delay = reduceMotion ? 0 : 260;
 
-            // Trigger visual progress state
-            formStatus.className = 'form-status sending';
-            formStatus.innerHTML = `<div>[INFO] Initialising secure channel connection...</div>`;
+            setTimeout(function () {
+                var html =
+                    '<div class="t-line t-cmd">=> ' + esc(d.sql) + '</div>' +
+                    '<table class="res-table"><thead><tr>' +
+                    d.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') +
+                    '</tr></thead><tbody>' +
+                    d.rows.map(function (r) {
+                        return '<tr>' + r.map(function (cell) {
+                            return '<td>' + esc(cell) + '</td>';
+                        }).join('') + '</tr>';
+                    }).join('') +
+                    '</tbody></table>' +
+                    '<div class="t-line t-dim" style="margin-top:.6rem">(' +
+                    d.rows.length + ' row' + (d.rows.length === 1 ? '' : 's') + ')</div>';
 
-            setTimeout(() => {
-                formStatus.innerHTML += `<div>[INFO] Mapping structural message schema payload...</div>`;
-                setTimeout(() => {
-                    formStatus.innerHTML += `<div>[INFO] Transmitting payload to local server database...</div>`;
-                    setTimeout(() => {
-                        // Success state
-                        formStatus.className = 'form-status success';
-                        formStatus.innerHTML = `<strong>[SUCCESS] Message ingestion completed!</strong><br/>Payload processed successfully. Your message has been routed to the analyst's terminal. Expect response output shortly.`;
-                        
-                        // Clear form input fields
-                        contactForm.reset();
-                    }, 800);
-                }, 600);
-            }, 600);
-        });
-    }
+                out.innerHTML = html;
+            }, delay);
+        }
 
-    // --- 8. Responsive Mobile Navigation menu toggler ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('mobile-active');
-            
-            // Animate hamburger lines slightly
-            const spans = menuToggle.querySelectorAll('span');
-            spans.forEach((span, idx) => {
-                if (navLinks.classList.contains('mobile-active')) {
-                    if (idx === 0) span.style.transform = 'translateY(8px) rotate(45deg)';
-                    if (idx === 1) span.style.opacity = '0';
-                    if (idx === 2) span.style.transform = 'translateY(-8px) rotate(-45deg)';
-                } else {
-                    span.style.transform = 'none';
-                    span.style.opacity = '1';
-                }
+        chips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                chips.forEach(function (c) { c.classList.remove('is-active'); });
+                chip.classList.add('is-active');
+                render(chip.getAttribute('data-query-key'));
             });
         });
 
-        // Close when a mobile nav link is clicked
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('mobile-active');
-                const spans = menuToggle.querySelectorAll('span');
-                spans.forEach(span => {
-                    span.style.transform = 'none';
-                    span.style.opacity = '1';
+        render('skills');
+    }());
+
+    /* ----------------------------------------------------------------------
+       5. Project filter
+       ---------------------------------------------------------------------- */
+    (function filters() {
+        var buttons = $$('.filter-btn');
+        var cards = $$('.project-card');
+        var empty = $('#grid-empty');
+        if (!buttons.length || !cards.length) return;
+
+        buttons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                buttons.forEach(function (b) { b.classList.remove('is-active'); });
+                btn.classList.add('is-active');
+
+                var want = btn.getAttribute('data-filter');
+                var shown = 0;
+
+                cards.forEach(function (card) {
+                    var match = want === 'all' || card.getAttribute('data-category') === want;
+                    card.hidden = !match;
+                    if (match) shown++;
                 });
+
+                if (empty) empty.hidden = shown !== 0;
             });
         });
-    }
-});
+    }());
+
+    /* ----------------------------------------------------------------------
+       6. Project write-ups (modal)
+       ---------------------------------------------------------------------- */
+    var PROJECTS = {
+        'contact-agent': {
+            kind: 'Tableau · Contact centre analytics',
+            title: 'Contact centre — agent view',
+            repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1',
+            repoLabel: 'Open the live dashboard',
+            gallery: [
+                { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time — handle time, satisfaction and resolution rate alongside the distribution behind them.', alt: 'Tableau agent view showing average handle time, average satisfaction, resolution rate, a satisfaction rating bar chart and a call answer ratio donut.' }
+            ],
+            blocks: [
+                { h: 'The brief', p: [
+                    'In my own words on Tableau Public: this dashboard is designed to provide immediate insight into agent efficiency and customer experience performance.',
+                    'The scenario is a team leader preparing for a one-to-one. They do not want a report about the contact centre — they want everything about one person, on one screen, in the thirty seconds before the conversation starts.'
+                ]},
+                { h: 'What it shows', list: [
+                    '<strong>Average handle time</strong>, the core efficiency measure, front and centre.',
+                    '<strong>Average satisfaction and resolution rate</strong> next to it — because handle time on its own rewards rushing people off the phone, and these are the two measures that keep it honest.',
+                    '<strong>The full satisfaction distribution</strong>, not just the mean. An agent averaging 3.4 from mostly 4s and 5s with a few 1s is a completely different coaching conversation from one averaging 3.4 across the board.',
+                    '<strong>Call answer ratio</strong> as a donut, showing answered against missed.',
+                    '<strong>An agent selector</strong>, so the same layout serves the whole team.'
+                ]},
+                { h: 'Why it is built this way', p: [
+                    'The design decision I care about here is putting efficiency and experience measures side by side. Contact centre reporting has a long history of optimising handle time until service quality quietly degrades. Showing them together makes the trade-off visible rather than letting one metric win by default.',
+                    'This is also the closest thing on this site to my day job — the same class of problem as the customer service analytics I work on at British Airways, on data I can actually publish.'
+                ]}
+            ]
+        },
+
+        'call-manager': {
+            kind: 'Tableau',
+            title: 'Call centre — manager dashboard',
+            repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2',
+            repoLabel: 'Open the live dashboard',
+            gallery: [
+                { src: 'assets/shots/tab-call-manager.jpg', cap: 'The team-level view — volume against a rolling average, with every agent ranked on the same measures.', alt: 'Tableau manager dashboard with satisfaction distribution, KPI tiles, call volume over time against an average reference line, and per-agent comparison bars.' }
+            ],
+            blocks: [
+                { h: 'The brief', p: [
+                    'The counterpart to the agent view. Same data, different question: not "how is Becky doing" but "where should I be looking today".'
+                ]},
+                { h: 'What it shows', list: [
+                    '<strong>Call volume over time with an average reference line</strong>, so a spike is immediately readable as a spike rather than needing to be worked out from the axis.',
+                    '<strong>Satisfaction rating distribution</strong> across the whole team.',
+                    '<strong>Headline KPI tiles</strong> for the measures a manager is accountable for.',
+                    '<strong>Agent-by-agent comparison</strong> across three measures at once, with diverging bars so above and below average are distinguishable at a glance without reading a single number.'
+                ]},
+                { h: 'The design thinking', p: [
+                    'A ranked list of agents is easy to build and easy to misuse. Using diverging bars against an average, rather than a straight leaderboard, keeps the emphasis on who is unusual rather than who is top — which is the useful question when you are deciding where to spend your time.',
+                    'Pairing this with the agent view means the two dashboards answer each other: this one tells you who to look at, that one tells you what is going on with them.'
+                ]}
+            ]
+        },
+
+        churn: {
+            kind: 'Tableau · Customer analytics',
+            title: 'Telecom churn analysis',
+            repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard',
+            repoLabel: 'Open the live dashboard',
+            gallery: [
+                { src: 'assets/shots/tab-telecom-churn.jpg', cap: 'Churn broken down four ways — spend, contract type, tenure and internet service.', alt: 'Tableau churn dashboard with a total versus monthly charges scatter coloured by churn, contract type churn bars, churn by tenure bins and internet service by churn.' }
+            ],
+            blocks: [
+                { h: 'The question', p: [
+                    'Which customers leave, and what do they have in common? The useful output of a churn analysis is not a churn rate — it is a description of who is at risk, specific enough to act on.'
+                ]},
+                { h: 'What it found', list: [
+                    '<strong>Contract type is the clearest signal.</strong> Month-to-month customers churn at a strikingly higher rate than customers on one or two year terms — visible immediately in the contract breakdown, and the most actionable finding on the dashboard.',
+                    '<strong>Tenure concentrates the risk early.</strong> Churn clusters heavily in the lowest tenure bins; customers who make it past the early period are substantially more likely to stay.',
+                    '<strong>Spend behaves counter-intuitively.</strong> The scatter of total against monthly charges shows churn thinning out as total charges rise — higher lifetime spend goes with lower churn, which is the opposite of the "expensive customers leave" assumption.',
+                    '<strong>Internet service type separates the population</strong> into visibly different churn profiles.'
+                ]},
+                { h: 'How it is built', p: [
+                    'A scatter for the continuous relationship, stacked bars for the categorical splits, and a binned tenure view with an adjustable bin-size parameter so the granularity can be changed without rebuilding the sheet.',
+                    'The dashboard carries a written conclusion directly on the canvas rather than leaving the reader to infer it. A chart that needs someone to explain it is only half finished.'
+                ]}
+            ]
+        },
+
+        nba: {
+            kind: 'SQL · Window functions · CTEs',
+            title: 'NBA trends & performance, 1996–2023',
+            repo: 'https://github.com/TheLordBass/NBA-Player-Stats',
+            blocks: [
+                { h: 'The question', p: [
+                    'Basketball commentary is full of claims that sound obviously true and have never been checked against the data. I picked three of them and pointed 25 years of player statistics — over 12,000 player seasons — at each one.'
+                ]},
+                { h: 'What I asked', list: [
+                    '<strong>Do high-volume scorers sacrifice efficiency?</strong> The received wisdom says taking more shots means taking worse ones.',
+                    '<strong>Are players actually getting smaller?</strong> The "small ball" era is talked about constantly — is it visible in height and weight?',
+                    '<strong>Which franchises reliably develop elite scorers?</strong> Reputation versus record.'
+                ]},
+                { h: 'What I found', list: [
+                    'Players with a usage rate above 30% held the <strong>highest</strong> true shooting percentages, not the lowest. The volume–efficiency trade-off is not there at the top end — the players taking the most shots are the ones good enough to earn them.',
+                    'Small ball shows up in the data: since 2015, average player weight is down roughly 5kg and height about 3cm. Worth flagging that a 2019 change in measurement methodology affects part of that trend, so the effect is real but the size of it deserves care.',
+                    'Oklahoma City, the Lakers and Golden State came out as the consistent producers of elite scoring talent across the period.'
+                ]},
+                { h: 'How it was built', p: [
+                    'Window functions to rank and compare players within each season without collapsing the detail, CTEs to keep each analytical step readable rather than nesting subqueries five deep, and aggregation across usage rate, shooting efficiency and physical attributes.'
+                ]},
+                { h: 'Sample approach', code:
+'WITH usage_tiers AS (\n' +
+'    SELECT\n' +
+'        player_name,\n' +
+'        season,\n' +
+'        usage_pct,\n' +
+'        ts_pct,\n' +
+'        NTILE(4) OVER (PARTITION BY season ORDER BY usage_pct) AS usage_quartile\n' +
+'    FROM player_seasons\n' +
+'    WHERE games_played >= 40\n' +
+')\n' +
+'SELECT\n' +
+'    usage_quartile,\n' +
+'    ROUND(AVG(ts_pct), 4) AS avg_true_shooting,\n' +
+'    COUNT(*)              AS player_seasons\n' +
+'FROM usage_tiers\n' +
+'GROUP BY usage_quartile\n' +
+'ORDER BY usage_quartile;'
+                }
+            ]
+        },
+
+        'maven-market': {
+            kind: 'Power BI · DAX · KPI design',
+            title: 'Maven Market retail dashboard',
+            repo: 'https://github.com/TheLordBass/Maven-market-PowerBI',
+            gallery: [
+                { src: 'assets/shots/maven-topline.jpg', cap: 'Topline performance — the three headline KPIs against goal, weekly revenue trending and a gauge against target.', alt: 'Maven Market topline page: transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue gauge.' },
+                { src: 'assets/shots/maven-store.jpg',   cap: 'Store performance — the same measures broken out by location.', alt: 'Maven Market store performance page breaking metrics down by store location.' },
+                { src: 'assets/shots/maven-product.jpg', cap: 'Product effect — which brands and products move the headline numbers.', alt: 'Maven Market product effect page showing brand and product level contribution.' }
+            ],
+            blocks: [
+                { h: 'The brief', p: [
+                    'A retail chain operating across the USA, Canada and Mexico needed one place to see whether the current month was on track — not a report to read, a screen to glance at.'
+                ]},
+                { h: 'What it shows', list: [
+                    '<strong>Three headline KPIs</strong> — transactions, profit and returns — each stated against its goal with the variance calculated, so "18,325" arrives as "+5.69% against target" rather than a number with no reference point.',
+                    '<strong>Returns treated as a warning, not a metric.</strong> Returns running 2.9% under goal is coloured differently from the two measures that are ahead, because it needs a different response.',
+                    '<strong>Brand-level detail</strong> with conditional formatting across transactions, profit, margin and return rate — so an outlier like a 1.64% return rate on one brand is visible without hunting.',
+                    '<strong>Geographic and trend context</strong> — a map of activity across North America, weekly revenue trending, and a gauge against the $240K target.'
+                ]},
+                { h: 'What I was designing for', p: [
+                    'The temptation with a dataset this wide is to put everything on the page. I built the top row so the three numbers that decide whether anyone needs to act are readable from across a desk, and pushed the brand-by-brand table to the left where it supports the headline rather than competing with it.',
+                    'The rest of the report follows the same logic across two more pages: store performance and product effect, each answering the follow-up question the topline page provokes.'
+                ]}
+            ]
+        },
+
+        adventureworks: {
+            kind: 'Power BI · Drill-through · Data modelling',
+            title: 'AdventureWorks executive report',
+            repo: 'https://github.com/TheLordBass/AdventureWorks-Power-BI-',
+            gallery: [
+                { src: 'assets/shots/aw-exec.jpg',     cap: 'Executive summary — revenue, orders and returns against goal, with category and regional context.', alt: 'AdventureWorks executive summary: $1.83M revenue against goal, monthly orders and returns, a category treemap, subcategory bars, a product table with return rates and a world map.' },
+                { src: 'assets/shots/aw-product.jpg',  cap: 'Product detail — the drill-through page behind any product in the summary table.', alt: 'AdventureWorks product detail drill-through page.' },
+                { src: 'assets/shots/aw-customer.jpg', cap: 'Customer detail — who is buying, and how that splits by segment.', alt: 'AdventureWorks customer detail page showing customer segments and orders.' }
+            ],
+            blocks: [
+                { h: 'The brief', p: [
+                    'A cycling retailer with a wide product catalogue and global sales. The report needed to work for an executive who has ten seconds, and for an analyst who needs to know which specific product is dragging the return rate up.'
+                ]},
+                { h: 'How it is structured', list: [
+                    '<strong>Executive summary page</strong> — $1.83M revenue against a $1.77M goal, monthly orders and returns each against target, with sparkline context so a single bad month is distinguishable from a trend.',
+                    '<strong>Category breakdown</strong> via treemap and subcategory bars, immediately showing that accessories carry the order volume while bikes carry the value.',
+                    '<strong>Product table with return rates</strong>, so the highest-selling product and the most-returned product are visible on the same screen.',
+                    '<strong>Drill-through to detail pages</strong> for product and customer, keeping the summary uncluttered while the depth stays one click away.',
+                    '<strong>Date-range slicer and regional filters</strong> (Europe / North America / Pacific) so the same page answers questions for different teams.'
+                ]},
+                { h: 'The modelling underneath', p: [
+                    'The visible report depends on getting the model right first — proper relationships between fact and dimension tables, a date table that supports the time intelligence, and measures written once and reused rather than recalculated per visual. Most of the work in a report like this is invisible on the final page.'
+                ]}
+            ]
+        },
+
+        'maven-movies': {
+            kind: 'SQL · Due diligence',
+            title: 'DVD rental acquisition analysis',
+            repo: 'https://github.com/TheLordBass/Maven-Movies-Project',
+            blocks: [
+                { h: 'The scenario', p: [
+                    'Investors were considering buying a DVD rental chain and needed due diligence before committing. I had access to the company database and a list of the things they were nervous about.'
+                ]},
+                { h: 'What they needed to know', list: [
+                    '<strong>Who runs what</strong> — managers mapped to store locations, joining across staff, address, city and country tables.',
+                    '<strong>What the inventory is worth</strong> — a full count with asset valuation, not a sample.',
+                    '<strong>Where the risk sits</strong> — replacement cost exposure broken down by film category, so the buyers knew which part of the catalogue would hurt if it walked out the door.',
+                    '<strong>Who actually pays</strong> — customer lifetime value ranked, to see how concentrated the revenue was.'
+                ]},
+                { h: 'Techniques', p: [
+                    'Multi-table joins across three or more tables, aggregation with SUM, AVG and COUNT for the financial summaries, CASE statements for categorising, and explicit NULL handling — which mattered here, because a missing address silently dropping a store from a count is exactly the kind of error that survives into a valuation.'
+                ]},
+                { h: 'Sample approach', code:
+'SELECT\n' +
+'    c.name                       AS category,\n' +
+'    COUNT(f.film_id)             AS films,\n' +
+'    SUM(f.replacement_cost)      AS total_exposure,\n' +
+'    ROUND(AVG(f.replacement_cost), 2) AS avg_cost\n' +
+'FROM film f\n' +
+'JOIN film_category fc ON f.film_id  = fc.film_id\n' +
+'JOIN category      c  ON fc.category_id = c.category_id\n' +
+'GROUP BY c.name\n' +
+'ORDER BY total_exposure DESC;'
+                }
+            ]
+        },
+
+        covid: {
+            kind: 'SQL · Exploratory analysis',
+            title: 'COVID-19 global analysis',
+            repo: 'https://github.com/TheLordBass/SqlCovidProject',
+            blocks: [
+                { h: 'The project', p: [
+                    'Exploratory analysis across two country-level tables — deaths and vaccinations — tracked over time. The aim was to answer the questions people were actually asking during the pandemic, in a way that held up.'
+                ]},
+                { h: 'Questions', list: [
+                    'If you caught it in a given country at a given time, what was the likelihood of dying? (deaths-to-cases, tracked over time rather than as a single figure)',
+                    'What share of each country\'s population had been infected?',
+                    'Which countries carried the highest absolute death tolls, and how does that change when adjusted for population?',
+                    'How did vaccination rollout progress against population size?'
+                ]},
+                { h: 'Techniques', list: [
+                    'Joins across the two tables on location <em>and</em> date — getting that composite key right is what keeps the vaccination numbers aligned with the right day.',
+                    'Window functions with <strong>PARTITION BY</strong> to build running vaccination totals per country without losing the daily grain.',
+                    'Explicit type casting, because aggregate arithmetic on the raw columns produced integer division and quietly wrong percentages.'
+                ]},
+                { h: 'What it showed', p: [
+                    'Mortality rates moved substantially over time as treatment improved, which is the main reason a single headline "death rate" figure was misleading throughout. Containment effectiveness varied widely between countries, and vaccination rates measured against population exposed a very uneven rollout.'
+                ]},
+                { h: 'Sample approach', code:
+'SELECT\n' +
+'    d.location,\n' +
+'    d.date,\n' +
+'    d.population,\n' +
+'    v.new_vaccinations,\n' +
+'    SUM(CAST(v.new_vaccinations AS bigint))\n' +
+'        OVER (PARTITION BY d.location ORDER BY d.date) AS running_vaccinated\n' +
+'FROM CovidDeaths d\n' +
+'JOIN CovidVaccinations v\n' +
+'  ON d.location = v.location\n' +
+' AND d.date     = v.date\n' +
+'WHERE d.continent IS NOT NULL\n' +
+'ORDER BY d.location, d.date;'
+                }
+            ]
+        },
+
+        uber: {
+            kind: 'SQL · Business modelling',
+            title: 'Driver incentive scheme modelling',
+            repo: 'https://github.com/TheLordBass/Partner-Business-Modeling',
+            blocks: [
+                { h: 'The decision', p: [
+                    'Two proposed bonus schemes intended to get more drivers on the road during a busy Saturday. Someone had to say which one to run, and the honest answer needed both a cost and a behavioural argument.'
+                ]},
+                { h: 'The two options', list: [
+                    '<strong>Option 1 — $50 flat bonus.</strong> Requires 8+ supply hours, a 90%+ acceptance rate, 10+ trips and a 4.7+ rating. Four conditions, all of which must hold.',
+                    '<strong>Option 2 — $4 per completed trip.</strong> Requires 12+ trips and a 4.7+ rating. Two conditions, and the payout scales with output.'
+                ]},
+                { h: 'How I approached it', p: [
+                    'Ran each driver in the dataset against both rule sets to get qualification rates and total payout under each scheme. The cost comparison is the easy half.',
+                    'The more useful half is what each scheme rewards. Option 1\'s acceptance-rate condition targets availability and reliability, but it is all-or-nothing — a driver who misses one of four conditions gets nothing, which is a weak motivator if they realise mid-shift that they have already failed it. Option 2 pays proportionally and stays motivating right up to the end of the day, but it does nothing about acceptance rate.'
+                ]},
+                { h: 'Why it matters', p: [
+                    'This is the kind of question where the SQL is straightforward and the analysis is in framing the answer. Reporting only the cheaper total would have answered the question asked and missed the decision being made.'
+                ]}
+            ]
+        },
+
+        lol: {
+            kind: 'SQL',
+            title: 'League of Legends matchmaking analysis',
+            repo: 'https://github.com/TheLordBass/League-of-legends-analysis',
+            blocks: [
+                { h: 'The project', p: [
+                    'Match data pulled apart in SQL to look at what actually correlates with winning, rather than what the community assumes does.'
+                ]},
+                { h: 'What I looked at', list: [
+                    '<strong>Champion pick rate</strong> — what gets selected, and how that shifts.',
+                    '<strong>Champion win rate</strong> — and the gap between popularity and effectiveness, which is usually where the interesting cases sit.',
+                    '<strong>Individual champion deep-dive</strong> — a per-champion statistical breakdown.'
+                ]},
+                { h: 'Why this one', p: [
+                    'Analysis on a domain you actually care about is where you learn the difference between a query that runs and a query that answers something. Games data is also genuinely messy in useful ways — patch versions, role assignments and rank tiers all change what a fair comparison looks like.'
+                ]}
+            ]
+        },
+
+        epl: {
+            kind: 'Excel',
+            title: 'Premier League analysis',
+            repo: 'https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-',
+            blocks: [
+                { h: 'The project', p: [
+                    'Premier League season data worked through in Excel — pivot tables, lookups and derived measures.'
+                ]},
+                { h: 'The point of it', p: [
+                    'Excel is still where most business analysis actually happens, and building a workbook someone else can pick up is a distinct skill from writing a query. That means consistent structure, formulas that survive a new row of data, and calculations traceable back to source rather than hard-coded.',
+                    'Included here because a portfolio that only shows the impressive tools is not an honest picture of the job.'
+                ]}
+            ]
+        },
+
+        databites: {
+            kind: 'Python · Pyodide · PWA',
+            title: 'DataBites — learn pandas in tiny bites',
+            repo: 'https://github.com/TheLordBass/adhd-data-learning',
+            blocks: [
+                { h: 'What it is', p: [
+                    'A browser app that teaches pandas, seaborn and matplotlib in short, self-contained lessons. Real Python runs in the browser via Pyodide — no install, no notebook server, no environment to set up before you can learn anything.'
+                ]},
+                { h: 'Why I built it', p: [
+                    'Most data tutorials are structured as long sessions that assume you can hold an hour of context at once. That is a bad fit for how a lot of people actually learn, including me. Breaking the material into bites that each stand alone means a session can be five minutes and still be worth something.'
+                ]},
+                { h: 'What it demonstrates', list: [
+                    'Working outside the analyst comfort zone — this is a front-end build, not a query.',
+                    'Running a real Python runtime client-side with Pyodide, including the loading and caching problems that come with it.',
+                    'Installable as a PWA, working offline once cached.'
+                ]}
+            ]
+        },
+
+        practice: {
+            kind: 'SQL · Practice',
+            title: 'SQL challenge sets',
+            repo: 'https://github.com/TheLordBass?tab=repositories',
+            blocks: [
+                { h: 'What these are', p: [
+                    'Worked solutions to business-scenario SQL challenges, kept public. Two collections: an eight-part SQL challenge built around real-world business problems, and a set of solutions from the Analyst Builder platform covering common data analyst scenarios.'
+                ]},
+                { h: 'Why they are on here', p: [
+                    'The finished projects on this page are the output. These are the reps. I would rather show both than present the polished work as though it appeared without the practice behind it.'
+                ]},
+                { h: 'Repositories', list: [
+                    '<a href="https://github.com/TheLordBass/8_SQL_Challenge" target="_blank" rel="noopener noreferrer">8_SQL_Challenge</a> — business-problem SQL challenges.',
+                    '<a href="https://github.com/TheLordBass/Analyst-Builder-SQL-question-Solutions" target="_blank" rel="noopener noreferrer">Analyst-Builder-SQL-question-Solutions</a> — data analyst scenario solutions.',
+                    '<a href="https://github.com/TheLordBass/Learning-Pandas" target="_blank" rel="noopener noreferrer">Learning-Pandas</a> — notebooks tracking pandas progress.'
+                ]}
+            ]
+        }
+    };
+
+    (function modal() {
+        var root = $('#modal');
+        var body = $('#modal-body');
+        if (!root || !body) return;
+
+        var lastFocus = null;
+
+        function build(key) {
+            var p = PROJECTS[key];
+            if (!p) return '';
+
+            var html = '<p class="m-kind">' + p.kind + '</p>' +
+                       '<h2 class="m-title" id="modal-title">' + p.title + '</h2>';
+
+            if (p.gallery) {
+                html += '<div class="m-gallery">' + p.gallery.map(function (g) {
+                    return '<figure class="m-shot">' +
+                           '<img src="' + g.src + '" alt="' + g.alt + '" loading="lazy" decoding="async">' +
+                           '<figcaption>' + g.cap + '</figcaption>' +
+                           '</figure>';
+                }).join('') + '</div>';
+            }
+
+            p.blocks.forEach(function (b) {
+                html += '<div class="m-block"><h3 class="m-h">' + b.h + '</h3>';
+                if (b.p)    html += b.p.map(function (t) { return '<p>' + t + '</p>'; }).join('');
+                if (b.list) html += '<ul class="m-list">' + b.list.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+                if (b.code) html += '<pre class="m-code">' + b.code.replace(/</g, '&lt;') + '</pre>';
+                html += '</div>';
+            });
+
+            html += '<div class="m-foot">' +
+                    '<a class="btn btn-primary" href="' + p.repo + '" target="_blank" rel="noopener noreferrer">' +
+                    (p.repoLabel || 'View on GitHub') + '</a>' +
+                    '<button type="button" class="btn btn-ghost" data-close-modal>Close</button>' +
+                    '</div>';
+
+            return html;
+        }
+
+        function open(key) {
+            var html = build(key);
+            if (!html) return;
+
+            lastFocus = document.activeElement;
+            body.innerHTML = html;
+            root.hidden = false;
+            document.body.style.overflow = 'hidden';
+
+            var panel = $('.modal-panel', root);
+            panel.scrollTop = 0;
+            var close = $('.modal-close', root);
+            if (close) close.focus();
+        }
+
+        function close() {
+            root.hidden = true;
+            document.body.style.overflow = '';
+            body.innerHTML = '';
+            if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        // Open triggers
+        $$('[data-project]').forEach(function (el) {
+            if (el.classList.contains('project-card')) return; // the card itself is not a trigger
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                open(el.getAttribute('data-project'));
+            });
+        });
+
+        // Close triggers
+        root.addEventListener('click', function (e) {
+            if (e.target.closest('[data-close-modal]')) close();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (root.hidden) return;
+
+            if (e.key === 'Escape') { close(); return; }
+
+            // Focus trap
+            if (e.key !== 'Tab') return;
+
+            var focusable = $$('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', root)
+                .filter(function (el) { return el.offsetParent !== null; });
+            if (!focusable.length) return;
+
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+    }());
+
+    /* ----------------------------------------------------------------------
+       7. Contact form → opens the visitor's mail client
+       ---------------------------------------------------------------------- */
+    (function contact() {
+        var form = $('#contact-form');
+        var status = $('#form-status');
+        if (!form || !status) return;
+
+        var ADDRESS = 'ibomenobasiekanem@gmail.com';
+
+        var fields = [
+            { input: $('#f-name'),    error: $('#err-name'),    test: function (v) { return v.length > 0; } },
+            { input: $('#f-email'),   error: $('#err-email'),   test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
+            { input: $('#f-message'), error: $('#err-message'), test: function (v) { return v.length > 0; } }
+        ];
+
+        function validate(field) {
+            var ok = field.test(field.input.value.trim());
+            field.error.hidden = ok;
+            field.input.setAttribute('aria-invalid', String(!ok));
+            return ok;
+        }
+
+        fields.forEach(function (f) {
+            f.input.addEventListener('blur', function () {
+                if (f.input.value.trim()) validate(f);
+            });
+            f.input.addEventListener('input', function () {
+                if (f.error.hidden === false) validate(f);
+            });
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var allOk = fields.map(validate).every(Boolean);
+
+            if (!allOk) {
+                status.className = 'form-status is-err';
+                status.textContent = 'Please fill in the highlighted fields.';
+                var firstBad = fields.filter(function (f) { return !f.error.hidden; })[0];
+                if (firstBad) firstBad.input.focus();
+                return;
+            }
+
+            var name = fields[0].input.value.trim();
+            var email = fields[1].input.value.trim();
+            var message = fields[2].input.value.trim();
+
+            var subject = 'Portfolio enquiry from ' + name;
+            var lines = message + '\n\n—\n' + name + '\n' + email;
+
+            var href = 'mailto:' + ADDRESS +
+                       '?subject=' + encodeURIComponent(subject) +
+                       '&body=' + encodeURIComponent(lines);
+
+            window.location.href = href;
+
+            status.className = 'form-status is-ok';
+            status.textContent = 'Opening your email client. If nothing happens, email ' + ADDRESS + ' directly.';
+        });
+    }());
+
+    /* ----------------------------------------------------------------------
+       8. Copy email
+       ---------------------------------------------------------------------- */
+    (function copyEmail() {
+        var btn = $('#copy-email');
+        if (!btn) return;
+
+        btn.addEventListener('click', function () {
+            var value = btn.getAttribute('data-email');
+            var original = 'Copy address';
+
+            function done(ok) {
+                btn.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+                setTimeout(function () { btn.textContent = original; }, 1800);
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(value).then(function () { done(true); },
+                                                         function () { done(false); });
+            } else {
+                done(false);
+            }
+        });
+    }());
+
+    /* ----------------------------------------------------------------------
+       9. Footer year
+       ---------------------------------------------------------------------- */
+    (function year() {
+        var el = $('#year');
+        if (el) el.textContent = String(new Date().getFullYear());
+    }());
+
+}());

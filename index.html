@@ -1,463 +1,717 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB" data-theme="dark">
 <head>
-    <!-- Basic Optimization & Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBOMENO::SYS | Interactive Data Analyst Ledger</title>
-    <meta name="description" content="Cyberpunk-Corporate Data Analyst Portfolio of Ibomeno Basiekanem, showcasing advanced customer support metrics, Python data pipelines, and SQL/BI analysis logs.">
-    
-    <!-- Open Graph (SEO Preview) -->
-    <meta property="og:title" content="IBOMENO::SYS | Data Analyst Portfolio">
-    <meta property="og:description" content="Explore Ibomeno Basiekanem's interactive customer service analytics ledgers, SQL dashboards, and automated report pipelines.">
-    <meta property="og:type" content="website">
 
-    <!-- CSS Stylings -->
+    <title>Ibomeno Basiekanem — Business Analyst</title>
+    <meta name="description" content="Business Analyst at British Airways. I turn operational and customer data into decisions people actually act on, using SQL, Python, Excel, Tableau and Power BI.">
+    <meta name="author" content="Ibomeno Basiekanem">
+    <link rel="canonical" href="https://thelordbass.github.io/">
+
+    <!-- Social preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thelordbass.github.io/">
+    <meta property="og:title" content="Ibomeno Basiekanem — Business Analyst">
+    <meta property="og:description" content="I turn operational and customer data into decisions people actually act on. SQL, Python, Excel, Tableau, Power BI.">
+    <meta property="og:locale" content="en_GB">
+    <meta name="twitter:card" content="summary">
+
+    <meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+
+    <!-- Inline favicon: monogram, no extra request -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0e14'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='monospace' font-weight='700' fill='%2338bdf8'>IB</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Dynamic interactive Canvas network -->
-    <div id="canvas-container">
-        <canvas id="cyber-bg-canvas"></canvas>
-    </div>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- ==========================================
-         Theme Customizer Control Center
-         ========================================== -->
-    <div id="customizer">
-        <button class="customizer-toggle" aria-label="Toggle Customizer Menu">⚙️</button>
-        <div class="customizer-panel glass-panel">
-            <span class="cyber-decor"></span>
-            <h4>System Settings</h4>
-            
-            <div class="setting-group">
-                <label class="cyber-tag" style="margin-bottom: 0.5rem;">Accent Color</label>
-                <div class="theme-options">
-                    <button class="theme-btn cyan" title="Cyber Cyan" aria-label="Set theme Cyber Cyan">Cyan</button>
-                    <button class="theme-btn emerald" title="Matrix Emerald" aria-label="Set theme Matrix Emerald">Green</button>
-                    <button class="theme-btn magenta" title="Hot Magenta" aria-label="Set theme Hot Magenta">Pink</button>
-                    <button class="theme-btn electric" title="Corporate Electric" aria-label="Set theme Corporate Electric">Blue</button>
-                </div>
-            </div>
+<!-- Subtle animated grid backdrop; disabled automatically for reduced-motion users -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-            <div class="setting-row">
-                <label for="theme-toggle-checkbox">Light Mode</label>
-                <label class="switch">
-                    <input type="checkbox" id="theme-toggle-checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
+<!-- ==========================================================
+     Header
+     ========================================================== -->
+<header class="site-header" id="site-header">
+    <div class="wrap header-inner">
+        <a class="brand" href="#top">
+            <span class="brand-mark">IB</span>
+            <span class="brand-text">
+                <strong>Ibomeno Basiekanem</strong>
+                <span>Business Analyst</span>
+            </span>
+        </a>
 
-            <div class="setting-row">
-                <label for="canvas-toggle-checkbox">Node Canvas</label>
-                <label class="switch">
-                    <input type="checkbox" id="canvas-toggle-checkbox" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
+        <nav class="nav" id="nav" aria-label="Primary">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="#about">About</a></li>
+                <li><a class="nav-link" href="#skills">Skills</a></li>
+                <li><a class="nav-link" href="#projects">Projects</a></li>
+                <li><a class="nav-link" href="#experience">Experience</a></li>
+                <li><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch to light theme" title="Toggle theme">
+                <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+            </button>
+
+            <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </div>
+</header>
 
-    <!-- ==========================================
-         Navigation Header
-         ========================================== -->
-    <header class="nav-bar">
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <span>IBOMENO::</span>B
-            </a>
-            
-            <button class="menu-toggle" aria-label="Toggle Navigation Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <ul class="nav-links">
-                <li><a href="#hero" class="nav-link active">Telemetry</a></li>
-                <li><a href="#playground" class="nav-link">Playground</a></li>
-                <li><a href="#projects" class="nav-link">Dossiers</a></li>
-                <li><a href="#experience" class="nav-link">Ledger</a></li>
-                <li><a href="#contact" class="nav-link">Ingest</a></li>
+<main id="main">
+
+<!-- ==========================================================
+     Hero
+     ========================================================== -->
+<section id="top" class="hero">
+    <div class="wrap hero-grid">
+        <div class="hero-copy">
+            <p class="eyebrow">Business Analyst · Manchester, UK</p>
+
+            <h1 class="hero-title">
+                I turn messy operational data<br>into decisions people act on.
+            </h1>
+
+            <p class="hero-lede">
+                I'm Ibomeno — a Business Analyst at British Airways. I work with customer service and
+                operational data: writing SQL against relational databases, automating the reporting that
+                used to eat a day a week, and building dashboards in Tableau and Power BI that managers
+                actually open on a Monday morning.
+            </p>
+
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#projects">
+                    See my work
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <a class="btn btn-ghost" href="#contact">Get in touch</a>
+
+                <!--
+                  TODO: Add your CV. Drop the PDF in this repo (e.g. /assets/ibomeno-basiekanem-cv.pdf)
+                  then delete the comment markers around the line below.
+                <a class="btn btn-ghost" href="assets/ibomeno-basiekanem-cv.pdf" download>Download CV (PDF)</a>
+                -->
+            </div>
+
+            <ul class="hero-facts">
+                <li><strong>British Airways</strong><span>Current role</span></li>
+                <li><strong>First Class BSc</strong><span>Middlesex University</span></li>
+                <li><strong>SQL · Python · BI</strong><span>Core toolkit</span></li>
             </ul>
         </div>
-    </header>
 
-    <!-- ==========================================
-         Hero Terminal Section
-         ========================================== -->
-    <section id="hero">
-        <div class="container hero-grid">
-            <div class="hero-content">
-                <span class="cyber-tag">> ANALYTICS PIPELINE ACTIVE</span>
-                <h1 class="hero-headline">Decoding Complexity.<br>Extracting <span>Value</span>.</h1>
-                <p class="hero-subtitle">
-                    Business Analyst specialising in relational databases, customer support analytics, and interactive dashboard systems. Bridging the gap between passenger support telemetry and strategic business intelligence using SQL, Python, Excel, Tableau, and PowerBI.
+        <!-- Terminal: an honest "about me" rendered as a query result -->
+        <div class="terminal" aria-hidden="true">
+            <div class="terminal-bar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="terminal-title">analyst@ibomeno — psql</span>
+            </div>
+            <div class="terminal-body" id="terminal-body"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================
+     About
+     ========================================================== -->
+<section id="about" class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">About</p>
+            <h2 class="section-title">Analysis that ends in a decision</h2>
+        </div>
+
+        <div class="about-grid">
+            <div class="prose">
+                <p>
+                    Most analysis dies in a spreadsheet nobody opens twice. The part I care about is the
+                    last mile — framing the question properly, getting the data clean enough to trust,
+                    and presenting it so a non-technical stakeholder can make a call in the meeting
+                    rather than asking for another version.
                 </p>
-                <div class="hero-actions">
-                    <a href="#playground" class="cyber-btn">
-                        Explore Playground
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>
-                    <a href="#contact" class="cyber-btn cyber-btn-outline">Initiate Ingest</a>
-                </div>
+                <p>
+                    Day to day that means a lot of SQL against relational databases, Python and Pandas
+                    for the cleaning and joining that would otherwise be manual, and Tableau or Power BI
+                    for anything that needs to be looked at more than once. I graduated from Middlesex
+                    University in 2021 with First Class Honours in Information Technology and Business
+                    Information Systems, and I've been working in analytics since.
+                </p>
+                <p>
+                    I'm currently open to Business Analyst and Data Analyst roles — permanent or
+                    contract, Manchester-based or remote.
+                </p>
             </div>
 
-            <!-- Glowing simulated terminal -->
-            <div class="hero-terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <span style="font-size:0.75rem; text-transform:uppercase; font-family:var(--font-mono)">ibomeno@basiekanem.sys:~/telemetry</span>
-                </div>
-                <div class="terminal-body" id="terminal-body">
-                    <!-- Typed dynamically in app.js -->
-                </div>
-            </div>
+            <aside class="about-side">
+                <h3 class="side-title">At a glance</h3>
+                <dl class="detail-list">
+                    <div><dt>Based in</dt><dd>Manchester, UK</dd></div>
+                    <div><dt>Currently</dt><dd>Business Analyst, British Airways</dd></div>
+                    <div><dt>Education</dt><dd>BSc (Hons) IT &amp; Business Information Systems — First Class, Middlesex University</dd></div>
+                    <div><dt>Working with</dt><dd>SQL, Python, Excel, Tableau, Power BI</dd></div>
+                    <div><dt>Open to</dt><dd>Business / Data Analyst roles</dd></div>
+                </dl>
+            </aside>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ==========================================
-         KPI Analytics Dashboard Panel
-         ========================================== -->
-    <section id="kpis">
-        <div class="container">
-            <div class="kpi-grid">
-                <div class="glass-panel kpi-card">
-                    <span class="cyber-decor"></span>
-                    <div class="kpi-icon">📁</div>
-                    <div class="kpi-value">10,000+</div>
-                    <div class="kpi-label">SQL Queries Written</div>
-                </div>
-                <div class="glass-panel kpi-card">
-                    <span class="cyber-decor"></span>
-                    <div class="kpi-icon">⚡</div>
-                    <div class="kpi-value">150+</div>
-                    <div class="kpi-label">Reports & Dashboards</div>
-                </div>
-                <div class="glass-panel kpi-card">
-                    <span class="cyber-decor"></span>
-                    <div class="kpi-icon">📈</div>
-                    <div class="kpi-value">15+ Hrs</div>
-                    <div class="kpi-label">Weekly Manual Work Saved</div>
-                </div>
-                <div class="glass-panel kpi-card">
-                    <span class="cyber-decor"></span>
-                    <div class="kpi-icon">☕</div>
-                    <div class="kpi-value">1:∞</div>
-                    <div class="kpi-label">Coffee:Insights Ratio</div>
-                </div>
-            </div>
+<!-- ==========================================================
+     Skills
+     ========================================================== -->
+<section id="skills" class="section section-alt">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Skills</p>
+            <h2 class="section-title">What I work with</h2>
+            <p class="section-lede">Grouped by what I actually use them for, rather than a bar chart of made-up percentages.</p>
         </div>
-    </section>
 
-    <!-- ==========================================
-         Interactive Data Playground
-         ========================================== -->
-    <section id="playground">
-        <div class="container">
-            <div class="section-header">
-                <span class="cyber-tag">> INTERACTIVE SIMULATORS</span>
-                <h2 class="section-title">Data Playground</h2>
-            </div>
-            
-            <div class="playground-grid">
-                <!-- Interactive SQL Sandbox -->
-                <div class="glass-panel sql-sandbox">
-                    <span class="cyber-decor"></span>
-                    <h3 style="font-family:var(--font-heading); font-size:1.25rem; margin-bottom:1.5rem">SQL Query Sandbox</h3>
-                    
-                    <div class="sandbox-query-picker">
-                        <button class="query-chip active" data-type="skills" data-query="SELECT * FROM core_skills;">
-                            SELECT * FROM core_skills;
-                        </button>
-                        <button class="query-chip" data-type="optimizations" data-query="SELECT avg(efficiency) FROM optimizations;">
-                            SELECT avg(efficiency) FROM optimizations;
-                        </button>
-                        <button class="query-chip" data-type="highlights" data-query="SELECT project_name, impact_factor FROM highlights;">
-                            SELECT project_name, impact_factor FROM highlights;
-                        </button>
-                    </div>
-
-                    <div class="sql-terminal-box" id="sandbox-terminal">
-                        <!-- Content loaded dynamically in app.js -->
-                    </div>
+        <div class="skill-grid">
+            <article class="card skill-card">
+                <div class="skill-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
                 </div>
+                <h3>Querying &amp; modelling</h3>
+                <p>Multi-table joins, CTEs, window functions, and shaping normalised source data into something reportable.</p>
+                <ul class="tag-list">
+                    <li>SQL</li><li>PostgreSQL</li><li>SQL Server</li><li>MySQL</li><li>Data modelling</li>
+                </ul>
+            </article>
 
-                <!-- Custom High-Fidelity SVG Chart -->
-                <div class="glass-panel" style="display:flex; flex-direction:column;">
-                    <span class="cyber-decor"></span>
-                    <h3 style="font-family:var(--font-heading); font-size:1.25rem; margin-bottom:1.5rem">Pipeline Throughput Telemetry</h3>
-                    
-                    <div class="svg-chart-container">
-                        <svg viewBox="0 0 500 300" class="chart-svg" aria-label="Pipeline throughput data chart">
-                            <defs>
-                                <linearGradient id="chart-gradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="var(--color-primary)" />
-                                    <stop offset="100%" stop-color="var(--color-secondary)" />
-                                </linearGradient>
-                                <linearGradient id="secondary-gradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="var(--color-secondary)" />
-                                    <stop offset="100%" stop-color="rgba(0,0,0,0)" />
-                                </linearGradient>
-                                <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.4" />
-                                    <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0" />
-                                </linearGradient>
-                            </defs>
-                            
-                            <!-- Grid Lines -->
-                            <line x1="50" y1="50" x2="450" y2="50" class="chart-grid-line" />
-                            <line x1="50" y1="110" x2="450" y2="110" class="chart-grid-line" />
-                            <line x1="50" y1="170" x2="450" y2="170" class="chart-grid-line" />
-                            <line x1="50" y1="230" x2="450" y2="230" class="chart-grid-line" />
-                            
-                            <!-- Area Plot -->
-                            <path d="M 50 230 L 116 130 L 182 170 L 248 90 L 314 110 L 380 60 L 446 80 L 446 230 Z" class="chart-area" />
-                            
-                            <!-- Trend Line -->
-                            <path d="M 50 230 L 116 130 L 182 170 L 248 90 L 314 110 L 380 60 L 446 80" class="chart-line" />
-                            <path d="M 50 210 L 116 160 L 182 140 L 248 110 L 314 80 L 380 90 L 446 50" class="chart-line-secondary" />
-
-                            <!-- Axes -->
-                            <line x1="50" y1="30" x2="50" y2="235" class="chart-axis" />
-                            <line x1="45" y1="230" x2="460" y2="230" class="chart-axis" />
-                            
-                            <!-- Interactive Coordinates Coordinates / Datapoints -->
-                            <circle cx="50" cy="230" r="5" class="chart-point" data-label="Q1" data-value="1.2 TB/s" />
-                            <circle cx="116" cy="130" r="5" class="chart-point" data-label="Q2" data-value="2.8 TB/s" />
-                            <circle cx="182" cy="170" r="5" class="chart-point" data-label="Q3" data-value="2.1 TB/s" />
-                            <circle cx="248" cy="90" r="5" class="chart-point" data-label="Q4" data-value="3.5 TB/s" />
-                            <circle cx="314" cy="110" r="5" class="chart-point" data-label="Q5" data-value="3.1 TB/s" />
-                            <circle cx="380" cy="60" r="5" class="chart-point" data-label="Q6" data-value="4.1 TB/s" />
-                            <circle cx="446" cy="80" r="5" class="chart-point" data-label="Q7" data-value="3.8 TB/s" />
-                        </svg>
-                        
-                        <!-- Tooltip Container -->
-                        <div class="chart-tooltip" id="chart-tooltip"></div>
-                    </div>
+            <article class="card skill-card">
+                <div class="skill-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                 </div>
-            </div>
+                <h3>Automation &amp; cleaning</h3>
+                <p>Replacing recurring manual reports with scripts — parsing exports, reconciling formats, and catching the anomalies before anyone else sees them.</p>
+                <ul class="tag-list">
+                    <li>Python</li><li>Pandas</li><li>NumPy</li><li>ETL</li><li>Excel / VBA</li>
+                </ul>
+            </article>
+
+            <article class="card skill-card">
+                <div class="skill-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                </div>
+                <h3>Reporting &amp; BI</h3>
+                <p>Dashboards built around the decision they support, not around every field in the table. Several are published and interactive — you can click through them rather than take my word for it.</p>
+                <ul class="tag-list">
+                    <li>Tableau</li><li>Power BI</li><li>Excel</li><li>KPI design</li>
+                </ul>
+            </article>
+
+            <article class="card skill-card">
+                <div class="skill-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3>Business analysis</h3>
+                <p>Requirements gathering, stakeholder interviews, process mapping, and translating between operational teams and whoever has to build the thing.</p>
+                <ul class="tag-list">
+                    <li>Requirements</li><li>Process mapping</li><li>Stakeholder comms</li><li>Documentation</li>
+                </ul>
+            </article>
         </div>
-    </section>
 
-    <!-- ==========================================
-         Project Gallery dossiers
-         ========================================== -->
-    <section id="projects">
-        <div class="container">
-            <div class="section-header">
-                <span class="cyber-tag">> TELEMETRY INVESTIGATIONS</span>
-                <h2 class="section-title">Project Dossiers</h2>
-            </div>
-            
-            <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="sql">SQL / Database</button>
-                <button class="filter-btn" data-filter="python">Python Scripts</button>
-                <button class="filter-btn" data-filter="bi">BI & Dashboards</button>
+        <!-- Interactive SQL demo -->
+        <div class="card sandbox">
+            <div class="sandbox-head">
+                <h3>Query sandbox</h3>
+                <p>A small live demo — pick a query and it runs against a mock in-page dataset.</p>
             </div>
 
-            <div class="project-grid">
-                <!-- Project 1 -->
-                <div>
-                    <article class="glass-panel project-card project-modal-trigger" data-category="sql" data-project-key="revenue" tabindex="0">
-                        <span class="cyber-decor"></span>
-                        <div class="project-thumbnail">
-                            <div class="project-icon">📊</div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Revenue Leakage Audit</h3>
-                            <p class="project-desc">Complex SQL audits and Excel projections isolating invoicing discrepancies, preventing subscription leakage.</p>
-                            <div class="project-tags">
-                                <span class="tag">SQL</span>
-                                <span class="tag">Excel</span>
-                                <span class="tag">Tableau</span>
-                            </div>
-                            <span class="cyber-tag" style="font-size:0.75rem; text-align:right; display:block; cursor:pointer">> DECRYPT DOSSIER</span>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- Project 2 -->
-                <div>
-                    <article class="glass-panel project-card project-modal-trigger" data-category="python" data-project-key="marketing" tabindex="0">
-                        <span class="cyber-decor"></span>
-                        <div class="project-thumbnail">
-                            <div class="project-icon">⚡</div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Marketing ROI Analytics</h3>
-                            <p class="project-desc">Python-based ETL cleaning pipeline extracting multi-channel ad platform telemetry to calculate exact CPC & CAC yields.</p>
-                            <div class="project-tags">
-                                <span class="tag">Python</span>
-                                <span class="tag">Pandas</span>
-                                <span class="tag">PowerBI</span>
-                            </div>
-                            <span class="cyber-tag" style="font-size:0.75rem; text-align:right; display:block; cursor:pointer">> DECRYPT DOSSIER</span>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- Project 3 -->
-                <div>
-                    <article class="glass-panel project-card project-modal-trigger" data-category="bi" data-project-key="dashboard" tabindex="0">
-                        <span class="cyber-decor"></span>
-                        <div class="project-thumbnail">
-                            <div class="project-icon">🌐</div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Operations KPI Console</h3>
-                            <p class="project-desc">High-performance Tableau interactive dashboard mapping supply chain distribution bottlenecks and warehouse levels.</p>
-                            <div class="project-tags">
-                                <span class="tag">Tableau</span>
-                                <span class="tag">SQL</span>
-                                <span class="tag">Excel</span>
-                            </div>
-                            <span class="cyber-tag" style="font-size:0.75rem; text-align:right; display:block; cursor:pointer">> DECRYPT DOSSIER</span>
-                        </div>
-                    </article>
-                </div>
+            <div class="chip-row" role="group" aria-label="Example queries">
+                <button type="button" class="chip is-active" data-query-key="skills">SELECT * FROM toolkit;</button>
+                <button type="button" class="chip" data-query-key="focus">SELECT area, focus FROM day_to_day;</button>
+                <button type="button" class="chip" data-query-key="projects">SELECT name, type FROM projects;</button>
             </div>
+
+            <div class="sandbox-out" id="sandbox-out" role="status" aria-live="polite"></div>
         </div>
-    </section>
+    </div>
+</section>
 
-   <!-- ==========================================
-         Professional Experience Timeline
-         ========================================== -->
-    <section id="experience">
-        <div class="container">
-            <div class="section-header">
-                <span class="cyber-tag">> SECURE HISTORICAL LOGS</span>
-                <h2 class="section-title">Career & Academic Ledger</h2>
-            </div>
-            
-            <div class="timeline-wrapper">
-                <div class="timeline">
-                    <!-- Timeline item 1: British Airways -->
-                    <div class="timeline-item left">
-                        <span class="timeline-date">2023 - PRESENT</span>
-                        <h3 class="timeline-role">Customer Service Analyst</h3>
-                        <span class="timeline-company">BRITISH AIRWAYS</span>
-                        <p style="color:var(--color-text-muted); font-size: 0.9rem;">
-                            Lead operational support analytics, extracting customer feedback and reservation telemetry to uncover operational bottlenecks. Write high-fidelity SQL queries and Python automation scripts to replace weekly manual reporting pipelines. Create interactive Tableau and PowerBI dashboards tracking service queues and passenger resolution performance metrics.
-                        </p>
-                    </div>
-                    
-                    <!-- Timeline item 2: Middlesex University -->
-                    <div class="timeline-item right">
-                        <span class="timeline-date">GRADUATED 2021</span>
-                        <h3 class="timeline-role">First Class Honours</h3>
-                        <span class="timeline-company">MIDDLESEX UNIVERSITY</span>
-                        <p style="color:var(--color-text-muted); font-size: 0.9rem;">
-                            BSc (Hons) in Information Technology and Business Information Systems. Awarded top-tier First Class marks. Mastered relational databases, systems engineering, business analytics paradigms, data modeling frameworks, and corporate IT architectures.
-                        </p>
-                    </div>
+<!-- ==========================================================
+     Projects
+     ========================================================== -->
+<section id="projects" class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Projects</p>
+            <h2 class="section-title">Selected work</h2>
+            <p class="section-lede">Real analysis, all of it public — code on GitHub, dashboards live and interactive on Tableau Public. Open any card for the write-up, or go straight to the source.</p>
+        </div>
+
+        <div class="filter-row" role="group" aria-label="Filter projects by discipline">
+            <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="sql">SQL</button>
+            <button type="button" class="filter-btn" data-filter="tableau">Tableau</button>
+            <button type="button" class="filter-btn" data-filter="bi">Power BI</button>
+            <button type="button" class="filter-btn" data-filter="python">Python</button>
+            <button type="button" class="filter-btn" data-filter="excel">Excel</button>
+        </div>
+
+        <div class="project-grid" id="project-grid">
+
+            <!-- Featured: Contact centre agent view (closest to the day job) -->
+            <article class="card project-card is-featured has-shot" data-category="tableau" data-project="contact-agent">
+                <a class="project-shot" href="#" data-project="contact-agent" aria-label="Open write-up: Contact centre agent view">
+                    <img src="assets/shots/tab-contact-agent.jpg" width="736" height="454" loading="lazy" decoding="async"
+                         alt="Tableau dashboard for a single contact centre agent showing average handle time, average satisfaction, resolution rate, a satisfaction rating distribution and a call answer ratio donut.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Tableau · Contact centre analytics</span>
+                    <h3 class="project-title">Contact centre — agent view</h3>
+                </div>
+                <p class="project-desc">
+                    A per-agent performance view: average handle time, satisfaction, resolution rate and
+                    answered-call ratio, all filtered to one agent at a time. Built so a team leader can open
+                    it before a one-to-one and see the whole picture for that person.
+                </p>
+                <ul class="tag-list"><li>Tableau</li><li>KPI design</li><li>Parameters</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="contact-agent">Read the write-up</button>
+                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
+                </div>
+            </article>
+
+            <!-- Featured: NBA -->
+            <article class="card project-card is-featured" data-category="sql" data-project="nba">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Window functions</span>
+                    <h3 class="project-title">NBA trends &amp; performance, 1996–2023</h3>
+                </div>
+                <p class="project-desc">
+                    12,000+ player seasons queried to test three claims: whether high-volume scorers really
+                    sacrifice efficiency, whether players are physically shrinking, and which franchises
+                    actually produce elite scorers. Two of the three answers went against the conventional wisdom.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>CTEs</li><li>Window functions</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="nba">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/NBA-Player-Stats" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for NBA trends and performance analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Featured: Maven Market -->
+            <article class="card project-card is-featured has-shot" data-category="bi" data-project="maven-market">
+                <a class="project-shot" href="#" data-project="maven-market" aria-label="Open write-up: Maven Market retail performance dashboard">
+                    <img src="assets/shots/maven-topline.jpg" width="1200" height="673" loading="lazy" decoding="async"
+                         alt="Power BI dashboard showing current-month transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue-versus-target gauge.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Power BI</span>
+                    <h3 class="project-title">Maven Market retail dashboard</h3>
+                </div>
+                <p class="project-desc">
+                    A three-page Power BI report tracking transactions, profit and returns against monthly
+                    targets across the USA, Canada and Mexico — with brand-level margin and return rate,
+                    weekly revenue trending, and a gauge against a $240K target.
+                </p>
+                <ul class="tag-list"><li>Power BI</li><li>DAX</li><li>KPI design</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="maven-market">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-market-PowerBI" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Maven Market Power BI report on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Featured: AdventureWorks -->
+            <article class="card project-card is-featured has-shot" data-category="bi" data-project="adventureworks">
+                <a class="project-shot" href="#" data-project="adventureworks" aria-label="Open write-up: AdventureWorks executive report">
+                    <img src="assets/shots/aw-exec.jpg" width="1200" height="675" loading="lazy" decoding="async"
+                         alt="Power BI executive summary showing $1.83M total revenue against goal, monthly orders and returns, category treemap, subcategory bar chart, top products table and a world map.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Power BI</span>
+                    <h3 class="project-title">AdventureWorks executive report</h3>
+                </div>
+                <p class="project-desc">
+                    An executive summary built for scanning in ten seconds — $1.83M revenue against target,
+                    orders and returns versus goal, and category performance — with drill-through pages for
+                    product and customer detail behind it.
+                </p>
+                <ul class="tag-list"><li>Power BI</li><li>Drill-through</li><li>Data modelling</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="adventureworks">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/AdventureWorks-Power-BI-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for AdventureWorks Power BI report on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Call centre manager dashboard -->
+            <article class="card project-card has-shot" data-category="tableau" data-project="call-manager">
+                <a class="project-shot" href="#" data-project="call-manager" aria-label="Open write-up: Call centre manager dashboard">
+                    <img src="assets/shots/tab-call-manager.jpg" width="736" height="454" loading="lazy" decoding="async"
+                         alt="Tableau manager dashboard showing satisfaction rating distribution, headline KPI tiles, call volume over time against an average reference line, and agent-by-agent comparison bars.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Tableau</span>
+                    <h3 class="project-title">Call centre — manager dashboard</h3>
+                </div>
+                <p class="project-desc">
+                    The team-level counterpart to the agent view: call volume against a rolling average,
+                    satisfaction distribution, and every agent ranked side by side on the same measures.
+                </p>
+                <ul class="tag-list"><li>Tableau</li><li>Reference lines</li><li>Comparison</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="call-manager">Read the write-up</button>
+                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
+                </div>
+            </article>
+
+            <!-- Telecom churn -->
+            <article class="card project-card has-shot" data-category="tableau" data-project="churn">
+                <a class="project-shot" href="#" data-project="churn" aria-label="Open write-up: Telecom churn analysis">
+                    <img src="assets/shots/tab-telecom-churn.jpg" width="736" height="454" loading="lazy" decoding="async"
+                         alt="Tableau churn dashboard with a total-versus-monthly-charges scatter coloured by churn, contract type churn bars, churn by tenure, and internet service by churn.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Tableau · Customer analytics</span>
+                    <h3 class="project-title">Telecom churn analysis</h3>
+                </div>
+                <p class="project-desc">
+                    Which customers leave, and what they have in common. Contract type turned out to be the
+                    clearest signal — month-to-month customers churn at a strikingly higher rate than those
+                    on one or two year terms.
+                </p>
+                <ul class="tag-list"><li>Tableau</li><li>Churn analysis</li><li>Segmentation</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="churn">Read the write-up</button>
+                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
+                </div>
+            </article>
+
+            <!-- Maven Movies -->
+            <article class="card project-card" data-category="sql" data-project="maven-movies">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Due diligence</span>
+                    <h3 class="project-title">DVD rental acquisition analysis</h3>
+                </div>
+                <p class="project-desc">
+                    Investor due diligence on a rental chain: who manages what, what the inventory is worth,
+                    where replacement-cost risk sits by category, and which customers actually carry the revenue.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>Multi-table joins</li><li>CASE</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="maven-movies">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-Movies-Project" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DVD rental acquisition analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- COVID -->
+            <article class="card project-card" data-category="sql" data-project="covid">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Exploratory analysis</span>
+                    <h3 class="project-title">COVID-19 global analysis</h3>
+                </div>
+                <p class="project-desc">
+                    Exploratory analysis across deaths and vaccinations tables — mortality rate given infection,
+                    share of population infected by country, and running vaccination totals tracked with
+                    partitioned window functions.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Uber -->
+            <article class="card project-card" data-category="sql" data-project="uber">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Business modelling</span>
+                    <h3 class="project-title">Driver incentive scheme modelling</h3>
+                </div>
+                <p class="project-desc">
+                    Two competing driver bonus structures costed against the same population: a $50 flat bonus
+                    with four qualifying conditions versus $4 per trip with two. Which is cheaper, and which
+                    actually changes behaviour?
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>Scenario modelling</li><li>Cost analysis</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="uber">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Partner-Business-Modeling" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for driver incentive scheme modelling on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- League of Legends -->
+            <article class="card project-card" data-category="sql" data-project="lol">
+                <div class="project-top">
+                    <span class="project-kind">SQL</span>
+                    <h3 class="project-title">League of Legends matchmaking</h3>
+                </div>
+                <p class="project-desc">
+                    Champion pick rates, win rates and individual champion statistics pulled apart in SQL to
+                    look at what actually drives match outcomes.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>Aggregation</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="lol">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/League-of-legends-analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for League of Legends analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Premier League Excel -->
+            <article class="card project-card" data-category="excel" data-project="epl">
+                <div class="project-top">
+                    <span class="project-kind">Excel</span>
+                    <h3 class="project-title">Premier League analysis</h3>
+                </div>
+                <p class="project-desc">
+                    Season data worked through in Excel — pivots, lookups and derived measures, built as a
+                    workbook someone else can actually pick up and follow.
+                </p>
+                <ul class="tag-list"><li>Excel</li><li>Pivot tables</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="epl">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Premier League Excel analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- DataBites -->
+            <article class="card project-card" data-category="python" data-project="databites">
+                <div class="project-top">
+                    <span class="project-kind">Python · JavaScript</span>
+                    <h3 class="project-title">DataBites — learn pandas in tiny bites</h3>
+                </div>
+                <p class="project-desc">
+                    A browser app that teaches pandas, seaborn and matplotlib in short lessons, running real
+                    Python in the browser via Pyodide. Built it because most tutorials assume you can hold an
+                    hour of context at once.
+                </p>
+                <ul class="tag-list"><li>Python</li><li>Pyodide</li><li>PWA</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="databites">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/adhd-data-learning" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DataBites on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- SQL practice -->
+            <article class="card project-card" data-category="sql" data-project="practice">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Practice</span>
+                    <h3 class="project-title">SQL challenge sets</h3>
+                </div>
+                <p class="project-desc">
+                    Worked solutions to business-scenario SQL challenges — the reps behind everything else on
+                    this page. Kept public so the working is visible, not just the results.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>Problem solving</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="practice">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass?tab=repositories" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for SQL challenge sets on GitHub</span></a>
+                </div>
+            </article>
+
+        </div>
+
+        <p class="grid-empty" id="grid-empty" hidden>No projects in that category yet.</p>
+
+        <p class="grid-more">
+            <a class="btn btn-ghost" href="https://github.com/TheLordBass?tab=repositories" target="_blank" rel="noopener noreferrer">
+                All repositories on GitHub
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+            <a class="btn btn-ghost" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/vizzes" target="_blank" rel="noopener noreferrer">
+                Interactive dashboards on Tableau Public
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================================
+     Experience
+     ========================================================== -->
+<section id="experience" class="section section-alt">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Experience</p>
+            <h2 class="section-title">Where I've worked &amp; studied</h2>
+        </div>
+
+        <ol class="timeline">
+            <li class="timeline-item">
+                <div class="timeline-marker" aria-hidden="true"></div>
+                <div class="card timeline-card">
+                    <p class="timeline-date">2023 — Present</p>
+                    <h3 class="timeline-role">Business Analyst</h3>
+                    <p class="timeline-org">British Airways</p>
+                    <ul class="timeline-points">
+                        <li>Analyse customer service and reservation data to identify where operational processes break down and what it costs.</li>
+                        <li>Write SQL queries and Python scripts that replaced recurring manual reporting, freeing analyst time for actual analysis.</li>
+                        <li>Build and maintain Tableau and Power BI dashboards covering service queues and passenger resolution performance.</li>
+                        <li>Work with operational stakeholders to turn vague asks into defined reporting requirements.</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="timeline-item">
+                <div class="timeline-marker" aria-hidden="true"></div>
+                <div class="card timeline-card">
+                    <p class="timeline-date">Graduated 2021</p>
+                    <h3 class="timeline-role">BSc (Hons) Information Technology &amp; Business Information Systems</h3>
+                    <p class="timeline-org">Middlesex University — First Class Honours</p>
+                    <ul class="timeline-points">
+                        <li>Focus on relational database design, business analytics, data modelling and enterprise IT architecture.</li>
+                        <li>Graduated with First Class Honours.</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<!-- ==========================================================
+     Contact
+     ========================================================== -->
+<section id="contact" class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Contact</p>
+            <h2 class="section-title">Let's talk</h2>
+            <p class="section-lede">Hiring, contract work, or just comparing notes on dashboards nobody reads — happy to hear from you.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-side">
+                <div class="card contact-card">
+                    <span class="contact-label">Email</span>
+                    <a class="contact-value" href="mailto:ibomenobasiekanem@gmail.com">ibomenobasiekanem@gmail.com</a>
+                    <button type="button" class="btn btn-small" id="copy-email" data-email="ibomenobasiekanem@gmail.com">Copy address</button>
+                </div>
+
+                <div class="card contact-card">
+                    <span class="contact-label">Location</span>
+                    <p class="contact-value">Manchester, United Kingdom</p>
+                    <p class="contact-note">Open to remote and hybrid roles.</p>
+                </div>
+
+                <div class="card contact-card">
+                    <span class="contact-label">Elsewhere</span>
+                    <ul class="social-list">
+                        <li>
+                            <a href="https://github.com/TheLordBass" target="_blank" rel="noopener noreferrer">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.4-1.27.73-1.56-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"></path></svg>
+                                github.com/TheLordBass
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://public.tableau.com/app/profile/ibomeno.basiekanem/vizzes" target="_blank" rel="noopener noreferrer">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="6" y1="6" x2="6" y2="18"></line><line x1="18" y1="6" x2="18" y2="18"></line></svg>
+                                Tableau Public
+                            </a>
+                        </li>
+                        <!--
+                          TODO: Paste your LinkedIn profile URL below and remove the comment markers.
+                          Left out on purpose — a dead link is worse than no link.
+                        <li>
+                            <a href="https://www.linkedin.com/in/YOUR-PROFILE/" target="_blank" rel="noopener noreferrer">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.65h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.85V21H9z"></path></svg>
+                                LinkedIn
+                            </a>
+                        </li>
+                        -->
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- ==========================================
-         Data Pipeline Form (Contact)
-         ========================================== -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="cyber-tag">> OPEN INGESTION PIPE</span>
-                <h2 class="section-title">Initiate Data Flow</h2>
-            </div>
-
-            <div class="contact-layout">
-                <div class="contact-meta">
-                    <p style="color:var(--color-text-muted); margin-bottom:1.5rem">
-                        Ready to integrate insights? Open a secure socket channel to transmit business constraints, collaborative scopes, or job inquiries.
+            <div class="card form-card">
+                <form id="contact-form" novalidate>
+                    <p class="form-intro">
+                        This opens a pre-filled message in your email client — nothing is sent through this
+                        page and nothing is stored here.
                     </p>
-                    
-                    <div class="contact-card-mini">
-                        <div class="contact-mini-icon">📍</div>
-                        <div>
-                            <div class="contact-meta-title">Terminal Coordinates</div>
-                            <div class="contact-meta-val">Manchester Node, UK</div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card-mini">
-                        <div class="contact-mini-icon">✉️</div>
-                        <div>
-                            <div class="contact-meta-title">Ingest Address</div>
-                            <div class="contact-meta-val">ibomenobasiekanem@gmail.com</div>
-                        </div>
+
+                    <div class="field">
+                        <label for="f-name">Your name</label>
+                        <input type="text" id="f-name" name="name" autocomplete="name" required>
+                        <p class="field-error" id="err-name" hidden>Please add your name.</p>
                     </div>
 
-                    <div class="contact-card-mini">
-                        <div class="contact-mini-icon">🔑</div>
-                        <div>
-                            <div class="contact-meta-title">PGP Public Key</div>
-                            <div class="contact-meta-val" style="font-family:var(--font-mono); font-size:0.8rem">0x4F8A...E92B</div>
-                        </div>
+                    <div class="field">
+                        <label for="f-email">Your email</label>
+                        <input type="email" id="f-email" name="email" autocomplete="email" required>
+                        <p class="field-error" id="err-email" hidden>Please add a valid email address.</p>
                     </div>
-                </div>
 
-                <div class="glass-panel">
-                    <span class="cyber-decor"></span>
-                    <form class="cyber-form" id="contact-form" novalidate>
-                        <div class="form-group">
-                            <input type="text" id="name-field" class="form-input" placeholder=" " required>
-                            <label class="form-label" for="name-field">Sender Identity</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" id="email-field" class="form-input" placeholder=" " required>
-                            <label class="form-label" for="email-field">Ingest Return Routing Email</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea id="message-field" class="form-input" placeholder=" " required></textarea>
-                            <label class="form-label" for="message-field">Payload Telemetry Message</label>
-                        </div>
+                    <div class="field">
+                        <label for="f-message">Message</label>
+                        <textarea id="f-message" name="message" rows="5" required></textarea>
+                        <p class="field-error" id="err-message" hidden>Please add a short message.</p>
+                    </div>
 
-                        <!-- Form status logger block -->
-                        <div class="form-status" id="form-status"></div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Open in email client
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"></path><polyline points="4 6 12 13 20 6"></polyline></svg>
+                    </button>
 
-                        <button type="submit" class="cyber-btn" style="width:100%; justify-content:center">
-                            Ingest Data Payload
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         Project Modal Container
-         ========================================== -->
-    <div class="cyber-modal" id="project-modal" role="dialog" aria-modal="true">
-        <div class="modal-content glass-panel">
-            <span class="cyber-decor"></span>
-            <button class="modal-close" aria-label="Close Modal">✕</button>
-            <div id="modal-inner-content">
-                <!-- Appended dynamically in app.js -->
+                    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                </form>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- ==========================================
-         Footer System
-         ========================================== -->
-    <footer class="footer-main">
-        <div class="container">
-            <p>IBOMENO::B // SYSTEM VERSION 4.2.1 // <span>SECURE CONNECTION</span> // &copy; 2026. All rights reserved.</p>
-        </div>
-    </footer>
+</main>
 
-    <!-- JavaScript Scripts -->
-    <script src="js/canvas-bg.js"></script>
-    <script src="js/app.js"></script>
+<!-- ==========================================================
+     Project modal
+     ========================================================== -->
+<div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="modal-body" id="modal-body"></div>
+    </div>
+</div>
+
+<!-- ==========================================================
+     Footer
+     ========================================================== -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <p>&copy; <span id="year">2026</span> Ibomeno Basiekanem</p>
+        <p class="footer-meta">Built by hand — no framework, no tracking.</p>
+    </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ibomeno Basiekanem",
+  "jobTitle": "Business Analyst",
+  "url": "https://thelordbass.github.io/",
+  "email": "mailto:ibomenobasiekanem@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Manchester", "addressCountry": "GB" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Middlesex University" },
+  "worksFor": { "@type": "Organization", "name": "British Airways" },
+  "knowsAbout": ["SQL", "Python", "Pandas", "Tableau", "Power BI", "Excel", "Business Analysis", "Data Analysis"],
+  "sameAs": [
+    "https://github.com/TheLordBass",
+    "https://public.tableau.com/app/profile/ibomeno.basiekanem/vizzes"
+  ]
+}
+</script>
+
+<script src="js/canvas-bg.js" defer></script>
+<script src="js/app.js" defer></script>
 </body>
 </html>
