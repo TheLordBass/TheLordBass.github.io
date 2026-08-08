@@ -81,14 +81,9 @@ Small things left deliberately undone, because they need information only you ha
 
 - [ ] **Add your CV.** Drop the PDF at `assets/ibomeno-basiekanem-cv.pdf`, then
       uncomment the download button in `index.html` (search for `Download CV`).
-- [ ] **Add your LinkedIn.** Search `index.html` for `YOUR-PROFILE`, paste your
-      URL and uncomment that list item. Left commented out on purpose — a dead
-      link is worse than no link.
-- [ ] **Confirm your job title.** The site says *Business Analyst* at British
-      Airways throughout, following your last commit. The old site said
-      *Customer Service Analyst* in the experience section and *Business Analyst*
-      in the hero. Make sure the version here matches your CV and LinkedIn,
-      because a recruiter will compare them.
+- [x] ~~Add your LinkedIn.~~ Done — `linkedin.com/in/ibomeno-basiekanem`, in the
+      contact section and in the structured data.
+- [x] ~~Confirm your job title.~~ Done — see the note below.
 - [ ] **Consider adding real figures.** The project write-ups describe what you
       did and what you found, without invented precision. If you have defensible
       numbers for the British Airways work, the experience section is where
@@ -118,6 +113,20 @@ has a free tier and works on a static site — create a form, then point the
 a `fetch()` POST.
 
 ---
+
+## Two job titles, on purpose
+
+The site uses **Customer Service Analyst** wherever it states the actual role at
+British Airways — the hero sentence, the experience timeline, "At a glance", the
+meta description and the `jobTitle` in the structured data.
+
+It uses **Business Analyst** as the headline identity — the browser tab, the
+`og:title`, the header subtitle and the hero eyebrow — because that's the
+direction being targeted, reinforced by the "open to Business Analyst and Data
+Analyst roles" line in the About section.
+
+This is a deliberate split, not an oversight. If you'd rather it read as one
+title throughout, the headline set is those four places.
 
 ## Notes on the design
 

@@ -116,7 +116,7 @@
         var script = [
             { t: 'cmd',  v: 'SELECT * FROM analyst WHERE name = \'Ibomeno\';' },
             { t: 'dim',  v: '' },
-            { t: 'head', v: ' role          | Business Analyst' },
+            { t: 'head', v: ' role          | Customer Service Analyst' },
             { t: 'out',  v: ' employer      | British Airways' },
             { t: 'out',  v: ' location      | Manchester, UK' },
             { t: 'out',  v: ' education     | BSc (Hons), First Class' },
