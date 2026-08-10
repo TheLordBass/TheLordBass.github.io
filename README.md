@@ -54,6 +54,12 @@ Two steps, both mechanical:
    `sql`, `tableau`, `bi`, `python`, `excel` so the filter picks it up, and set
    `data-project` to a new unique key.
 
+   **Card order matters.** Featured cards (`.is-featured`) span two of the three
+   grid columns, so each one must be followed by an ordinary one-column card or
+   the grid leaves a visible hole. Current pattern: featured, normal, featured,
+   normal, featured, normal, then the rest. Only give a card `.is-featured` if it
+   has a screenshot — a double-width card with no image reads as a gap.
+
    Use `.project-repo` for a GitHub link or `.project-viz` for a live dashboard —
    the latter renders with a green "live" dot. For a Tableau project, also set
    `repoLabel` on the `PROJECTS` entry so the modal button reads *Open the live

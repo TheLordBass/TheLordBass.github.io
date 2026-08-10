@@ -387,10 +387,12 @@ main { position: relative; z-index: 1; }
     margin-bottom: 2.5rem;
 }
 
+/* Four facts won't fit on one row at this column width, so lay them out as a
+   deliberate 2x2 rather than letting them wrap raggedly. */
 .hero-facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem 1.5rem;
     list-style: none;
     padding: 0;
     border-top: 1px solid var(--line);
@@ -400,11 +402,9 @@ main { position: relative; z-index: 1; }
     display: flex;
     flex-direction: column;
     gap: .15rem;
-    padding-right: 1.75rem;
-    margin-right: 1.75rem;
-    border-right: 1px solid var(--line);
+    padding-left: .85rem;
+    border-left: 2px solid var(--accent-line);
 }
-.hero-facts li:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
 .hero-facts strong { font-size: 1rem; font-weight: 650; }
 .hero-facts span { font-size: .8rem; color: var(--ink-faint); }
 
@@ -446,7 +446,9 @@ main { position: relative; z-index: 1; }
     font-family: var(--font-mono);
     font-size: .8rem;
     line-height: 1.75;
-    height: 21rem;
+    /* Tall enough to hold the whole script without scrolling, which also
+       balances the hero against the much taller copy column beside it. */
+    height: 30rem;
     /* Scrolls like a real terminal: JS keeps the newest line in view while
        typing, and the content stays reachable if it outgrows the box. */
     overflow-y: auto;
@@ -812,9 +814,12 @@ main { position: relative; z-index: 1; }
     padding-left: .9rem;
     border-left: 2px solid var(--accent-line);
     margin-bottom: 1rem;
+    max-width: 60ch;
 }
 
-.timeline-points { padding-left: 1.1rem; display: grid; gap: .5rem; }
+/* Cap the reading measure. The card is ~1000px wide; unconstrained, these
+   bullets ran ~116 characters per line, well past comfortable reading. */
+.timeline-points { padding-left: 1.1rem; display: grid; gap: .5rem; max-width: 60ch; }
 .timeline-points li { color: var(--ink-muted); font-size: .93rem; }
 .timeline-points li::marker { color: var(--accent); }
 
@@ -1082,13 +1087,7 @@ main { position: relative; z-index: 1; }
 
     .brand-text span { display: none; }
 
-    .hero-facts { gap: 1.25rem; }
-    .hero-facts li {
-        border-right: 0;
-        margin-right: 0;
-        padding-right: 0;
-        flex: 1 1 8rem;
-    }
+    .hero-facts { gap: 1rem; }
 
     .project-grid { grid-template-columns: 1fr; }
     .btn { width: 100%; }

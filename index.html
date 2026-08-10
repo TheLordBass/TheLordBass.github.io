@@ -321,8 +321,9 @@
                 </div>
             </article>
 
-            <!-- Featured: NBA -->
-            <article class="card project-card is-featured" data-category="sql" data-project="nba">
+            <!-- NBA: strong project, but no screenshot — a double-width card with
+                 no image reads as a gap, so it sits at normal width. -->
+            <article class="card project-card" data-category="sql" data-project="nba">
                 <div class="project-top">
                     <span class="project-kind">SQL · Window functions</span>
                     <h3 class="project-title">NBA trends &amp; performance, 1996–2023</h3>
@@ -361,6 +362,29 @@
                 </div>
             </article>
 
+            <!-- Call centre manager dashboard.
+                 Order matters here: each two-column featured card is followed by a
+                 one-column card so the three-column grid packs without holes. -->
+            <article class="card project-card has-shot" data-category="tableau" data-project="call-manager">
+                <a class="project-shot" href="#" data-project="call-manager" aria-label="Open write-up: Call centre manager dashboard">
+                    <img src="assets/shots/tab-call-manager.jpg" width="736" height="454" loading="lazy" decoding="async"
+                         alt="Tableau manager dashboard showing satisfaction rating distribution, headline KPI tiles, call volume over time against an average reference line, and agent-by-agent comparison bars.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Tableau</span>
+                    <h3 class="project-title">Call centre — manager dashboard</h3>
+                </div>
+                <p class="project-desc">
+                    The team-level counterpart to the agent view: call volume against a rolling average,
+                    satisfaction distribution, and every agent ranked side by side on the same measures.
+                </p>
+                <ul class="tag-list"><li>Tableau</li><li>Reference lines</li><li>Comparison</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="call-manager">Read the write-up</button>
+                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
+                </div>
+            </article>
+
             <!-- Featured: AdventureWorks -->
             <article class="card project-card is-featured has-shot" data-category="bi" data-project="adventureworks">
                 <a class="project-shot" href="#" data-project="adventureworks" aria-label="Open write-up: AdventureWorks executive report">
@@ -380,27 +404,6 @@
                 <div class="project-actions">
                     <button type="button" class="project-open" data-project="adventureworks">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/AdventureWorks-Power-BI-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for AdventureWorks Power BI report on GitHub</span></a>
-                </div>
-            </article>
-
-            <!-- Call centre manager dashboard -->
-            <article class="card project-card has-shot" data-category="tableau" data-project="call-manager">
-                <a class="project-shot" href="#" data-project="call-manager" aria-label="Open write-up: Call centre manager dashboard">
-                    <img src="assets/shots/tab-call-manager.jpg" width="736" height="454" loading="lazy" decoding="async"
-                         alt="Tableau manager dashboard showing satisfaction rating distribution, headline KPI tiles, call volume over time against an average reference line, and agent-by-agent comparison bars.">
-                </a>
-                <div class="project-top">
-                    <span class="project-kind">Tableau</span>
-                    <h3 class="project-title">Call centre — manager dashboard</h3>
-                </div>
-                <p class="project-desc">
-                    The team-level counterpart to the agent view: call volume against a rolling average,
-                    satisfaction distribution, and every agent ranked side by side on the same measures.
-                </p>
-                <ul class="tag-list"><li>Tableau</li><li>Reference lines</li><li>Comparison</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="call-manager">Read the write-up</button>
-                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
                 </div>
             </article>
 
