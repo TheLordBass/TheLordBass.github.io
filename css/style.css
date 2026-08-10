@@ -202,6 +202,26 @@ main { position: relative; z-index: 1; }
 .prose { color: var(--fg-dim); max-width: 74ch; }
 .prose p + p { margin-top: 1rem; }
 
+/* An aside, set apart the way a terminal sets apart a note. */
+.origin {
+    max-width: 74ch;
+    margin: 1.4rem 0;
+    padding: .9rem 1.1rem;
+    background: var(--bg-1);
+    border: 1px dashed var(--line-2);
+    border-left: 2px solid var(--accent);
+}
+.origin-title {
+    font-size: .78rem;
+    text-transform: lowercase;
+    letter-spacing: .04em;
+    color: var(--accent);
+    margin-bottom: .6rem;
+}
+.origin-title::before { content: "# "; color: var(--line-2); }
+.origin p:not(.origin-title) { font-size: .9rem; color: var(--fg-dim); }
+.origin p + p { margin-top: .7rem; }
+
 /* Panes ------------------------------------------------------------------ */
 .card {
     background: var(--bg-1);
