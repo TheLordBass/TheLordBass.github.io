@@ -476,23 +476,23 @@
             repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1',
             repoLabel: 'Open the live dashboard',
             gallery: [
-                { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time — handle time, satisfaction and resolution rate alongside the distribution behind them.', alt: 'Tableau agent view showing average handle time, average satisfaction, resolution rate, a satisfaction rating bar chart and a call answer ratio donut.' }
+                { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time. Handle time, satisfaction and resolution rate, with the distribution sitting underneath them.', alt: 'Tableau agent view showing average handle time, average satisfaction, resolution rate, a satisfaction rating bar chart and a call answer ratio donut.' }
             ],
             blocks: [
                 { h: 'Why this exists', p: [
-                    'This is a public-data rebuild of contact centre reporting I own in my day job at British Airways. The production version cannot be shared, so I rebuilt the same thinking on data I can publish — which means what you can click through here is the closest honest demonstration of what I actually do.',
-                    'The scenario is a team leader preparing for a one-to-one. They do not want a report about the contact centre — they want everything about one person, on one screen, in the thirty seconds before the conversation starts.'
+                    'I own reporting like this in my day job at British Airways, but the production version stays inside the business. So I rebuilt the same thinking on data I am allowed to publish. It is the closest I can get to showing you what I actually do all day.',
+                    'Picture a team leader with two minutes before a one-to-one. They do not need a report about the contact centre. They need everything about one person, on one screen, before they walk into the room.'
                 ]},
                 { h: 'What it shows', list: [
-                    '<strong>Average handle time</strong>, the core efficiency measure, front and centre.',
-                    '<strong>Average satisfaction and resolution rate</strong> next to it — because handle time on its own rewards rushing people off the phone, and these are the two measures that keep it honest.',
-                    '<strong>The full satisfaction distribution</strong>, not just the mean. An agent averaging 3.4 from mostly 4s and 5s with a few 1s is a completely different coaching conversation from one averaging 3.4 across the board.',
-                    '<strong>Call answer ratio</strong> as a donut, showing answered against missed.',
-                    '<strong>An agent selector</strong>, so the same layout serves the whole team.'
+                    '<strong>Average handle time</strong>, which is the efficiency number everyone looks at first, so it goes at the top.',
+                    '<strong>Satisfaction and resolution rate</strong> sat right next to it. Handle time on its own quietly rewards getting people off the phone, and these two are what stop that happening.',
+                    '<strong>The whole satisfaction distribution</strong>, not just the average. Someone on 3.4 made up of 4s and 5s with a couple of 1s needs a completely different conversation to someone sat on 3.4 the whole way through.',
+                    '<strong>Call answer ratio</strong> as a donut, answered against missed.',
+                    '<strong>An agent picker</strong>, so one layout covers the whole team.'
                 ]},
                 { h: 'Why it is built this way', p: [
-                    'The design decision I care about here is putting efficiency and experience measures side by side. Contact centre reporting has a long history of optimising handle time until service quality quietly degrades. Showing them together makes the trade-off visible rather than letting one metric win by default.',
-                    'The test I hold my dashboards to is whether people use them unaided. The four I maintain at work are opened by agents and team leaders ahead of one-to-ones without anyone asking me how to read them — which is the only measure of a dashboard that actually matters.'
+                    'The thing I actually care about here is that the efficiency numbers and the experience numbers sit side by side. Contact centre reporting has a long history of squeezing handle time until service quality quietly falls over, and you only notice months later. Putting them together means the trade-off is on screen instead of buried.',
+                    'The test I hold my own dashboards to is whether people use them when I am not around. The four I look after at work get opened before one-to-ones by agents and team leaders who have never once asked me how to read them, and I do not think there is a better measure than that.'
                 ]}
             ]
         },
@@ -503,21 +503,21 @@
             repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2',
             repoLabel: 'Open the live dashboard',
             gallery: [
-                { src: 'assets/shots/tab-call-manager.jpg', cap: 'The team-level view — volume against a rolling average, with every agent ranked on the same measures.', alt: 'Tableau manager dashboard with satisfaction distribution, KPI tiles, call volume over time against an average reference line, and per-agent comparison bars.' }
+                { src: 'assets/shots/tab-call-manager.jpg', cap: 'The team-level view. Volume against a rolling average, with every agent lined up on the same measures.', alt: 'Tableau manager dashboard with satisfaction distribution, KPI tiles, call volume over time against an average reference line, and per-agent comparison bars.' }
             ],
             blocks: [
                 { h: 'The brief', p: [
-                    'The counterpart to the agent view. Same data, different question: not "how is Becky doing" but "where should I be looking today".'
+                    'This is the other half of the agent view. Same data underneath, but the question has changed from "how is Becky getting on" to "where should I be looking this morning".'
                 ]},
                 { h: 'What it shows', list: [
-                    '<strong>Call volume over time with an average reference line</strong>, so a spike is immediately readable as a spike rather than needing to be worked out from the axis.',
-                    '<strong>Satisfaction rating distribution</strong> across the whole team.',
-                    '<strong>Headline KPI tiles</strong> for the measures a manager is accountable for.',
-                    '<strong>Agent-by-agent comparison</strong> across three measures at once, with diverging bars so above and below average are distinguishable at a glance without reading a single number.'
+                    '<strong>Call volume over time with an average line through it</strong>, so a spike reads as a spike straight away instead of you having to work it out off the axis.',
+                    '<strong>Satisfaction distribution</strong> across the whole team.',
+                    '<strong>KPI tiles</strong> for the numbers a manager gets asked about.',
+                    '<strong>Every agent side by side</strong> on three measures at once, using diverging bars so you can see who is above and below average without reading a single figure.'
                 ]},
                 { h: 'The design thinking', p: [
-                    'A ranked list of agents is easy to build and easy to misuse. Using diverging bars against an average, rather than a straight leaderboard, keeps the emphasis on who is unusual rather than who is top — which is the useful question when you are deciding where to spend your time.',
-                    'Pairing this with the agent view means the two dashboards answer each other: this one tells you who to look at, that one tells you what is going on with them.'
+                    'A ranked list of agents is easy to build and very easy to misuse. Diverging bars against an average keep the attention on who is unusual instead of who is top, and unusual is the useful question when you are working out where your time goes today.',
+                    'The two dashboards are meant to answer each other. This one points you at a name. The agent view tells you what is going on with them.'
                 ]}
             ]
         },
@@ -528,21 +528,21 @@
             repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard',
             repoLabel: 'Open the live dashboard',
             gallery: [
-                { src: 'assets/shots/tab-telecom-churn.jpg', cap: 'Churn broken down four ways — spend, contract type, tenure and internet service.', alt: 'Tableau churn dashboard with a total versus monthly charges scatter coloured by churn, contract type churn bars, churn by tenure bins and internet service by churn.' }
+                { src: 'assets/shots/tab-telecom-churn.jpg', cap: 'Churn broken down four ways. Spend, contract type, tenure and internet service.', alt: 'Tableau churn dashboard with a total versus monthly charges scatter coloured by churn, contract type churn bars, churn by tenure bins and internet service by churn.' }
             ],
             blocks: [
                 { h: 'The question', p: [
-                    'Which customers leave, and what do they have in common? The useful output of a churn analysis is not a churn rate — it is a description of who is at risk, specific enough to act on.'
+                    'Who leaves, and what have they got in common? Nobody can do much with a churn rate on its own. What you need is a description of who is at risk that is specific enough for somebody to go and do something about it.'
                 ]},
                 { h: 'What it found', list: [
-                    '<strong>Contract type is the clearest signal.</strong> Month-to-month customers churn at a strikingly higher rate than customers on one or two year terms — visible immediately in the contract breakdown, and the most actionable finding on the dashboard.',
-                    '<strong>Tenure concentrates the risk early.</strong> Churn clusters heavily in the lowest tenure bins; customers who make it past the early period are substantially more likely to stay.',
-                    '<strong>Spend behaves counter-intuitively.</strong> The scatter of total against monthly charges shows churn thinning out as total charges rise — higher lifetime spend goes with lower churn, which is the opposite of the "expensive customers leave" assumption.',
-                    '<strong>Internet service type separates the population</strong> into visibly different churn profiles.'
+                    '<strong>Contract type is the big one.</strong> Month-to-month customers churn at a much higher rate than anyone on a one or two year term. It jumps straight out of the contract breakdown and it is the finding you could actually build a retention plan on.',
+                    '<strong>The risk sits early.</strong> Churn piles up in the lowest tenure bins. Get someone past the first stretch and they are far more likely to stay.',
+                    '<strong>Spend goes the opposite way to what you would guess.</strong> Plot total against monthly charges and churn thins out as total charges climb. People who have spent more with you leave less, which is the reverse of the usual assumption that the expensive customers are the flighty ones.',
+                    '<strong>Internet service type splits the base</strong> into clearly different churn profiles.'
                 ]},
                 { h: 'How it is built', p: [
-                    'A scatter for the continuous relationship, stacked bars for the categorical splits, and a binned tenure view with an adjustable bin-size parameter so the granularity can be changed without rebuilding the sheet.',
-                    'The dashboard carries a written conclusion directly on the canvas rather than leaving the reader to infer it. A chart that needs someone to explain it is only half finished.'
+                    'A scatter for the continuous relationship, stacked bars for the categorical splits, and a binned tenure view with a parameter on the bin size so you can change the granularity without rebuilding the sheet.',
+                    'I put the conclusion in writing on the canvas instead of leaving people to work it out. A chart somebody has to explain is only half done.'
                 ]}
             ]
         },
@@ -553,20 +553,20 @@
             repo: 'https://github.com/TheLordBass/NBA-Player-Stats',
             blocks: [
                 { h: 'The question', p: [
-                    'Basketball commentary is full of claims that sound obviously true and have never been checked against the data. I picked three of them and pointed 25 years of player statistics — over 12,000 player seasons — at each one.'
+                    'Basketball punditry is full of things that sound obviously true and have never been checked against anything. I picked three of them and pointed 25 years of player stats at each one, which works out at somewhere over 12,000 player seasons.'
                 ]},
                 { h: 'What I asked', list: [
-                    '<strong>Do high-volume scorers sacrifice efficiency?</strong> The received wisdom says taking more shots means taking worse ones.',
-                    '<strong>Are players actually getting smaller?</strong> The "small ball" era is talked about constantly — is it visible in height and weight?',
-                    '<strong>Which franchises reliably develop elite scorers?</strong> Reputation versus record.'
+                    '<strong>Do high-volume scorers give up efficiency?</strong> Everyone assumes taking more shots means taking worse ones.',
+                    '<strong>Are players actually getting smaller?</strong> People talk about the small ball era constantly, but does it turn up in height and weight?',
+                    '<strong>Which clubs reliably produce elite scorers?</strong> Reputation against record.'
                 ]},
                 { h: 'What I found', list: [
-                    'Players with a usage rate above 30% held the <strong>highest</strong> true shooting percentages, not the lowest. The volume–efficiency trade-off is not there at the top end — the players taking the most shots are the ones good enough to earn them.',
-                    'Small ball shows up in the data: since 2015, average player weight is down roughly 5kg and height about 3cm. But part of the apparent height drop turned out to be a 2019 change in how the league measured players, not players actually getting shorter — a data artefact sitting inside a real trend. Separating the two is the whole job; reporting the raw number would have been wrong in a way nobody would have caught.',
-                    'Oklahoma City, the Lakers and Golden State came out as the consistent producers of elite scoring talent across the period.'
+                    'Players with a usage rate over 30% had the <strong>highest</strong> true shooting percentages, not the lowest. At the top end that trade-off just is not there. The players taking the most shots are mostly the ones good enough to have earned them.',
+                    'Small ball does show up. Since 2015 average weight is down about 5kg and height about 3cm. But some of that height drop turned out to be the league changing how it measured players in 2019, not players getting shorter. That took a while to spot, and it is the sort of thing that would have gone straight into a report as a real finding if I had not gone looking.',
+                    'Oklahoma City, the Lakers and Golden State came out as the ones consistently producing elite scoring talent across the whole period.'
                 ]},
                 { h: 'How it was built', p: [
-                    'Window functions to rank and compare players within each season without collapsing the detail, CTEs to keep each analytical step readable rather than nesting subqueries five deep, and aggregation across usage rate, shooting efficiency and physical attributes.'
+                    'Window functions to rank and compare players inside each season without losing the individual rows, CTEs so each step stays readable instead of ending up five subqueries deep, and aggregation across usage rate, shooting efficiency and physical attributes.'
                 ]},
                 { h: 'Sample approach', code:
 'WITH usage_tiers AS (\n' +
@@ -595,23 +595,23 @@
             title: 'Maven Market retail dashboard',
             repo: 'https://github.com/TheLordBass/Maven-market-PowerBI',
             gallery: [
-                { src: 'assets/shots/maven-topline.jpg', cap: 'Topline performance — the three headline KPIs against goal, weekly revenue trending and a gauge against target.', alt: 'Maven Market topline page: transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue gauge.' },
-                { src: 'assets/shots/maven-store.jpg',   cap: 'Store performance — the same measures broken out by location.', alt: 'Maven Market store performance page breaking metrics down by store location.' },
-                { src: 'assets/shots/maven-product.jpg', cap: 'Product effect — which brands and products move the headline numbers.', alt: 'Maven Market product effect page showing brand and product level contribution.' }
+                { src: 'assets/shots/maven-topline.jpg', cap: 'Topline. The three headline numbers against goal, weekly revenue trending, and a gauge against target.', alt: 'Maven Market topline page: transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue gauge.' },
+                { src: 'assets/shots/maven-store.jpg',   cap: 'Store performance. Same measures, broken out by location.', alt: 'Maven Market store performance page breaking metrics down by store location.' },
+                { src: 'assets/shots/maven-product.jpg', cap: 'Product effect. Which brands and products are moving the headline numbers.', alt: 'Maven Market product effect page showing brand and product level contribution.' }
             ],
             blocks: [
                 { h: 'The brief', p: [
-                    'A retail chain operating across the USA, Canada and Mexico needed one place to see whether the current month was on track — not a report to read, a screen to glance at.'
+                    'A retail chain running across the USA, Canada and Mexico wanted one place to see whether the current month was on track. Not a report anyone sits down and reads. A screen you glance at.'
                 ]},
                 { h: 'What it shows', list: [
-                    '<strong>Three headline KPIs</strong> — transactions, profit and returns — each stated against its goal with the variance calculated, so "18,325" arrives as "+5.69% against target" rather than a number with no reference point.',
-                    '<strong>Returns treated as a warning, not a metric.</strong> Returns running 2.9% under goal is coloured differently from the two measures that are ahead, because it needs a different response.',
-                    '<strong>Brand-level detail</strong> with conditional formatting across transactions, profit, margin and return rate — so an outlier like a 1.64% return rate on one brand is visible without hunting.',
-                    '<strong>Geographic and trend context</strong> — a map of activity across North America, weekly revenue trending, and a gauge against the $240K target.'
+                    '<strong>Three headline numbers.</strong> Transactions, profit and returns, each against its goal with the variance worked out, so you get "+5.69% against target" instead of "18,325" and no idea whether that is good.',
+                    '<strong>Returns treated as a warning.</strong> Sitting 2.9% under goal gets coloured differently from the two measures that are ahead, because what you do about it is a different job.',
+                    '<strong>Brand-level detail</strong> with conditional formatting across transactions, profit, margin and return rate, so a 1.64% return rate on one brand stands out without anybody having to go looking for it.',
+                    '<strong>Geography and trend.</strong> A map of activity across North America, weekly revenue trending, and a gauge running against the $240K target.'
                 ]},
                 { h: 'What I was designing for', p: [
-                    'The temptation with a dataset this wide is to put everything on the page. I built the top row so the three numbers that decide whether anyone needs to act are readable from across a desk, and pushed the brand-by-brand table to the left where it supports the headline rather than competing with it.',
-                    'The rest of the report follows the same logic across two more pages: store performance and product effect, each answering the follow-up question the topline page provokes.'
+                    'With a dataset this wide the temptation is to put all of it on the page. I built the top row so the three numbers that decide whether anyone needs to act are readable from across a desk, and pushed the brand table to the left where it backs up the headline instead of fighting it.',
+                    'The other two pages follow the same idea. Store performance and product effect, each one answering the question the topline page makes you ask next.'
                 ]}
             ]
         },
@@ -621,23 +621,23 @@
             title: 'AdventureWorks executive report',
             repo: 'https://github.com/TheLordBass/AdventureWorks-Power-BI-',
             gallery: [
-                { src: 'assets/shots/aw-exec.jpg',     cap: 'Executive summary — revenue, orders and returns against goal, with category and regional context.', alt: 'AdventureWorks executive summary: $1.83M revenue against goal, monthly orders and returns, a category treemap, subcategory bars, a product table with return rates and a world map.' },
-                { src: 'assets/shots/aw-product.jpg',  cap: 'Product detail — the drill-through page behind any product in the summary table.', alt: 'AdventureWorks product detail drill-through page.' },
-                { src: 'assets/shots/aw-customer.jpg', cap: 'Customer detail — who is buying, and how that splits by segment.', alt: 'AdventureWorks customer detail page showing customer segments and orders.' }
+                { src: 'assets/shots/aw-exec.jpg',     cap: 'Executive summary. Revenue, orders and returns against goal, with category and region for context.', alt: 'AdventureWorks executive summary: $1.83M revenue against goal, monthly orders and returns, a category treemap, subcategory bars, a product table with return rates and a world map.' },
+                { src: 'assets/shots/aw-product.jpg',  cap: 'Product detail. The drill-through sitting behind any product in the summary table.', alt: 'AdventureWorks product detail drill-through page.' },
+                { src: 'assets/shots/aw-customer.jpg', cap: 'Customer detail. Who is buying and how that splits by segment.', alt: 'AdventureWorks customer detail page showing customer segments and orders.' }
             ],
             blocks: [
                 { h: 'The brief', p: [
-                    'A cycling retailer with a wide product catalogue and global sales. The report needed to work for an executive who has ten seconds, and for an analyst who needs to know which specific product is dragging the return rate up.'
+                    'A cycling retailer with a big catalogue and sales all over the world. The report had to work for an exec who is giving it ten seconds and for an analyst who needs to know exactly which product is dragging the return rate up.'
                 ]},
                 { h: 'How it is structured', list: [
-                    '<strong>Executive summary page</strong> — $1.83M revenue against a $1.77M goal, monthly orders and returns each against target, with sparkline context so a single bad month is distinguishable from a trend.',
-                    '<strong>Category breakdown</strong> via treemap and subcategory bars, immediately showing that accessories carry the order volume while bikes carry the value.',
-                    '<strong>Product table with return rates</strong>, so the highest-selling product and the most-returned product are visible on the same screen.',
-                    '<strong>Drill-through to detail pages</strong> for product and customer, keeping the summary uncluttered while the depth stays one click away.',
-                    '<strong>Date-range slicer and regional filters</strong> (Europe / North America / Pacific) so the same page answers questions for different teams.'
+                    '<strong>Executive summary page.</strong> $1.83M revenue against a $1.77M goal, monthly orders and returns each against target, with enough sparkline context that one bad month does not read as a trend.',
+                    '<strong>Category breakdown</strong> through a treemap and subcategory bars, which makes it obvious straight away that accessories bring the volume and bikes bring the money.',
+                    '<strong>Product table with return rates</strong>, so your best seller and your most returned product are on the same screen.',
+                    '<strong>Drill-through pages</strong> for product and customer. Keeps the summary clean and the detail one click away.',
+                    '<strong>Date slicer and regional filters</strong> for Europe, North America and Pacific, so the same page works for different teams.'
                 ]},
                 { h: 'The modelling underneath', p: [
-                    'The visible report depends on getting the model right first — proper relationships between fact and dimension tables, a date table that supports the time intelligence, and measures written once and reused rather than recalculated per visual. Most of the work in a report like this is invisible on the final page.'
+                    'None of the visible stuff works unless the model is right first. Proper relationships between the fact and dimension tables, a date table that can carry the time intelligence, and measures written once and reused instead of recalculated in every visual. Most of the work in a report like this never shows up on the page.'
                 ]}
             ]
         },
@@ -648,16 +648,16 @@
             repo: 'https://github.com/TheLordBass/Maven-Movies-Project',
             blocks: [
                 { h: 'The scenario', p: [
-                    'Investors were considering buying a DVD rental chain and needed due diligence before committing. I had access to the company database and a list of the things they were nervous about.'
+                    'Investors were thinking about buying a DVD rental chain and wanted due diligence before they committed to anything. I had the company database and a list of the things that were making them nervous.'
                 ]},
                 { h: 'What they needed to know', list: [
-                    '<strong>Who runs what</strong> — managers mapped to store locations, joining across staff, address, city and country tables.',
-                    '<strong>What the inventory is worth</strong> — a full count with asset valuation, not a sample.',
-                    '<strong>Where the risk sits</strong> — replacement cost exposure broken down by film category, so the buyers knew which part of the catalogue would hurt if it walked out the door.',
-                    '<strong>Who actually pays</strong> — customer lifetime value ranked, to see how concentrated the revenue was.'
+                    '<strong>Who runs what.</strong> Managers mapped to store locations, which meant joining across staff, address, city and country.',
+                    '<strong>What the inventory is worth.</strong> A full count and valuation, not a sample.',
+                    '<strong>Where the risk sits.</strong> Replacement cost broken down by film category, so they knew which bit of the catalogue would actually hurt if it went missing.',
+                    '<strong>Who is paying for all this.</strong> Customer lifetime value ranked, to see how much of the revenue rested on how few people.'
                 ]},
                 { h: 'Techniques', p: [
-                    'Multi-table joins across three or more tables, aggregation with SUM, AVG and COUNT for the financial summaries, CASE statements for categorising, and explicit NULL handling — which mattered here, because a missing address silently dropping a store from a count is exactly the kind of error that survives into a valuation.'
+                    'Joins across three or more tables, SUM and AVG and COUNT for the financial summaries, CASE for the categorising, and explicit NULL handling. That last one mattered more than it sounds. A missing address quietly dropping a store out of a count is exactly the kind of mistake that makes it all the way into a valuation without anyone noticing.'
                 ]},
                 { h: 'Sample approach', code:
 'SELECT\n' +
@@ -680,21 +680,21 @@
             repo: 'https://github.com/TheLordBass/SqlCovidProject',
             blocks: [
                 { h: 'The project', p: [
-                    'Exploratory analysis across two country-level tables — deaths and vaccinations — tracked over time. The aim was to answer the questions people were actually asking during the pandemic, in a way that held up.'
+                    'Two country-level tables, deaths and vaccinations, tracked over time. I wanted to answer the questions people were genuinely asking each other during the pandemic, and answer them in a way that would survive someone checking.'
                 ]},
                 { h: 'Questions', list: [
-                    'If you caught it in a given country at a given time, what was the likelihood of dying? (deaths-to-cases, tracked over time rather than as a single figure)',
-                    'What share of each country\'s population had been infected?',
-                    'Which countries carried the highest absolute death tolls, and how does that change when adjusted for population?',
-                    'How did vaccination rollout progress against population size?'
+                    'If you caught it in a particular country at a particular time, what were your odds? Deaths against cases, tracked over time instead of collapsed into one figure.',
+                    'How much of each country had actually had it?',
+                    'Which countries carried the highest death tolls, and how much does that change once you adjust for population?',
+                    'How did the vaccine rollout go, measured against the number of people there were to vaccinate?'
                 ]},
                 { h: 'Techniques', list: [
-                    'Joins across the two tables on location <em>and</em> date — getting that composite key right is what keeps the vaccination numbers aligned with the right day.',
-                    'Window functions with <strong>PARTITION BY</strong> to build running vaccination totals per country without losing the daily grain.',
-                    'Explicit type casting, because aggregate arithmetic on the raw columns produced integer division and quietly wrong percentages.'
+                    'Joining the two tables on location <em>and</em> date. Getting that composite key right is the whole thing. Get it wrong and your vaccination numbers quietly line up against the wrong days.',
+                    'Window functions with <strong>PARTITION BY</strong> for running vaccination totals per country, without losing the daily rows underneath.',
+                    'Explicit casting, because doing the arithmetic on the raw columns gave me integer division and percentages that were wrong in a way that looked fine.'
                 ]},
                 { h: 'What it showed', p: [
-                    'Mortality rates moved substantially over time as treatment improved, which is the main reason a single headline "death rate" figure was misleading throughout. Containment effectiveness varied widely between countries, and vaccination rates measured against population exposed a very uneven rollout.'
+                    'Mortality moved a lot over time as treatment got better, which is the main reason any single headline death rate was misleading the whole way through. How well countries contained it varied enormously. And vaccination measured against population showed just how uneven the rollout was.'
                 ]},
                 { h: 'Sample approach', code:
 'SELECT\n' +
@@ -720,18 +720,18 @@
             repo: 'https://github.com/TheLordBass/Partner-Business-Modeling',
             blocks: [
                 { h: 'The decision', p: [
-                    'Two proposed bonus schemes intended to get more drivers on the road during a busy Saturday. Someone had to say which one to run, and the honest answer needed both a cost and a behavioural argument.'
+                    'Two bonus schemes, both meant to get more drivers out on a busy Saturday. Somebody had to pick one, and a decent answer needed more than just which one costs less.'
                 ]},
                 { h: 'The two options', list: [
-                    '<strong>Option 1 — $50 flat bonus.</strong> Requires 8+ supply hours, a 90%+ acceptance rate, 10+ trips and a 4.7+ rating. Four conditions, all of which must hold.',
-                    '<strong>Option 2 — $4 per completed trip.</strong> Requires 12+ trips and a 4.7+ rating. Two conditions, and the payout scales with output.'
+                    '<strong>Option 1, a $50 flat bonus.</strong> Needs 8+ supply hours, 90%+ acceptance rate, 10+ trips and a 4.7+ rating. Four conditions and all of them have to hold.',
+                    '<strong>Option 2, $4 a trip.</strong> Needs 12+ trips and a 4.7+ rating. Two conditions, and what you get paid scales with what you do.'
                 ]},
                 { h: 'How I approached it', p: [
-                    'Ran each driver in the dataset against both rule sets to get qualification rates and total payout under each scheme. The cost comparison is the easy half.',
-                    'The more useful half is what each scheme rewards. Option 1\'s acceptance-rate condition targets availability and reliability, but it is all-or-nothing — a driver who misses one of four conditions gets nothing, which is a weak motivator if they realise mid-shift that they have already failed it. Option 2 pays proportionally and stays motivating right up to the end of the day, but it does nothing about acceptance rate.'
+                    'Ran every driver in the data against both sets of rules to get qualification rates and total payout under each. That part is straightforward.',
+                    'The interesting part is what each scheme is quietly encouraging. Option 1 has an acceptance rate condition, so it goes after availability and reliability, but it is all or nothing. Miss one of the four and you get nothing, and a driver who works out halfway through their shift that they have already failed has no reason to keep going. Option 2 keeps paying right to the end of the day, but it does nothing at all about acceptance rate.'
                 ]},
                 { h: 'Why it matters', p: [
-                    'This is the kind of question where the SQL is straightforward and the analysis is in framing the answer. Reporting only the cheaper total would have answered the question asked and missed the decision being made.'
+                    'The SQL here is not hard. The analysis is in how you frame the answer. If I had come back with just the cheaper total I would have answered the question I was asked and completely missed the decision being made.'
                 ]}
             ]
         },
@@ -742,15 +742,15 @@
             repo: 'https://github.com/TheLordBass/League-of-legends-analysis',
             blocks: [
                 { h: 'The project', p: [
-                    'Match data pulled apart in SQL to look at what actually correlates with winning, rather than what the community assumes does.'
+                    'Match data pulled apart in SQL to see what actually correlates with winning, as opposed to what everyone in the client assumes correlates with winning.'
                 ]},
                 { h: 'What I looked at', list: [
-                    '<strong>Champion pick rate</strong> — what gets selected, and how that shifts.',
-                    '<strong>Champion win rate</strong> — and the gap between popularity and effectiveness, which is usually where the interesting cases sit.',
-                    '<strong>Individual champion deep-dive</strong> — a per-champion statistical breakdown.'
+                    '<strong>Pick rate.</strong> What gets chosen and how that moves.',
+                    '<strong>Win rate.</strong> And more usefully, the gap between how popular something is and how well it does, because that gap is where the interesting cases live.',
+                    '<strong>Per-champion breakdown</strong> for the ones worth a closer look.'
                 ]},
                 { h: 'Why this one', p: [
-                    'Analysis on a domain you actually care about is where you learn the difference between a query that runs and a query that answers something. Games data is also genuinely messy in useful ways — patch versions, role assignments and rank tiers all change what a fair comparison looks like.'
+                    'Working on something you actually care about is where you learn the difference between a query that runs and a query that answers something. Games data is also messy in genuinely useful ways. Patch versions, role assignments and rank tiers all change what counts as a fair comparison, and you have to decide what to do about that before any of the numbers mean anything.'
                 ]}
             ]
         },
@@ -761,11 +761,11 @@
             repo: 'https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-',
             blocks: [
                 { h: 'The project', p: [
-                    'Premier League season data worked through in Excel — pivot tables, lookups and derived measures.'
+                    'A Premier League season worked through in Excel. Pivot tables, lookups, derived measures.'
                 ]},
                 { h: 'The point of it', p: [
-                    'Excel is still where most business analysis actually happens, and building a workbook someone else can pick up is a distinct skill from writing a query. That means consistent structure, formulas that survive a new row of data, and calculations traceable back to source rather than hard-coded.',
-                    'Included here because a portfolio that only shows the impressive tools is not an honest picture of the job.'
+                    'Excel is still where most business analysis really happens, and building a workbook someone else can pick up is a different skill from writing a query. Consistent structure, formulas that do not fall over when a row gets added, and calculations you can trace back to where the number came from instead of finding it hard-coded in a cell.',
+                    'It is on here because a portfolio that only shows the impressive tools is not an honest picture of the job.'
                 ]}
             ]
         },
@@ -776,15 +776,15 @@
             repo: 'https://github.com/TheLordBass/adhd-data-learning',
             blocks: [
                 { h: 'What it is', p: [
-                    'A browser app that teaches pandas, seaborn and matplotlib in short, self-contained lessons. Real Python runs in the browser via Pyodide — no install, no notebook server, no environment to set up before you can learn anything.'
+                    'A browser app that teaches pandas, seaborn and matplotlib in short lessons that each stand on their own. Real Python runs in the browser through Pyodide, so there is nothing to install and no notebook server to get running before you can learn anything.'
                 ]},
                 { h: 'Why I built it', p: [
-                    'Most data tutorials are structured as long sessions that assume you can hold an hour of context at once. That is a bad fit for how a lot of people actually learn, including me. Breaking the material into bites that each stand alone means a session can be five minutes and still be worth something.'
+                    'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. If the material comes in pieces that each make sense alone, a five minute session is still worth doing, and you are far more likely to come back tomorrow.'
                 ]},
                 { h: 'What it demonstrates', list: [
-                    'Working outside the analyst comfort zone — this is a front-end build, not a query.',
-                    'Running a real Python runtime client-side with Pyodide, including the loading and caching problems that come with it.',
-                    'Installable as a PWA, working offline once cached.'
+                    'Working well outside the analyst comfort zone. This is a front-end build, not a query.',
+                    'Running an actual Python runtime client-side with Pyodide, along with all the loading and caching problems that brings with it.',
+                    'Installable as a PWA and works offline once it has cached.'
                 ]}
             ]
         },
@@ -795,15 +795,15 @@
             repo: 'https://github.com/TheLordBass?tab=repositories',
             blocks: [
                 { h: 'What these are', p: [
-                    'Worked solutions to business-scenario SQL challenges, kept public. Two collections: an eight-part SQL challenge built around real-world business problems, and a set of solutions from the Analyst Builder platform covering common data analyst scenarios.'
+                    'Worked solutions to business-scenario SQL problems, left public. There are two collections. An eight-part challenge built around real business situations, and a set of solutions from the Analyst Builder platform covering the scenarios that come up over and over in analyst work.'
                 ]},
                 { h: 'Why they are on here', p: [
-                    'The finished projects on this page are the output. These are the reps. I would rather show both than present the polished work as though it appeared without the practice behind it.'
+                    'The finished projects further up this page are the output. This is the practice. It felt more honest to show both than to present the polished stuff as though it turned up fully formed.'
                 ]},
                 { h: 'Repositories', list: [
-                    '<a href="https://github.com/TheLordBass/8_SQL_Challenge" target="_blank" rel="noopener noreferrer">8_SQL_Challenge</a> — business-problem SQL challenges.',
-                    '<a href="https://github.com/TheLordBass/Analyst-Builder-SQL-question-Solutions" target="_blank" rel="noopener noreferrer">Analyst-Builder-SQL-question-Solutions</a> — data analyst scenario solutions.',
-                    '<a href="https://github.com/TheLordBass/Learning-Pandas" target="_blank" rel="noopener noreferrer">Learning-Pandas</a> — notebooks tracking pandas progress.'
+                    '<a href="https://github.com/TheLordBass/8_SQL_Challenge" target="_blank" rel="noopener noreferrer">8_SQL_Challenge</a>, built around business problems.',
+                    '<a href="https://github.com/TheLordBass/Analyst-Builder-SQL-question-Solutions" target="_blank" rel="noopener noreferrer">Analyst-Builder-SQL-question-Solutions</a>, analyst scenario solutions.',
+                    '<a href="https://github.com/TheLordBass/Learning-Pandas" target="_blank" rel="noopener noreferrer">Learning-Pandas</a>, notebooks tracking how the pandas learning is going.'
                 ]}
             ]
         }
