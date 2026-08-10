@@ -117,10 +117,13 @@
             { t: 'cmd',  v: 'SELECT * FROM analyst WHERE name = \'Ibomeno\';' },
             { t: 'dim',  v: '' },
             { t: 'head', v: ' role          | Customer Service Analyst' },
-            { t: 'out',  v: ' employer      | British Airways' },
+            { t: 'out',  v: ' employer      | British Airways (since Apr 2023)' },
+            { t: 'out',  v: ' function      | MI team of 4' },
+            { t: 'out',  v: ' supports      | 100+ agent contact centre' },
+            { t: 'out',  v: ' focus         | Forecasting, capacity planning' },
             { t: 'out',  v: ' location      | Manchester, UK' },
             { t: 'out',  v: ' education     | BSc (Hons), First Class' },
-            { t: 'out',  v: ' stack         | SQL, Python, Tableau, Power BI' },
+            { t: 'out',  v: ' stack         | SQL, Excel, Power BI, Tableau' },
             { t: 'dim',  v: '(1 row)' },
             { t: 'dim',  v: '' },
             { t: 'cmd',  v: 'SELECT area, count(*) FROM projects GROUP BY area;' },
@@ -137,11 +140,15 @@
 
         var CLASS = { cmd: 't-cmd', out: 't-out', dim: 't-dim', ok: 't-ok', head: 't-head' };
 
+        // Keep the newest line in view; the script is taller than the panel.
+        function pin() { body.scrollTop = body.scrollHeight; }
+
         function line(item, text) {
             var el = document.createElement('div');
             el.className = 't-line ' + (CLASS[item.t] || 't-out');
             el.textContent = (item.t === 'cmd' ? '=> ' : '') + text;
             body.appendChild(el);
+            pin();
             return el;
         }
 
@@ -158,6 +165,7 @@
                 var caret = document.createElement('div');
                 caret.className = 't-line t-caret';
                 body.appendChild(caret);
+                pin();
                 return;
             }
 
@@ -170,6 +178,7 @@
                 (function type() {
                     if (c <= item.v.length) {
                         el.textContent = '=> ' + item.v.slice(0, c++);
+                        pin();
                         setTimeout(type, 26);
                     } else {
                         setTimeout(next, 420);
@@ -213,21 +222,22 @@
         var data = {
             skills: {
                 sql: 'SELECT * FROM toolkit;',
-                cols: ['tool', 'used_for', 'since'],
+                cols: ['tool', 'used_for'],
                 rows: [
-                    ['SQL',       'Querying, joins, window functions', '2019'],
-                    ['Python',    'Cleaning, automation, Pandas',      '2020'],
-                    ['Power BI',  'Executive reporting, DAX',          '2022'],
-                    ['Tableau',   'Operational dashboards',            '2022'],
-                    ['Excel',     'Modelling, pivots, quick analysis', '2018']
+                    ['SQL',       'Production queries, CTEs, window functions'],
+                    ['Excel',     'Forecast models, Power Query, pivots'],
+                    ['Power BI',  'Executive reporting, DAX, drill-through'],
+                    ['Tableau',   'Operational dashboards, parameters'],
+                    ['Python',    'Cleaning, ETL, reporting automation']
                 ]
             },
             focus: {
                 sql: 'SELECT area, focus FROM day_to_day;',
                 cols: ['area', 'focus'],
                 rows: [
-                    ['Reporting',   'Replacing manual reports with scheduled queries'],
-                    ['Analysis',    'Finding where a process actually breaks down'],
+                    ['Forecasting', 'Monthly agent requirement from contact flow'],
+                    ['Capacity',    'Modelling volume, shrinkage and occupancy'],
+                    ['Reporting',   'Replacing manual prep with scheduled queries'],
                     ['Dashboards',  'Building for the decision, not for every field'],
                     ['Stakeholders','Turning a vague ask into a defined requirement']
                 ]
@@ -335,8 +345,8 @@
                 { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time — handle time, satisfaction and resolution rate alongside the distribution behind them.', alt: 'Tableau agent view showing average handle time, average satisfaction, resolution rate, a satisfaction rating bar chart and a call answer ratio donut.' }
             ],
             blocks: [
-                { h: 'The brief', p: [
-                    'In my own words on Tableau Public: this dashboard is designed to provide immediate insight into agent efficiency and customer experience performance.',
+                { h: 'Why this exists', p: [
+                    'This is a public-data rebuild of contact centre reporting I own in my day job at British Airways. The production version cannot be shared, so I rebuilt the same thinking on data I can publish — which means what you can click through here is the closest honest demonstration of what I actually do.',
                     'The scenario is a team leader preparing for a one-to-one. They do not want a report about the contact centre — they want everything about one person, on one screen, in the thirty seconds before the conversation starts.'
                 ]},
                 { h: 'What it shows', list: [
@@ -348,7 +358,7 @@
                 ]},
                 { h: 'Why it is built this way', p: [
                     'The design decision I care about here is putting efficiency and experience measures side by side. Contact centre reporting has a long history of optimising handle time until service quality quietly degrades. Showing them together makes the trade-off visible rather than letting one metric win by default.',
-                    'This is also the closest thing on this site to my day job — the same class of problem as the customer service analytics I work on at British Airways, on data I can actually publish.'
+                    'The test I hold my dashboards to is whether people use them unaided. The four I maintain at work are opened by agents and team leaders ahead of one-to-ones without anyone asking me how to read them — which is the only measure of a dashboard that actually matters.'
                 ]}
             ]
         },
@@ -418,7 +428,7 @@
                 ]},
                 { h: 'What I found', list: [
                     'Players with a usage rate above 30% held the <strong>highest</strong> true shooting percentages, not the lowest. The volume–efficiency trade-off is not there at the top end — the players taking the most shots are the ones good enough to earn them.',
-                    'Small ball shows up in the data: since 2015, average player weight is down roughly 5kg and height about 3cm. Worth flagging that a 2019 change in measurement methodology affects part of that trend, so the effect is real but the size of it deserves care.',
+                    'Small ball shows up in the data: since 2015, average player weight is down roughly 5kg and height about 3cm. But part of the apparent height drop turned out to be a 2019 change in how the league measured players, not players actually getting shorter — a data artefact sitting inside a real trend. Separating the two is the whole job; reporting the raw number would have been wrong in a way nobody would have caught.',
                     'Oklahoma City, the Lakers and Golden State came out as the consistent producers of elite scoring talent across the period.'
                 ]},
                 { h: 'How it was built', p: [

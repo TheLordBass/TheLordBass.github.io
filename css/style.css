@@ -447,7 +447,17 @@ main { position: relative; z-index: 1; }
     font-size: .8rem;
     line-height: 1.75;
     height: 21rem;
-    overflow: hidden;
+    /* Scrolls like a real terminal: JS keeps the newest line in view while
+       typing, and the content stays reachable if it outgrows the box. */
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.terminal-body::-webkit-scrollbar { width: 6px; }
+.terminal-body::-webkit-scrollbar-track { background: transparent; }
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 3px;
+    border: 0;
 }
 
 .t-line { white-space: pre-wrap; word-break: break-word; }
@@ -793,6 +803,14 @@ main { position: relative; z-index: 1; }
 .timeline-org {
     font-size: .92rem;
     color: var(--ink-faint);
+    margin-bottom: 1rem;
+}
+
+.timeline-context {
+    font-size: .93rem;
+    color: var(--ink-muted);
+    padding-left: .9rem;
+    border-left: 2px solid var(--accent-line);
     margin-bottom: 1rem;
 }
 

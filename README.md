@@ -79,8 +79,8 @@ to the filter row and use that value as a card's `data-category`.
 
 Small things left deliberately undone, because they need information only you have:
 
-- [ ] **Add your CV.** Drop the PDF at `assets/ibomeno-basiekanem-cv.pdf`, then
-      uncomment the download button in `index.html` (search for `Download CV`).
+- [x] ~~Add your CV.~~ Done — `assets/ibomeno-basiekanem-cv.pdf`, linked from the
+      hero and the contact section.
 - [x] ~~Add your LinkedIn.~~ Done — `linkedin.com/in/ibomeno-basiekanem`, in the
       contact section and in the structured data.
 - [x] ~~Confirm your job title.~~ Done — see the note below.
@@ -116,17 +116,36 @@ a `fetch()` POST.
 
 ## Two job titles, on purpose
 
-The site uses **Customer Service Analyst** wherever it states the actual role at
+This mirrors the CV, which does exactly the same thing.
+
+**Data Analyst** is the headline identity — browser tab, `og:title`, header
+subtitle, hero eyebrow. That's what the CV leads with and what's being targeted.
+
+**Customer Service Analyst** is used wherever the site states the actual role at
 British Airways — the hero sentence, the experience timeline, "At a glance", the
 meta description and the `jobTitle` in the structured data.
 
-It uses **Business Analyst** as the headline identity — the browser tab, the
-`og:title`, the header subtitle and the hero eyebrow — because that's the
-direction being targeted, reinforced by the "open to Business Analyst and Data
-Analyst roles" line in the About section.
+Deliberate, not an oversight. If you ever want one title throughout, the headline
+set is those four places.
 
-This is a deliberate split, not an oversight. If you'd rather it read as one
-title throughout, the headline set is those four places.
+## Keeping this in sync with the CV
+
+The site is aligned to `assets/ibomeno-basiekanem-cv.pdf`. If you revise the CV,
+these are the places that carry the same facts and will drift:
+
+| CV content | Where it appears on the site |
+|---|---|
+| Headline title | `<title>`, `og:title`, `.brand-text span`, `.hero .eyebrow` |
+| Professional summary | `.hero-lede`, the About `.prose` paragraphs |
+| Core skills (6 groups) | the six `.skill-card` blocks |
+| British Airways bullets | `.timeline-context` + `.timeline-points` |
+| Role, dates, employer | timeline, "At a glance", JSON-LD `jobTitle` |
+| Headline numbers | `.hero-facts` (100+ agents, 4 dashboards, ~1 day/week) |
+| Anything factual | the hero terminal script in `js/app.js` § 3 |
+
+**Note on the published CV:** it includes a phone number. That was a deliberate
+choice — a downloadable CV on a public site will be scraped. To change it later,
+replace the PDF at the same path and the two download links keep working.
 
 ## Notes on the design
 
