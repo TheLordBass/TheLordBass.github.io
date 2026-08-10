@@ -492,7 +492,7 @@
                 ]},
                 { h: 'Why it is built this way', p: [
                     'The thing I actually care about here is that the efficiency numbers and the experience numbers sit side by side. Contact centre reporting has a long history of squeezing handle time until service quality quietly falls over, and you only notice months later. Putting them together means the trade-off is on screen instead of buried.',
-                    'The test I hold my own dashboards to is whether people use them when I am not around. The four I look after at work get opened before one-to-ones by agents and team leaders who have never once asked me how to read them, and I do not think there is a better measure than that.'
+                    'The test I hold my own dashboards to is whether people use them when I am not around. One of the four I look after at work gets opened before one-to-ones by agents and team leaders who have never once asked me how to read it, and I do not think there is a better measure than that.'
                 ]}
             ]
         },
