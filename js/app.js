@@ -476,7 +476,7 @@
             repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1',
             repoLabel: 'Open the live dashboard',
             gallery: [
-                { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time. Handle time, satisfaction and resolution rate, with the distribution sitting underneath them.', alt: 'Tableau agent view showing average handle time, average satisfaction, resolution rate, a satisfaction rating bar chart and a call answer ratio donut.' }
+                { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time. Handle time, satisfaction and resolution rate up top, with the distribution sitting underneath them.', alt: 'Tableau agent view for Becky: average handle time 180.3, average satisfaction 3.4, resolution rate 67.04%, a satisfaction rating bar chart, and a call answer ratio donut showing 517 answered against 114 missed.' }
             ],
             blocks: [
                 { h: 'Why this exists', p: [
@@ -486,8 +486,8 @@
                 { h: 'What it shows', list: [
                     '<strong>Average handle time</strong>, which is the efficiency number everyone looks at first, so it goes at the top.',
                     '<strong>Satisfaction and resolution rate</strong> sat right next to it. Handle time on its own quietly rewards getting people off the phone, and these two are what stop that happening.',
-                    '<strong>The whole satisfaction distribution</strong>, not just the average. Someone on 3.4 made up of 4s and 5s with a couple of 1s needs a completely different conversation to someone sat on 3.4 the whole way through.',
-                    '<strong>Call answer ratio</strong> as a donut, answered against missed.',
+                    '<strong>The whole satisfaction distribution</strong>, not just the average. Becky in the screenshot averages 3.4, but that 3.4 is built out of 160 fours and 150 threes with 64 ones underneath it. Someone sitting flat on 3.4 the whole way through would show the same headline number and need a completely different conversation.',
+                    '<strong>Call answer ratio</strong> as a donut. 517 answered against 114 missed for this agent, which is the sort of thing that never comes up unless you put it on the screen.',
                     '<strong>An agent picker</strong>, so one layout covers the whole team.'
                 ]},
                 { h: 'Why it is built this way', p: [
@@ -503,7 +503,7 @@
             repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2',
             repoLabel: 'Open the live dashboard',
             gallery: [
-                { src: 'assets/shots/tab-call-manager.jpg', cap: 'The team-level view. Volume against a rolling average, with every agent lined up on the same measures.', alt: 'Tableau manager dashboard with satisfaction distribution, KPI tiles, call volume over time against an average reference line, and per-agent comparison bars.' }
+                { src: 'assets/shots/tab-call-manager.jpg', cap: 'The team-level view. Volume against an average line, with all eight agents lined up on the same three measures.', alt: 'Tableau manager dashboard: satisfaction distribution for the month, average handling time 233.8, 27 inbound calls today, 70.47% resolution rate, call volume per weekday against an average line, and three colour-coded tables ranking eight agents on resolution rate, calls resolved and answer speed.' }
             ],
             blocks: [
                 { h: 'The brief', p: [
@@ -515,8 +515,12 @@
                     '<strong>KPI tiles</strong> for the numbers a manager gets asked about.',
                     '<strong>Every agent side by side</strong> on three measures at once, using diverging bars so you can see who is above and below average without reading a single figure.'
                 ]},
+                { h: 'What it turns up', p: [
+                    'Martha is the clearest case. Best resolution rate on the team at 78.74% and the most calls resolved at 163, but she is also the slowest to answer at 72.1 seconds, which is why that cell is red while the other two are green. You could read that as a problem or as somebody taking the time to actually finish a call properly. The dashboard will not tell you which, and it should not. It tells you where the conversation is.',
+                    'Dan sits at the other end, lowest on resolution at 59.18% and fewest resolved at 116. Same idea. The point is that you can see it in about two seconds without reading a single number.'
+                ]},
                 { h: 'The design thinking', p: [
-                    'A ranked list of agents is easy to build and very easy to misuse. Diverging bars against an average keep the attention on who is unusual instead of who is top, and unusual is the useful question when you are working out where your time goes today.',
+                    'A ranked list of agents is easy to build and very easy to misuse. Colouring against the range instead of just sorting keeps attention on who is unusual instead of who is top, and unusual is the useful question when you are deciding where your time goes today.',
                     'The two dashboards are meant to answer each other. This one points you at a name. The agent view tells you what is going on with them.'
                 ]}
             ]
@@ -528,17 +532,17 @@
             repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard',
             repoLabel: 'Open the live dashboard',
             gallery: [
-                { src: 'assets/shots/tab-telecom-churn.jpg', cap: 'Churn broken down four ways. Spend, contract type, tenure and internet service.', alt: 'Tableau churn dashboard with a total versus monthly charges scatter coloured by churn, contract type churn bars, churn by tenure bins and internet service by churn.' }
+                { src: 'assets/shots/tab-telecom-churn.jpg', cap: 'Churn broken down four ways. Spend, contract type, tenure and internet service.', alt: 'Tableau churn dashboard: a total versus monthly charges scatter coloured by churn, contract type churn bars showing 1,655 of 3,875 month-to-month customers churning, churn by tenure bins, and internet service by churn showing fiber optic churning far more than DSL.' }
             ],
             blocks: [
                 { h: 'The question', p: [
                     'Who leaves, and what have they got in common? Nobody can do much with a churn rate on its own. What you need is a description of who is at risk that is specific enough for somebody to go and do something about it.'
                 ]},
                 { h: 'What it found', list: [
-                    '<strong>Contract type is the big one.</strong> Month-to-month customers churn at a much higher rate than anyone on a one or two year term. It jumps straight out of the contract breakdown and it is the finding you could actually build a retention plan on.',
-                    '<strong>The risk sits early.</strong> Churn piles up in the lowest tenure bins. Get someone past the first stretch and they are far more likely to stay.',
-                    '<strong>Spend goes the opposite way to what you would guess.</strong> Plot total against monthly charges and churn thins out as total charges climb. People who have spent more with you leave less, which is the reverse of the usual assumption that the expensive customers are the flighty ones.',
-                    '<strong>Internet service type splits the base</strong> into clearly different churn profiles.'
+                    '<strong>Contract type is the big one.</strong> 1,655 of the 3,875 month-to-month customers churned, so roughly two in five walked. One and two year contracts barely move next to that. It is the finding you could actually build a retention plan on.',
+                    '<strong>Fiber optic customers leave far more than anybody else.</strong> 1,297 churned against 1,799 who stayed, so about forty per cent. DSL sits nearer twenty, and customers with no internet service at all almost never go. Whatever is happening with fiber is worth somebody looking into properly.',
+                    '<strong>The risk is concentrated right at the start.</strong> In the lowest tenure bin, 680 customers churned against 558 who stayed. More than half of the newest customers are gone. Get someone past that first stretch and it flips completely.',
+                    '<strong>Spend goes the opposite way to what you would guess.</strong> Plot total against monthly charges and the red thins out as total charges climb. People who have spent more with you leave less, which is the reverse of the usual assumption that the expensive customers are the flighty ones.'
                 ]},
                 { h: 'How it is built', p: [
                     'A scatter for the continuous relationship, stacked bars for the categorical splits, and a binned tenure view with a parameter on the bin size so you can change the granularity without rebuilding the sheet.',

@@ -71,10 +71,23 @@ Two steps, both mechanical:
    Add a `gallery` array to the entry to show screenshots above the write-up —
    each item takes `src`, `alt` and `cap`. The two Power BI projects use this.
 
-Screenshots live in `assets/shots/` as JPEGs, resized to 1200px wide and saved at
-quality 82 — around 100KB each rather than the 450KB the raw PNGs were. Worth
-doing the same to anything you add; `System.Drawing` in PowerShell will do it
-without installing anything.
+Screenshots live in `assets/shots/` as JPEGs, resized to 1200–1400px wide at
+quality 84, which lands around 50–150KB each. Worth doing the same to anything
+you add; `System.Drawing` in PowerShell will do it without installing anything.
+
+### Refreshing a Tableau screenshot
+
+Tableau will export a dashboard at whatever size you ask for:
+
+```
+https://public.tableau.com/views/<Workbook>/<Sheet>.png?:showVizHome=no&:size=1800,860
+```
+
+That gives a clean 1799×886 render, far better than the `/thumb/views/` endpoint
+which caps at 736×454. One catch: **it silently drops viz extensions**. The agent
+view's Call Answer Ratio donut is one, and the export replaces it with the text
+"Tableau can't export Viz Extensions." For that dashboard, take a screenshot
+instead.
 
 To add a new filter category, add a `<button class="filter-btn" data-filter="…">`
 to the filter row and use that value as a card's `data-category`.
@@ -95,13 +108,14 @@ Small things left deliberately undone, because they need information only you ha
       numbers for the British Airways work, the experience section is where
       they'd carry the most weight.
 
-- [ ] **Two fixes on the Tableau dashboards themselves** (not on this site):
-      - Several KPI tiles render as `###` and `##` in Tableau's own thumbnails —
-        that's a column-too-narrow artifact. Check whether it also shows at full
-        size; if so, widen those tiles and republish. Re-download the thumbnails
-        afterwards from `https://public.tableau.com/thumb/views/{Workbook}/{Sheet}`.
-      - The Churn Rate dashboard's annotation reads *"the less likey it is"* —
-        should be *likely*. It's on the canvas, so a recruiter will see it.
+- [x] ~~KPI tiles rendering as `###`.~~ Not a real problem. It was an artifact of
+      Tableau's small thumbnail renderer. At full size every tile renders its
+      value properly, and the site now uses full-size images.
+
+- [ ] **Typo on the Churn Rate dashboard.** The annotation under the scatter
+      reads *"the less likey it is"* and should be *likely*. It sits on the
+      canvas, and the site now shows that dashboard at 1400px wide, so it is
+      more legible than it was. Fix and republish, then re-export the image.
 
 - [ ] **Add a description to two of the vizzes.** Only *Contact Centre Data Agent
       View* has one on Tableau Public. The other two are blank, which is a free
