@@ -153,7 +153,42 @@ these are the places that carry the same facts and will drift:
 choice — a downloadable CV on a public site will be scraped. To change it later,
 replace the PDF at the same path and the two download links keep working.
 
-## Notes on the design
+## The design
+
+It's a TUI. Not a "cyber" theme — the references are tools people actually use:
+tmux status lines, lazygit panes, vim gutters, `psql` output, k9s tables.
+
+- **Palette** is [gruvbox](https://github.com/morhetz/gruvbox) (Pavel Pertsev),
+  picked because it's warm, specific and nothing like a framework default.
+  Three of its light-mode colours were darkened to clear WCAG AA — noted in the
+  token block in `style.css`.
+- **Type** is IBM Plex Mono throughout. A terminal has one font; committing to
+  that is the point.
+- **Chrome**: numbered tab bar at the top, fixed status line at the bottom
+  showing the current section and scroll position, `┌─ label ───` pane rules,
+  `▸` markers instead of bullets, `├─ └─` tree glyphs on the timeline, and
+  inverse-video for anything selected.
+- **No background animation.** The floating-particle canvas that used to be
+  here was replaced by a faint character-cell grid in CSS.
+
+### Keyboard
+
+The site is keyboard-driven, which is the part that makes it a tool rather than
+a picture of one. `1`–`5` jump to sections, `j`/`k` step through them, `g`/`G`
+go to top and bottom, `/` jumps to the project filter, `t` toggles the theme,
+`?` shows the shortcut panel and `Esc` closes anything.
+
+Every binding is a no-op while focus is in a text field, so typing a message in
+the contact form never triggers a jump. `Esc` from a field blurs it rather than
+trapping you. Bindings are defined in `js/app.js` § 2b.
+
+### Terminal lines
+
+`.t-line` uses `white-space: pre` — terminals don't reflow, and wrapping would
+break the column alignment that makes the output read as a query result. Keep
+new script lines to **about 40 characters** or they'll scroll sideways.
+
+## Notes on the earlier design
 
 - **Dark by default**, with a light theme that follows the system preference on
   first visit and remembers an explicit choice after that.

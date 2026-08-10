@@ -17,14 +17,17 @@
         var btn = $('#theme-toggle');
         var KEY = 'ib-theme';
 
+        var label = $('#theme-label');
+
         function apply(mode) {
             root.setAttribute('data-theme', mode);
             if (btn) {
                 btn.setAttribute('aria-label',
                     mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
             }
+            if (label) label.textContent = mode;
             var meta = $('meta[name="theme-color"]');
-            if (meta) meta.setAttribute('content', mode === 'dark' ? '#0a0e14' : '#f7f8fa');
+            if (meta) meta.setAttribute('content', mode === 'dark' ? '#1d2021' : '#f9f5d7');
         }
 
         var stored = null;
@@ -51,7 +54,6 @@
     (function header() {
         var toggle = $('#menu-toggle');
         var nav = $('#nav');
-        var head = $('#site-header');
 
         if (toggle && nav) {
             toggle.addEventListener('click', function () {
@@ -77,16 +79,9 @@
             });
         }
 
-        if (head) {
-            var onScroll = function () {
-                head.classList.toggle('is-stuck', window.scrollY > 8);
-            };
-            window.addEventListener('scroll', onScroll, { passive: true });
-            onScroll();
-        }
-
-        // Scroll spy
-        var links = $$('.nav-link');
+        // Scroll spy — drives both the tab bar and the status line filename
+        var links = $$('.tab');
+        var slSection = $('#sl-section');
         var sections = links
             .map(function (l) { return $(l.getAttribute('href')); })
             .filter(Boolean);
@@ -99,11 +94,139 @@
                         l.classList.toggle('is-active',
                             l.getAttribute('href') === '#' + entry.target.id);
                     });
+                    if (slSection) slSection.textContent = '~/' + entry.target.id;
                 });
             }, { rootMargin: '-45% 0px -50% 0px' });
 
             sections.forEach(function (s) { spy.observe(s); });
         }
+
+        // Status line scroll percentage, the way a pager reports position
+        var slPos = $('#sl-pos');
+        if (slPos) {
+            var tick = false;
+            var update = function () {
+                var doc = document.documentElement;
+                var max = doc.scrollHeight - doc.clientHeight;
+                var pct = max <= 0 ? 100 : Math.round((window.scrollY / max) * 100);
+                slPos.textContent = pct <= 0 ? 'Top' : (pct >= 100 ? 'Bot' : pct + '%');
+                tick = false;
+            };
+            window.addEventListener('scroll', function () {
+                if (tick) return;
+                tick = true;
+                window.requestAnimationFrame(update);
+            }, { passive: true });
+            update();
+        }
+    }());
+
+    /* ----------------------------------------------------------------------
+       2b. Keyboard navigation
+       This is the part that makes it a tool rather than a picture of one.
+       Every binding is a no-op while focus is in a text field, so typing a
+       message in the contact form never triggers a jump.
+       ---------------------------------------------------------------------- */
+    (function keyboard() {
+        var overlay = $('#keys');
+        var helpBtn = $('#help-toggle');
+        var order = ['about', 'skills', 'projects', 'experience', 'contact'];
+
+        function typing() {
+            var el = document.activeElement;
+            if (!el) return false;
+            var tag = el.tagName;
+            return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+        }
+
+        function go(id) {
+            var el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        function currentIndex() {
+            // Whichever section header is nearest the top of the viewport.
+            var best = 0, bestDist = Infinity;
+            order.forEach(function (id, i) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                var d = Math.abs(el.getBoundingClientRect().top - 80);
+                if (d < bestDist) { bestDist = d; best = i; }
+            });
+            return best;
+        }
+
+        function showKeys(on) {
+            if (!overlay) return;
+            overlay.hidden = !on;
+            if (on) {
+                var close = overlay.querySelector('[data-close-keys]');
+                if (close && close.focus) close.focus();
+            } else if (helpBtn) {
+                helpBtn.focus();
+            }
+        }
+
+        if (helpBtn) helpBtn.addEventListener('click', function () { showKeys(overlay.hidden); });
+        if (overlay) {
+            overlay.addEventListener('click', function (e) {
+                if (e.target.closest('[data-close-keys]')) showKeys(false);
+            });
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+            // Escape always works, even from a field, so nothing traps you.
+            if (e.key === 'Escape') {
+                if (overlay && !overlay.hidden) { showKeys(false); return; }
+                if (typing() && document.activeElement.blur) document.activeElement.blur();
+                return;
+            }
+
+            if (typing()) return;
+
+            var k = e.key;
+
+            if (k >= '1' && k <= '5') {
+                e.preventDefault();
+                go(order[Number(k) - 1]);
+                return;
+            }
+
+            switch (k) {
+                case '?':
+                    e.preventDefault();
+                    showKeys(overlay ? overlay.hidden : false);
+                    break;
+                case 't':
+                    e.preventDefault();
+                    if ($('#theme-toggle')) $('#theme-toggle').click();
+                    break;
+                case 'g':
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+                    break;
+                case 'G':
+                    e.preventDefault();
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: reduceMotion ? 'auto' : 'smooth' });
+                    break;
+                case 'j':
+                    e.preventDefault();
+                    go(order[Math.min(order.length - 1, currentIndex() + 1)]);
+                    break;
+                case 'k':
+                    e.preventDefault();
+                    go(order[Math.max(0, currentIndex() - 1)]);
+                    break;
+                case '/':
+                    e.preventDefault();
+                    go('projects');
+                    var first = $('.filter-btn');
+                    if (first) setTimeout(function () { first.focus(); }, reduceMotion ? 0 : 420);
+                    break;
+            }
+        });
     }());
 
     /* ----------------------------------------------------------------------
@@ -113,32 +236,40 @@
         var body = $('#terminal-body');
         if (!body) return;
 
+        // Kept to ~40 columns so the tables stay aligned without sideways scroll.
         var script = [
-            { t: 'cmd',  v: 'SELECT * FROM analyst WHERE name = \'Ibomeno\';' },
+            { t: 'cmd',  v: 'SELECT * FROM analyst;' },
             { t: 'dim',  v: '' },
-            { t: 'head', v: ' role          | Customer Service Analyst' },
-            { t: 'out',  v: ' employer      | British Airways (since Apr 2023)' },
-            { t: 'out',  v: ' function      | MI team of 4' },
-            { t: 'out',  v: ' supports      | 100+ agent contact centre' },
-            { t: 'out',  v: ' focus         | Forecasting, capacity planning' },
-            { t: 'out',  v: ' location      | Manchester, UK' },
-            { t: 'out',  v: ' education     | BSc (Hons), First Class' },
-            { t: 'out',  v: ' stack         | SQL, Excel, Power BI, Tableau' },
+            { t: 'head', v: ' role     | Customer Service Analyst' },
+            { t: 'out',  v: ' employer | British Airways' },
+            { t: 'out',  v: ' team     | MI function, 4 people' },
+            { t: 'out',  v: ' supports | 100+ agent contact centre' },
+            { t: 'out',  v: ' focus    | Forecasting, capacity' },
+            { t: 'out',  v: ' based    | Manchester, UK' },
+            { t: 'out',  v: ' degree   | BSc (Hons), First Class' },
+            { t: 'out',  v: ' stack    | SQL, Excel, Power BI' },
             { t: 'dim',  v: '(1 row)' },
             { t: 'dim',  v: '' },
-            { t: 'cmd',  v: 'SELECT area, count(*) FROM projects GROUP BY area;' },
+            { t: 'cmd',  v: 'SELECT area, count(*) FROM projects' },
+            { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
-            { t: 'head', v: ' area        | count' },
-            { t: 'out',  v: ' SQL         |     6' },
-            { t: 'out',  v: ' Tableau     |     3' },
-            { t: 'out',  v: ' Power BI    |     2' },
-            { t: 'out',  v: ' Python      |     1' },
-            { t: 'out',  v: ' Excel       |     1' },
+            { t: 'head', v: ' area     | count' },
+            { t: 'out',  v: ' SQL      |     6' },
+            { t: 'out',  v: ' Tableau  |     3' },
+            { t: 'out',  v: ' Power BI |     2' },
+            { t: 'out',  v: ' Python   |     1' },
+            { t: 'out',  v: ' Excel    |     1' },
+            { t: 'dim',  v: '(5 rows)' },
             { t: 'dim',  v: '' },
-            { t: 'ok',   v: '-- all public. code on GitHub, dashboards live. scroll down.' }
+            { t: 'ok',   v: '-- all public. click through any of it.' }
         ];
 
-        var CLASS = { cmd: 't-cmd', out: 't-out', dim: 't-dim', ok: 't-ok', head: 't-head' };
+        var CLASS = { cmd: 't-cmd', cont: 't-cmd', out: 't-out', dim: 't-dim', ok: 't-ok', head: 't-head' };
+
+        // psql prompts: `=>` starts a statement, `->` continues one.
+        var PROMPT = { cmd: '=> ', cont: '-> ' };
+
+        function isTyped(item) { return item.t === 'cmd' || item.t === 'cont'; }
 
         // Keep the newest line in view; the script is taller than the panel.
         function pin() { body.scrollTop = body.scrollHeight; }
@@ -146,7 +277,7 @@
         function line(item, text) {
             var el = document.createElement('div');
             el.className = 't-line ' + (CLASS[item.t] || 't-out');
-            el.textContent = (item.t === 'cmd' ? '=> ' : '') + text;
+            el.textContent = (PROMPT[item.t] || '') + text;
             body.appendChild(el);
             pin();
             return el;
@@ -172,16 +303,19 @@
             var item = script[i++];
 
             // Commands type character by character; output appears whole.
-            if (item.t === 'cmd') {
+            if (isTyped(item)) {
                 var el = line(item, '');
+                var prompt = PROMPT[item.t];
                 var c = 0;
                 (function type() {
                     if (c <= item.v.length) {
-                        el.textContent = '=> ' + item.v.slice(0, c++);
+                        el.textContent = prompt + item.v.slice(0, c++);
                         pin();
                         setTimeout(type, 26);
                     } else {
-                        setTimeout(next, 420);
+                        // A continuation line runs straight on; a finished
+                        // statement pauses as though it were executing.
+                        setTimeout(next, item.t === 'cont' ? 380 : 160);
                     }
                 }());
             } else {

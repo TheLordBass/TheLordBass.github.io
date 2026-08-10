@@ -17,16 +17,16 @@
     <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
 
-    <meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1d2021" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f9f5d7" media="(prefers-color-scheme: light)">
 
-    <!-- Inline favicon: monogram, no extra request -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0e14'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='monospace' font-weight='700' fill='%2338bdf8'>IB</text></svg>">
+    <!-- Inline favicon: a shell prompt, no extra request -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231d2021'/><text y='70' x='50' text-anchor='middle' font-size='62' font-family='monospace' font-weight='700' fill='%23fe8019'>&gt;_</text></svg>">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -34,38 +34,32 @@
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<!-- Subtle animated grid backdrop; disabled automatically for reduced-motion users -->
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
-
 <!-- ==========================================================
      Header
      ========================================================== -->
-<header class="site-header" id="site-header">
-    <div class="wrap header-inner">
-        <a class="brand" href="#top">
-            <span class="brand-mark">IB</span>
-            <span class="brand-text">
-                <strong>Ibomeno Basiekanem</strong>
-                <span>Data Analyst</span>
-            </span>
+<header class="tuibar" id="site-header">
+    <div class="wrap tuibar-inner">
+        <a class="host" href="#top">
+            <span class="host-user">ibomeno</span><span class="host-at">@</span><span class="host-machine">basiekanem</span><span class="host-path">:~</span>
         </a>
 
-        <nav class="nav" id="nav" aria-label="Primary">
-            <ul class="nav-list">
-                <li><a class="nav-link" href="#about">About</a></li>
-                <li><a class="nav-link" href="#skills">Skills</a></li>
-                <li><a class="nav-link" href="#projects">Projects</a></li>
-                <li><a class="nav-link" href="#experience">Experience</a></li>
-                <li><a class="nav-link" href="#contact">Contact</a></li>
+        <nav class="tabs" id="nav" aria-label="Primary">
+            <ul class="tab-list">
+                <li><a class="tab" href="#about"      data-jump="1"><b>1</b>about</a></li>
+                <li><a class="tab" href="#skills"     data-jump="2"><b>2</b>skills</a></li>
+                <li><a class="tab" href="#projects"   data-jump="3"><b>3</b>projects</a></li>
+                <li><a class="tab" href="#experience" data-jump="4"><b>4</b>experience</a></li>
+                <li><a class="tab" href="#contact"    data-jump="5"><b>5</b>contact</a></li>
             </ul>
         </nav>
 
-        <div class="header-actions">
-            <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch to light theme" title="Toggle theme">
-                <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        <div class="tuibar-actions">
+            <button type="button" class="keycap" id="theme-toggle" aria-label="Switch to light theme" title="Toggle theme (t)">
+                <span class="keycap-key">t</span><span class="keycap-label" id="theme-label">dark</span>
             </button>
-
+            <button type="button" class="keycap keycap-help" id="help-toggle" aria-label="Show keyboard shortcuts" title="Keyboard shortcuts (?)">
+                <span class="keycap-key">?</span>
+            </button>
             <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
                 <span></span><span></span><span></span>
             </button>
@@ -164,6 +158,12 @@
             </div>
 
             <aside class="about-side">
+                <figure class="mugshot">
+                    <img src="assets/ibomeno.jpg" width="560" height="700" loading="lazy" decoding="async"
+                         alt="Ibomeno Basiekanem, photographed outdoors wearing sunglasses and a striped polo shirt.">
+                    <figcaption>ibomeno.jpg &middot; 560&times;700 &middot; the one photo on this site</figcaption>
+                </figure>
+
                 <h3 class="side-title">At a glance</h3>
                 <dl class="detail-list">
                     <div><dt>Based in</dt><dd>Manchester, UK</dd></div>
@@ -727,9 +727,45 @@
 <footer class="site-footer">
     <div class="wrap footer-inner">
         <p>&copy; <span id="year">2026</span> Ibomeno Basiekanem</p>
-        <p class="footer-meta">Built by hand — no framework, no tracking.</p>
+        <p class="footer-meta">Hand-written HTML, CSS and JavaScript. No framework, no build step, no tracking.</p>
     </div>
 </footer>
+
+<!-- ==========================================================
+     Keyboard shortcut overlay (?)
+     ========================================================== -->
+<div class="keys" id="keys" hidden>
+    <div class="keys-backdrop" data-close-keys></div>
+    <div class="keys-panel" role="dialog" aria-modal="true" aria-labelledby="keys-title">
+        <p class="pane-title" id="keys-title">keybindings</p>
+        <dl class="keys-list">
+            <div><dt><kbd>1</kbd>…<kbd>5</kbd></dt><dd>jump to section</dd></div>
+            <div><dt><kbd>g</kbd></dt><dd>go to top</dd></div>
+            <div><dt><kbd>G</kbd></dt><dd>go to bottom</dd></div>
+            <div><dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>next / previous section</dd></div>
+            <div><dt><kbd>/</kbd></dt><dd>jump to project filter</dd></div>
+            <div><dt><kbd>t</kbd></dt><dd>toggle theme</dd></div>
+            <div><dt><kbd>?</kbd></dt><dd>this panel</dd></div>
+            <div><dt><kbd>Esc</kbd></dt><dd>close any panel</dd></div>
+        </dl>
+        <p class="keys-foot">Mouse works fine too. <button type="button" class="linkish" data-close-keys>dismiss</button></p>
+    </div>
+</div>
+
+<!-- ==========================================================
+     Status line — fixed, like a terminal multiplexer
+     ========================================================== -->
+<div class="statusline" id="statusline" aria-hidden="true">
+    <span class="sl-mode">NORMAL</span>
+    <span class="sl-file" id="sl-section">~/about</span>
+    <span class="sl-keys">
+        <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> jump
+        <span class="sl-sep">·</span> <kbd>/</kbd> filter
+        <span class="sl-sep">·</span> <kbd>t</kbd> theme
+        <span class="sl-sep">·</span> <kbd>?</kbd> keys
+    </span>
+    <span class="sl-pos" id="sl-pos">0%</span>
+</div>
 
 <script type="application/ld+json">
 {
@@ -751,7 +787,6 @@
 }
 </script>
 
-<script src="js/canvas-bg.js" defer></script>
 <script src="js/app.js" defer></script>
 </body>
 </html>
