@@ -777,10 +777,13 @@
         databites: {
             kind: 'Python · Pyodide · PWA',
             title: 'DataBites — learn pandas in tiny bites',
-            repo: 'https://github.com/TheLordBass/adhd-data-learning',
+            live: 'https://thelordbass.github.io/databites/',
+            liveLabel: 'Open DataBites',
+            repo: 'https://github.com/TheLordBass/databites',
             blocks: [
                 { h: 'What it is', p: [
-                    'A browser app that teaches pandas, seaborn and matplotlib in short lessons that each stand on their own. Real Python runs in the browser through Pyodide, so there is nothing to install and no notebook server to get running before you can learn anything.'
+                    'A browser app that teaches pandas, seaborn and matplotlib in short lessons that each stand on their own. Real Python runs in the browser through Pyodide, so there is nothing to install and no notebook server to get running before you can learn anything.',
+                    'It is live, so you can open it and have run something in about ten seconds. Give the runtime a moment on the first load, since it is fetching a Python interpreter.'
                 ]},
                 { h: 'Why I built it', p: [
                     'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. If the material comes in pieces that each make sense alone, a five minute session is still worth doing, and you are far more likely to come back tomorrow.'
@@ -844,11 +847,21 @@
                 html += '</div>';
             });
 
-            html += '<div class="m-foot">' +
-                    '<a class="btn btn-primary" href="' + p.repo + '" target="_blank" rel="noopener noreferrer">' +
-                    (p.repoLabel || 'View on GitHub') + '</a>' +
-                    '<button type="button" class="btn btn-ghost" data-close-modal>Close</button>' +
-                    '</div>';
+            html += '<div class="m-foot">';
+
+            // Where a project is both runnable and readable, the running version
+            // leads and the source follows.
+            if (p.live) {
+                html += '<a class="btn btn-primary" href="' + p.live + '" target="_blank" rel="noopener noreferrer">' +
+                        (p.liveLabel || 'Open it') + '</a>' +
+                        '<a class="btn btn-ghost" href="' + p.repo + '" target="_blank" rel="noopener noreferrer">' +
+                        (p.repoLabel || 'View on GitHub') + '</a>';
+            } else {
+                html += '<a class="btn btn-primary" href="' + p.repo + '" target="_blank" rel="noopener noreferrer">' +
+                        (p.repoLabel || 'View on GitHub') + '</a>';
+            }
+
+            html += '<button type="button" class="btn btn-ghost" data-close-modal>Close</button></div>';
 
             return html;
         }

@@ -874,8 +874,13 @@ main { position: relative; z-index: 1; }
 @media (max-width: 460px) {
     .host-machine { display: none; }
     .host-at { display: none; }
-    .project-actions { flex-wrap: wrap; }
+    /* A card carrying both a Live and a Code badge runs ~8px over at 375px.
+       The `<enter>` prefix is decoration, so it goes first and the labels stay.
+       Wrap is kept as the fallback for anything narrower still. */
+    .project-actions { flex-wrap: wrap; gap: .45rem; }
     .project-repo, .project-viz { margin-left: 0; }
+    .project-open { margin-right: auto; }
+    .project-open::before { content: none; }
 }
 
 /* --------------------------------------------------------------------------
