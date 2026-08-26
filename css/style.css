@@ -12,29 +12,33 @@
    1. Tokens — gruvbox dark
    -------------------------------------------------------------------------- */
 :root {
-    --bg:         #1d2021;  /* bg0_h */
-    --bg-1:       #282828;  /* bg0   */
-    --bg-2:       #32302f;
-    --bg-3:       #3c3836;  /* bg1   */
-    --bg-sel:     #504945;  /* bg2   */
+    /* Ground shared with DataBites (thelordbass.github.io/databites), so
+       moving between the two sites feels like one place. Same warm paper and
+       ink; the structure here stays a TUI. Hues below map one-to-one onto
+       that app's six track inks. */
+    --bg:         #16130f;
+    --bg-1:       #1e1a15;
+    --bg-2:       #241f19;
+    --bg-3:       #2b251e;
+    --bg-sel:     #3a322a;
 
-    --fg:         #ebdbb2;  /* fg1   */
-    --fg-dim:     #bdae93;  /* fg3   */
-    --fg-faint:   #a89984;  /* fg4   */
+    --fg:         #f4eee4;
+    --fg-dim:     #a89f92;
+    --fg-faint:   #8f8579;  /* clears 4.5:1 on bg, bg-1 and bg-2, not just bg */
 
-    --accent:     #fe8019;  /* bright orange */
-    --accent-2:   #d65d0e;  /* orange        */
-    --yellow:     #fabd2f;
-    --green:      #b8bb26;
-    --aqua:       #8ec07c;
-    --blue:       #83a598;
-    --purple:     #d3869b;
-    --red:        #fb4934;
+    --accent:     #f07050;
+    --accent-2:   #d9573c;
+    --yellow:     #d9a874;
+    --green:      #adbd84;
+    --aqua:       #83c39c;
+    --blue:       #7cb2cc;
+    --purple:     #dd94ab;
+    --red:        #ef7a63;
 
-    --line:       #3c3836;
-    --line-2:     #504945;
+    --line:       #302a23;
+    --line-2:     #453d34;
 
-    --on-accent:  #1d2021;
+    --on-accent:  #16130f;
 
     --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -47,32 +51,32 @@
 }
 
 [data-theme="light"] {
-    --bg:         #f9f5d7;  /* light bg0_h */
-    --bg-1:       #fbf1c7;
-    --bg-2:       #f2e5bc;
-    --bg-3:       #ebdbb2;
-    --bg-sel:     #d5c4a1;
+    --bg:         #faf7f0;
+    --bg-1:       #fffdf8;
+    --bg-2:       #f1ebdf;
+    --bg-3:       #ebe4d6;
+    --bg-sel:     #ddd5c5;
 
-    --fg:         #3c3836;
-    --fg-dim:     #504945;
-    --fg-faint:   #665c54;
+    --fg:         #17140f;
+    --fg-dim:     #524b44;
+    --fg-faint:   #6e655a;  /* clears 4.5:1 on bg through bg-3, not just bg */
 
-    --accent:     #af3a03;
-    --accent-2:   #9d0006;
-    /* Gruvbox light's yellow/green/aqua sit at 3.3-4.4:1 on these backgrounds,
-       which fails AA for text. Darkened just enough to clear 4.5:1 while
-       staying recognisably the same hues. */
-    --yellow:     #8f5a0a;
-    --green:      #656209;
-    --aqua:       #356346;
-    --blue:       #076678;
-    --purple:     #8f3f71;
-    --red:        #9d0006;
+    --accent:     #b23a26;
+    --accent-2:   #8e2d1e;
+    /* Same rule the gruvbox light palette needed: these are used as text, so
+       every one is darkened until it clears 4.5:1 on --bg while staying the
+       same hue as its DataBites counterpart. Verified, not eyeballed. */
+    --yellow:     #6b4f34;
+    --green:      #4a5537;
+    --aqua:       #375043;
+    --blue:       #2e4d5d;
+    --purple:     #734556;
+    --red:        #8e3529;
 
-    --line:       #d5c4a1;
-    --line-2:     #bdae93;
+    --line:       #ddd5c5;
+    --line-2:     #c9c0ae;
 
-    --on-accent:  #fbf1c7;
+    --on-accent:  #fdf8f0;
 }
 
 /* --------------------------------------------------------------------------
@@ -103,6 +107,19 @@ body {
     overflow-x: hidden;
 }
 [data-theme="light"] body { background-blend-mode: multiply; }
+
+/* Paper grain, shared with DataBites. Sits over the character-cell grid
+   rather than replacing it — the grid is structure, this is texture. */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="light"] body::after { opacity: .035; }
 
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
