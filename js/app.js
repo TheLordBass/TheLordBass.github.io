@@ -255,8 +255,8 @@
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
             { t: 'out',  v: ' SQL      |     6' },
+            { t: 'out',  v: ' Power BI |     3' },
             { t: 'out',  v: ' Tableau  |     3' },
-            { t: 'out',  v: ' Power BI |     2' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
             { t: 'dim',  v: '(5 rows)' },
@@ -381,6 +381,7 @@
                 cols: ['name', 'type', 'published_on'],
                 rows: [
                     ['AdventureWorks Report',   'Power BI', 'GitHub'],
+                    ['Airline Punctuality',     'Power BI', 'GitHub'],
                     ['Call Centre Manager',     'Tableau',  'Tableau Public'],
                     ['Contact Centre Agent',    'Tableau',  'Tableau Public'],
                     ['COVID-19 Analysis',       'SQL',      'GitHub'],
@@ -470,6 +471,44 @@
        6. Project write-ups (modal)
        ---------------------------------------------------------------------- */
     var PROJECTS = {
+        airline: {
+            kind: 'Power BI · DAX · Power Query',
+            title: 'Airline departure punctuality',
+            repo: 'https://github.com/TheLordBass/Airline-Delay-Analysis',
+            gallery: [
+                { src: 'assets/shots/airline-delay.jpg', cap: 'One page. Six KPIs across the top, punctuality against target, delay minutes by controllability, and the station tables underneath.', alt: 'Power BI dashboard: OTP15 78.23%, average delay 26.4 minutes, load factor 82%, cancellation rate 0.59%, delay rate 21.77% and 45,710 flights, above a monthly OTP15 line against an 80% target, a bar chart of delay minutes split into controllable, uncontrollable and reactionary, and two bar charts ranking delay rate and cancellation rate by origin airport.' }
+            ],
+            blocks: [
+                { h: 'What it is', p: [
+                    'Eighteen months of short-haul departure performance for Northline Air, which does not exist. The carrier is invented and the data is synthetic, generated so I could build the thing end to end without touching anything I am not allowed to publish. Worth saying that up front.',
+                    'The shape of the problem is real enough though. 45,886 flight legs, 25 aircraft, three UK bases at Manchester, Gatwick and Edinburgh, flying to 18 European destinations between January 2025 and June 2026.'
+                ]},
+                { h: 'What I wanted to know', list: [
+                    'How does actual punctuality compare against the 80% OTP15 target?',
+                    'Which delay category does the most damage: controllable, uncontrollable, or reactionary knock-on from a late inbound aircraft?',
+                    'Does a bigger station mean a worse-performing station?',
+                    'What do cancellations and load factor look like as a baseline?'
+                ]},
+                { h: 'What it found', list: [
+                    '<strong>OTP15 came out at 78.23% against an 80% target</strong>, missing it in 9 of the 18 months. The miss is seasonal rather than random. February sits around 71% while October and November peak near 81%, so roughly nine percentage points swing between winter and autumn.',
+                    '<strong>Reactionary delay is the expensive one.</strong> It happens least often, 3,924 events against 6,369 controllable and 6,164 uncontrollable, but it averages 29.8 minutes per event and accounts for 27.8% of all delay minutes. It is also the category the airline did not cause on the day, it inherited it from a late aircraft arriving.',
+                    '<strong>Size does not predict performance.</strong> Amsterdam and Rome sit near the top of the delay-rate table at around 27%, while Manchester, the second-largest base, runs closer to 19%. Ranking stations by rate instead of by count is what makes that visible.',
+                    '<strong>The baselines:</strong> 0.59% cancellation rate across 270 flights, 82% load factor, and an average delay of 26.4 minutes.'
+                ]},
+                { h: 'The part I would want to be asked about', p: [
+                    '1,106 of the 9,898 delayed flights have no recorded cause. That is 11.2% of delays with nothing attached, which puts an uncertainty band around every controllability number on the page. It is stated on the write-up rather than quietly ignored, because a delay split that claims more precision than the data supports is worse than one that admits the gap.',
+                    'The other decisions that mattered: cancelled flights are excluded from OTP but still counted in the cancellation denominator, blank delay values are filtered explicitly so DAX does not coerce them to zero, and OTP15 and Delay Rate share a single denominator measure so the two can never drift apart as the model grows.'
+                ]},
+                { h: 'Getting the data usable', p: [
+                    'Power Query did the cleaning. 642 duplicate rows out via Table.Distinct, whitespace and casing fixed on airport codes, malformed aircraft registrations repaired, free-text delay reasons mapped onto IATA codes, and -999 sentinel values replaced with null rather than filtered out, since a row with a bad sentinel still tells you a flight happened.',
+                    'The model is a star schema with flights as the fact table and dimensions for dates, delay codes with their controllability classification, aircraft and airports. Month-year is sorted by an index so the line chart runs in calendar order instead of alphabetically, which is the small thing that makes a time series readable.'
+                ]},
+                { h: 'Where I would take it next', p: [
+                    'Two things. Quantifying how a single delay propagates through an aircraft rotation across the rest of its day, which is what would turn the reactionary finding into a number someone can act on. And attaching cost per delay minute, so the argument for buying turnaround buffer stops being about minutes and starts being about money.'
+                ]}
+            ]
+        },
+
         'contact-agent': {
             kind: 'Tableau · Contact centre analytics',
             title: 'Contact centre — agent view',
