@@ -332,6 +332,7 @@
         </div>
 
         <div class="project-grid" id="project-grid">
+
             <!-- Featured: Airline departure punctuality -->
             <article class="card project-card is-featured has-shot" data-category="bi" data-project="airline">
                 <a class="project-shot" href="#" data-project="airline" aria-label="Open write-up: Airline departure punctuality">
@@ -350,9 +351,11 @@
                 <ul class="tag-list"><li>Power BI</li><li>DAX</li><li>Power Query</li><li>Aviation</li></ul>
                 <div class="project-actions">
                     <button type="button" class="project-open" data-project="airline">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Airline-Delay-Analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> and .pbix for the airline punctuality analysis on GitHub</span></a>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Airline-Departure-Punctuality-Analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> and .pbix for the airline punctuality analysis on GitHub</span></a>
                 </div>
-            </article>             <!-- NBA: strong project, but no screenshot — a double-width card with
+            </article>
+
+            <!-- NBA: strong project, but no screenshot — a double-width card with
                  no image reads as a gap, so it sits at normal width. -->
             <article class="card project-card" data-category="sql" data-project="nba">
                 <div class="project-top">
@@ -370,28 +373,31 @@
                     <button type="button" class="project-open" data-project="nba">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/NBA-Player-Stats" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for NBA trends and performance analysis on GitHub</span></a>
                 </div>
-            </article>             <!-- Featured: Contact centre agent view (closest to the day job) -->
-            <article class="card project-card is-featured has-shot" data-category="tableau" data-project="contact-agent">
-                <a class="project-shot" href="#" data-project="contact-agent" aria-label="Open write-up: Contact centre agent view">
-                    <img src="assets/shots/tab-contact-agent.jpg" width="1400" height="583" loading="lazy" decoding="async"
-                         alt="Tableau dashboard for one contact centre agent, Becky: average handle time 180.3, average satisfaction 3.4, resolution rate 67.04%, a satisfaction rating distribution across scores one to five, and a call answer ratio donut showing 517 answered against 114 missed.">
+            </article>
+
+            <!-- Featured: Airline customer complaints (companion to the punctuality report) -->
+            <article class="card project-card is-featured has-shot" data-category="bi" data-project="complaints">
+                <a class="project-shot" href="#" data-project="complaints" aria-label="Open write-up: Airline customer complaints">
+                    <img src="assets/shots/airline-complaints.jpg" width="1400" height="782" loading="lazy" decoding="async"
+                         alt="Power BI dashboard showing average resolution time of 22.37 days, 977 complaints, delay as the most complained-about category and £172.36K total compensation, above complaint volume and payout by category, a channel breakdown pie, a monthly complaint line and complaints per 1,000 flights ranked by airport.">
                 </a>
                 <div class="project-top">
-                    <span class="project-kind">Tableau · Contact centre analytics</span>
-                    <h3 class="project-title">Contact centre — agent view</h3>
+                    <span class="project-kind">Power BI · DAX · Power Query</span>
+                    <h3 class="project-title">Airline customer complaints</h3>
                 </div>
                 <p class="project-desc">
-                    I own the equivalent of this at British Airways but the real one can't leave the
-                    building, so I rebuilt the thinking on public data. Handle time, satisfaction,
-                    resolution rate and answered-call ratio for one agent at a time. The idea is that a
-                    team leader opens it in the two minutes before a one-to-one.
+                    The follow-up to the punctuality report, same carrier and same 18 months. I expected
+                    complaints to track delay. They don't. The correlation is 0.11 and three-quarters of
+                    complaints came from flights that left on time.
                 </p>
-                <ul class="tag-list"><li>Tableau</li><li>KPI design</li><li>Parameters</li></ul>
+                <ul class="tag-list"><li>Power BI</li><li>DAX</li><li>Correlation</li><li>Aviation</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="contact-agent">Read the write-up</button>
-                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
+                    <button type="button" class="project-open" data-project="complaints">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Airline-Customer-Complaints-Analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> and .pbix for the airline complaints analysis on GitHub</span></a>
                 </div>
-            </article>             <!-- Call centre manager dashboard.
+            </article>
+
+            <!-- Call centre manager dashboard.
                  Order matters here: each two-column featured card is followed by a
                  one-column card so the three-column grid packs without holes. -->
             <article class="card project-card has-shot" data-category="tableau" data-project="call-manager">
@@ -412,27 +418,32 @@
                     <button type="button" class="project-open" data-project="call-manager">Read the write-up</button>
                     <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
                 </div>
-            </article>             <!-- Featured: Maven Market -->
-            <article class="card project-card is-featured has-shot" data-category="bi" data-project="maven-market">
-                <a class="project-shot" href="#" data-project="maven-market" aria-label="Open write-up: Maven Market retail performance dashboard">
-                    <img src="assets/shots/maven-topline.jpg" width="1200" height="673" loading="lazy" decoding="async"
-                         alt="Power BI dashboard showing current-month transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue-versus-target gauge.">
+            </article>
+
+            <!-- Featured: Contact centre agent view (closest to the day job) -->
+            <article class="card project-card is-featured has-shot" data-category="tableau" data-project="contact-agent">
+                <a class="project-shot" href="#" data-project="contact-agent" aria-label="Open write-up: Contact centre agent view">
+                    <img src="assets/shots/tab-contact-agent.jpg" width="1400" height="583" loading="lazy" decoding="async"
+                         alt="Tableau dashboard for one contact centre agent, Becky: average handle time 180.3, average satisfaction 3.4, resolution rate 67.04%, a satisfaction rating distribution across scores one to five, and a call answer ratio donut showing 517 answered against 114 missed.">
                 </a>
                 <div class="project-top">
-                    <span class="project-kind">Power BI</span>
-                    <h3 class="project-title">Maven Market retail dashboard</h3>
+                    <span class="project-kind">Tableau · Contact centre analytics</span>
+                    <h3 class="project-title">Contact centre — agent view</h3>
                 </div>
                 <p class="project-desc">
-                    Three pages of Power BI tracking transactions, profit and returns against monthly
-                    targets across the USA, Canada and Mexico. Brand-level margin and return rate
-                    underneath, weekly revenue trending, and a gauge running against a $240K target.
+                    I own the equivalent of this at British Airways but the real one can't leave the
+                    building, so I rebuilt the thinking on public data. Handle time, satisfaction,
+                    resolution rate and answered-call ratio for one agent at a time. The idea is that a
+                    team leader opens it in the two minutes before a one-to-one.
                 </p>
-                <ul class="tag-list"><li>Power BI</li><li>DAX</li><li>KPI design</li></ul>
+                <ul class="tag-list"><li>Tableau</li><li>KPI design</li><li>Parameters</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="maven-market">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-market-PowerBI" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Maven Market Power BI report on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="contact-agent">Read the write-up</button>
+                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
                 </div>
-            </article>             <!-- Telecom churn -->
+            </article>
+
+            <!-- Telecom churn -->
             <article class="card project-card has-shot" data-category="tableau" data-project="churn">
                 <a class="project-shot" href="#" data-project="churn" aria-label="Open write-up: Telecom churn analysis">
                     <img src="assets/shots/tab-telecom-churn.jpg" width="1400" height="689" loading="lazy" decoding="async"
@@ -452,7 +463,49 @@
                     <button type="button" class="project-open" data-project="churn">Read the write-up</button>
                     <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
                 </div>
-            </article>             <!-- Featured: AdventureWorks -->
+            </article>
+
+            <!-- Featured: Maven Market -->
+            <article class="card project-card is-featured has-shot" data-category="bi" data-project="maven-market">
+                <a class="project-shot" href="#" data-project="maven-market" aria-label="Open write-up: Maven Market retail performance dashboard">
+                    <img src="assets/shots/maven-topline.jpg" width="1200" height="673" loading="lazy" decoding="async"
+                         alt="Power BI dashboard showing current-month transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue-versus-target gauge.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Power BI</span>
+                    <h3 class="project-title">Maven Market retail dashboard</h3>
+                </div>
+                <p class="project-desc">
+                    Three pages of Power BI tracking transactions, profit and returns against monthly
+                    targets across the USA, Canada and Mexico. Brand-level margin and return rate
+                    underneath, weekly revenue trending, and a gauge running against a $240K target.
+                </p>
+                <ul class="tag-list"><li>Power BI</li><li>DAX</li><li>KPI design</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="maven-market">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-market-PowerBI" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Maven Market Power BI report on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Maven Movies -->
+            <article class="card project-card" data-category="sql" data-project="maven-movies">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Due diligence</span>
+                    <h3 class="project-title">DVD rental acquisition analysis</h3>
+                </div>
+                <p class="project-desc">
+                    Due diligence for investors looking at buying a rental chain. Who manages what, what
+                    the inventory is worth, which parts of the catalogue would hurt most if they walked
+                    out the door, and how much of the revenue rests on a handful of customers.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>Multi-table joins</li><li>CASE</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="maven-movies">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-Movies-Project" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DVD rental acquisition analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Featured: AdventureWorks -->
             <article class="card project-card is-featured has-shot" data-category="bi" data-project="adventureworks">
                 <a class="project-shot" href="#" data-project="adventureworks" aria-label="Open write-up: AdventureWorks executive report">
                     <img src="assets/shots/aw-exec.jpg" width="1200" height="675" loading="lazy" decoding="async"
@@ -472,23 +525,9 @@
                     <button type="button" class="project-open" data-project="adventureworks">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/AdventureWorks-Power-BI-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for AdventureWorks Power BI report on GitHub</span></a>
                 </div>
-            </article>             <!-- Maven Movies -->
-            <article class="card project-card" data-category="sql" data-project="maven-movies">
-                <div class="project-top">
-                    <span class="project-kind">SQL · Due diligence</span>
-                    <h3 class="project-title">DVD rental acquisition analysis</h3>
-                </div>
-                <p class="project-desc">
-                    Due diligence for investors looking at buying a rental chain. Who manages what, what
-                    the inventory is worth, which parts of the catalogue would hurt most if they walked
-                    out the door, and how much of the revenue rests on a handful of customers.
-                </p>
-                <ul class="tag-list"><li>SQL</li><li>Multi-table joins</li><li>CASE</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="maven-movies">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-Movies-Project" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DVD rental acquisition analysis on GitHub</span></a>
-                </div>
-            </article>             <!-- COVID -->
+            </article>
+
+            <!-- COVID -->
             <article class="card project-card" data-category="sql" data-project="covid">
                 <div class="project-top">
                     <span class="project-kind">SQL · Exploratory analysis</span>
@@ -504,7 +543,9 @@
                     <button type="button" class="project-open" data-project="covid">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
                 </div>
-            </article>             <!-- Uber -->
+            </article>
+
+            <!-- Uber -->
             <article class="card project-card" data-category="sql" data-project="uber">
                 <div class="project-top">
                     <span class="project-kind">SQL · Business modelling</span>
@@ -520,7 +561,9 @@
                     <button type="button" class="project-open" data-project="uber">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/Partner-Business-Modeling" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for driver incentive scheme modelling on GitHub</span></a>
                 </div>
-            </article>             <!-- League of Legends -->
+            </article>
+
+            <!-- League of Legends -->
             <article class="card project-card" data-category="sql" data-project="lol">
                 <div class="project-top">
                     <span class="project-kind">SQL</span>
@@ -535,7 +578,9 @@
                     <button type="button" class="project-open" data-project="lol">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/League-of-legends-analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for League of Legends analysis on GitHub</span></a>
                 </div>
-            </article>             <!-- Premier League Excel -->
+            </article>
+
+            <!-- Premier League Excel -->
             <article class="card project-card" data-category="excel" data-project="epl">
                 <div class="project-top">
                     <span class="project-kind">Excel</span>
@@ -550,7 +595,9 @@
                     <button type="button" class="project-open" data-project="epl">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Premier League Excel analysis on GitHub</span></a>
                 </div>
-            </article>             <!-- DataBites -->
+            </article>
+
+            <!-- DataBites -->
             <article class="card project-card" data-category="python" data-project="databites">
                 <div class="project-top">
                     <span class="project-kind">Python · JavaScript</span>
@@ -567,7 +614,9 @@
                     <a class="project-viz" href="https://thelordbass.github.io/databites/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open DataBites and run Python in the browser</span></a>
                     <a class="project-repo" href="https://github.com/TheLordBass/databites" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DataBites on GitHub</span></a>
                 </div>
-            </article>             <!-- SQL practice -->
+            </article>
+
+            <!-- SQL practice -->
             <article class="card project-card" data-category="sql" data-project="practice">
                 <div class="project-top">
                     <span class="project-kind">SQL · Practice</span>

@@ -255,7 +255,7 @@
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
             { t: 'out',  v: ' SQL      |     6' },
-            { t: 'out',  v: ' Power BI |     3' },
+            { t: 'out',  v: ' Power BI |     4' },
             { t: 'out',  v: ' Tableau  |     3' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
@@ -381,6 +381,7 @@
                 cols: ['name', 'type', 'published_on'],
                 rows: [
                     ['AdventureWorks Report',   'Power BI', 'GitHub'],
+                    ['Airline Complaints',     'Power BI', 'GitHub'],
                     ['Airline Punctuality',     'Power BI', 'GitHub'],
                     ['Call Centre Manager',     'Tableau',  'Tableau Public'],
                     ['Contact Centre Agent',    'Tableau',  'Tableau Public'],
@@ -471,10 +472,43 @@
        6. Project write-ups (modal)
        ---------------------------------------------------------------------- */
     var PROJECTS = {
+        complaints: {
+            kind: 'Power BI · DAX · Correlation',
+            title: 'Airline customer complaints',
+            repo: 'https://github.com/TheLordBass/Airline-Customer-Complaints-Analysis',
+            gallery: [
+                { src: 'assets/shots/airline-complaints.jpg', cap: 'Four KPIs, complaint volume against payout by category, the channel split, the monthly line, and stations normalised per 1,000 flights.', alt: 'Power BI dashboard: average resolution time 22.37 days, 977 complaints, delay as the most complained-about category, £172.36K total compensation, a combined bar and line chart of complaints and payout by category, a channel pie showing email at 43%, a monthly complaint line, and complaints per 1,000 flights ranked from Newcastle down to Belfast.' }
+            ],
+            blocks: [
+                { h: 'Why I built it', p: [
+                    'This is the second half of the punctuality project. Same invented carrier, same synthetic data, same 18 months and same 45,886 flight legs. Having spent that first report working out where delay comes from, the obvious next question was whether fixing delay would actually make passengers any happier.',
+                    '977 complaints, £172,360 paid out. Delay is the single most complained-about category, so I went in expecting the two datasets to line up neatly.'
+                ]},
+                { h: 'They do not line up', p: [
+                    'The correlation between monthly complaints and monthly on-time performance is <strong>0.11</strong>. That is nothing. And three-quarters of the complaints came from flights that departed on time.',
+                    'So the headline from the first report, that reactionary delay is where the operational leverage sits, is still true for punctuality and simply does not carry across to complaints. If you spent the money on turnaround buffer and expected the complaint line to follow it down, you would be disappointed and you would not know why. Whatever is making people complain is happening somewhere else in the journey, and this dataset cannot tell you where.'
+                ]},
+                { h: 'The rest of what it found', list: [
+                    '<strong>Compensation is a volume story, not a severity one.</strong> Average payout barely moves across the six categories, £172 to £197, and only about half of complaints attract any payment at all. So total compensation tracks complaint count almost proportionally, and delay only dominates the total because it dominates the count.',
+                    '<strong>Resolution time is uniformly slow.</strong> 22.4 days on average, 22.5 median, and almost no variation by category. When everything takes the same length of time regardless of how hard it is, that points at a capacity or process ceiling rather than at any particular complaint type.',
+                    '<strong>Stations vary more than anything else does.</strong> Newcastle runs at 32 complaints per 1,000 flights against Belfast at 14, a 2.3x spread. Normalising per 1,000 flights is what makes that comparable; raw counts would just rank the busiest airports.',
+                    '<strong>Two-thirds of contact is asynchronous.</strong> Email 43%, web form 29%, phone 16%, social 12%. That matters for staffing, because an email queue and a phone queue need completely different resourcing models.'
+                ]},
+                { h: 'What I would not claim', p: [
+                    '23 complaints have no resolution date. I kept them and flagged them rather than dropping them, because if they are open cases rather than bad records then the real resolution time is worse than 22.4 days, not better. It is a small number against 977, but it moves the figure in only one direction and that is worth saying out loud.',
+                    'The correlation finding is also a negative result. It tells you delay is not the driver; it does not tell you what is. The honest next step is testing load factor, aircraft age and time of day, and looking for repeat complainants to separate systemic failures from one-off bad days.'
+                ]},
+                { h: 'Under the hood', p: [
+                    'Complaints as the fact table joined to flights on flight_id, which is what makes the punctuality comparison possible at all, plus a generated date table and an airports reference. Complaints per 1,000 flights reuses the same Eligible Flights measure the punctuality report uses, so the two reports cannot disagree with each other about how many flights there were.',
+                    'Power Query cleaned 84 rows of channel casing, 90 airport codes, 642 duplicate flight records and 91 sentinel values in the delay columns.'
+                ]}
+            ]
+        },
+
         airline: {
             kind: 'Power BI · DAX · Power Query',
             title: 'Airline departure punctuality',
-            repo: 'https://github.com/TheLordBass/Airline-Delay-Analysis',
+            repo: 'https://github.com/TheLordBass/Airline-Departure-Punctuality-Analysis',
             gallery: [
                 { src: 'assets/shots/airline-delay.jpg', cap: 'One page. Six KPIs across the top, punctuality against target, delay minutes by controllability, and the station tables underneath.', alt: 'Power BI dashboard: OTP15 78.23%, average delay 26.4 minutes, load factor 82%, cancellation rate 0.59%, delay rate 21.77% and 45,710 flights, above a monthly OTP15 line against an 80% target, a bar chart of delay minutes split into controllable, uncontrollable and reactionary, and two bar charts ranking delay rate and cancellation rate by origin airport.' }
             ],
@@ -504,6 +538,7 @@
                     'The model is a star schema with flights as the fact table and dimensions for dates, delay codes with their controllability classification, aircraft and airports. Month-year is sorted by an index so the line chart runs in calendar order instead of alphabetically, which is the small thing that makes a time series readable.'
                 ]},
                 { h: 'Where I would take it next', p: [
+                    'The complaints report on this page is the direct follow-on, and the short version is that it did not go the way I expected. Complaints turned out to be almost uncorrelated with punctuality, which means none of the leverage described above would have moved them.',
                     'Two things. Quantifying how a single delay propagates through an aircraft rotation across the rest of its day, which is what would turn the reactionary finding into a number someone can act on. And attaching cost per delay minute, so the argument for buying turnaround buffer stops being about minutes and starts being about money.'
                 ]}
             ]
