@@ -510,12 +510,12 @@
             title: 'Airline departure punctuality',
             repo: 'https://github.com/TheLordBass/Airline-Departure-Punctuality-Analysis',
             gallery: [
-                { src: 'assets/shots/airline-delay.jpg', cap: 'One page. Six KPIs across the top, punctuality against target, delay minutes by controllability, and the station tables underneath.', alt: 'Power BI dashboard: OTP15 78.23%, average delay 26.4 minutes, load factor 82%, cancellation rate 0.59%, delay rate 21.77% and 45,710 flights, above a monthly OTP15 line against an 80% target, a bar chart of delay minutes split into controllable, uncontrollable and reactionary, and two bar charts ranking delay rate and cancellation rate by origin airport.' }
+                { src: 'assets/shots/airline-delay.jpg', cap: 'One page. OTP15 tracked against its 80% goal, five more KPIs across the top, then delay by controllability and the station rankings underneath.', alt: 'Power BI dashboard: OTP15 78.26% against an 80% goal, average delay 26.4 minutes, load factor 82%, cancellation rate 0.59%, delay rate 21.76% and 45,886 flights, above a monthly OTP15 line against an 80% target, a bar chart of delay minutes split into controllable, uncontrollable and reactionary, and two bar charts ranking delay rate and cancellation rate by origin airport.' }
             ],
             blocks: [
                 { h: 'What it is', p: [
                     'Eighteen months of short-haul departure performance for Northline Air, which does not exist. The carrier is invented and the data is synthetic, generated so I could build the thing end to end without touching anything I am not allowed to publish. Worth saying that up front.',
-                    'The shape of the problem is real enough though. 45,886 flight legs, 25 aircraft, three UK bases at Manchester, Gatwick and Edinburgh, flying to 18 European destinations between January 2025 and June 2026.'
+                    'The shape of the problem is real enough though. 45,886 flight legs, 25 aircraft, three UK bases at Manchester, Gatwick and Edinburgh, 18 airports in total, running from January 2025 to June 2026.'
                 ]},
                 { h: 'What I wanted to know', list: [
                     'How does actual punctuality compare against the 80% OTP15 target?',
@@ -524,8 +524,9 @@
                     'What do cancellations and load factor look like as a baseline?'
                 ]},
                 { h: 'What it found', list: [
-                    '<strong>OTP15 came out at 78.23% against an 80% target</strong>, missing it in 9 of the 18 months. The miss is seasonal rather than random. February sits around 71% while October and November peak near 81%, so roughly nine percentage points swing between winter and autumn.',
-                    '<strong>Reactionary delay is the expensive one.</strong> It happens least often, 3,924 events against 6,369 controllable and 6,164 uncontrollable, but it averages 29.8 minutes per event and accounts for 27.8% of all delay minutes. It is also the category the airline did not cause on the day, it inherited it from a late aircraft arriving.',
+                    '<strong>OTP15 came out at 78.26% against an 80% target</strong>, missing it in 9 of the 18 months. The miss is seasonal rather than random. February sits around 71% while October and November peak near 81%, so roughly nine percentage points swing between winter and autumn.',
+                    '<strong>Reactionary delay is the expensive one.</strong> Controllable and uncontrollable delays both average 24.3 minutes each. Reactionary averages 29.8, so it is the only category that separates from the other two on cost per event rather than on how often it happens. It occurs least of the three, 3,924 events against 6,369 and 6,164, and still accounts for 27.8% of every delay minute in the dataset.',
+                    '<strong>It is also the one the airline did not cause that day.</strong> Reactionary delay arrives with an aircraft that was already late from somewhere else, which is what makes it worth chasing. You cannot fix it at the gate where it shows up.',
                     '<strong>Size does not predict performance.</strong> Amsterdam and Rome sit near the top of the delay-rate table at around 27%, while Manchester, the second-largest base, runs closer to 19%. Ranking stations by rate instead of by count is what makes that visible.',
                     '<strong>The baselines:</strong> 0.59% cancellation rate across 270 flights, 82% load factor, and an average delay of 26.4 minutes.'
                 ]},
