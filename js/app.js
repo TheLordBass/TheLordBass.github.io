@@ -242,9 +242,7 @@
             { t: 'dim',  v: '' },
             { t: 'head', v: ' role     | Customer Service Analyst' },
             { t: 'out',  v: ' employer | British Airways' },
-            { t: 'out',  v: ' team     | MI function, 4 people' },
-            { t: 'out',  v: ' supports | 100+ agent contact centre' },
-            { t: 'out',  v: ' focus    | Forecasting, capacity' },
+            { t: 'out',  v: ' likes    | Counter-intuitive results' },
             { t: 'out',  v: ' based    | Manchester, UK' },
             { t: 'out',  v: ' degree   | BSc (Hons), First Class' },
             { t: 'out',  v: ' stack    | SQL, Excel, Power BI' },
@@ -369,11 +367,11 @@
                 sql: 'SELECT area, focus FROM day_to_day;',
                 cols: ['area', 'focus'],
                 rows: [
-                    ['Forecasting', 'Monthly agent requirement from contact flow'],
-                    ['Capacity',    'Modelling volume, shrinkage and occupancy'],
-                    ['Reporting',   'Replacing manual prep with scheduled queries'],
-                    ['Dashboards',  'Building for the decision, not for every field'],
-                    ['Stakeholders','Turning a vague ask into a defined requirement']
+                    ['Framing',      'Checking the question before touching data'],
+                    ['Forecasting',  'Turning a history into a number to plan on'],
+                    ['Cleaning',     'Finding what the data quietly gets wrong'],
+                    ['Dashboards',   'Building for the decision, not every field'],
+                    ['Writing up',   'Saying what I am not confident about too']
                 ]
             },
             projects: {
@@ -567,7 +565,7 @@
                 ]},
                 { h: 'Why it is built this way', p: [
                     'The thing I actually care about here is that the efficiency numbers and the experience numbers sit side by side. Contact centre reporting has a long history of squeezing handle time until service quality quietly falls over, and you only notice months later. Putting them together means the trade-off is on screen instead of buried.',
-                    'The test I hold my own dashboards to is whether people use them when I am not around. One of the four I look after at work gets opened before one-to-ones by agents and team leaders who have never once asked me how to read it, and I do not think there is a better measure than that.'
+                    'The test I hold a dashboard to is whether somebody uses it when I am not in the room. If a person has to ask me how to read it, I have not finished it, and no amount of polish on the visuals fixes that. It is the reason the agent picker is a plain dropdown and the numbers are just numbers.'
                 ]}
             ]
         },
