@@ -861,8 +861,12 @@
                 { h: 'Why I built it', p: [
                     'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. So the home screen is one button, the next lesson. Each concept gets three bullets at most before you type something, and getting stuck is one tap away from the answer with no penalty for taking it. A five minute session is still worth doing, and you are far more likely to come back tomorrow.'
                 ]},
+                { h: 'How it was built', p: [
+                    'With Claude, Anthropic\u2019s AI model. All 32 of its commits were co-written with Claude, and a lot of the code came out of that back and forth, the DAX engine included. It would feel wrong to put it on a portfolio without saying so.',
+                    'What was mine was the reason for it and the direction: what it should teach, what to leave out, and how a lesson should feel on a phone. All of that came from the specific ways I kept bouncing off other tutorials.'
+                ]},
                 { h: 'The DAX engine', p: [
-                    'The part I am proudest of. You cannot run Microsoft\u2019s DAX engine in a browser, so I wrote one: about 2,200 lines of Python that handles measures, filter and row context, context transition, CALCULATE with ALL, ALLEXCEPT and KEEPFILTERS, the X iterators, RELATED, RANKX and time intelligence on a marked calendar table. Relationships filter one way from lookup to data, as they do in a default Power BI model.',
+                    'You cannot run Microsoft\u2019s DAX engine in a browser, so we built one: about 2,200 lines of Python that handles measures, filter and row context, context transition, CALCULATE with ALL, ALLEXCEPT and KEEPFILTERS, the X iterators, RELATED, RANKX and time intelligence on a marked calendar table. Relationships filter one way from lookup to data, as they do in a default Power BI model.',
                     'Every DAX lesson\u2019s answer was checked against the same numbers worked out separately in pandas. It also has a known gap, and I would sooner say so than have someone find it. Using a whole data table as a CALCULATE filter only filters that table. It does not reach the lookup tables through it the way Power BI\u2019s expanded tables do. Column filters, FILTER and SUMMARIZE over related columns all behave correctly.'
                 ]},
                 { h: 'One workspace, three languages', p: [
