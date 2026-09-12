@@ -15,7 +15,7 @@
     /* Ground shared with DataBites (thelordbass.github.io/databites), so
        moving between the two sites feels like one place. Same warm paper and
        ink; the structure here stays a TUI. Hues below map one-to-one onto
-       that app's six track inks. */
+       six of that app's track inks, the original six. */
     --bg:         #16130f;
     --bg-1:       #1e1a15;
     --bg-2:       #241f19;
@@ -218,26 +218,6 @@ main { position: relative; z-index: 1; }
 
 .prose { color: var(--fg-dim); max-width: 74ch; }
 .prose p + p { margin-top: 1rem; }
-
-/* An aside, set apart the way a terminal sets apart a note. */
-.origin {
-    max-width: 74ch;
-    margin: 1.4rem 0;
-    padding: .9rem 1.1rem;
-    background: var(--bg-1);
-    border: 1px dashed var(--line-2);
-    border-left: 2px solid var(--accent);
-}
-.origin-title {
-    font-size: .78rem;
-    text-transform: lowercase;
-    letter-spacing: .04em;
-    color: var(--accent);
-    margin-bottom: .6rem;
-}
-.origin-title::before { content: "# "; color: var(--line-2); }
-.origin p:not(.origin-title) { font-size: .9rem; color: var(--fg-dim); }
-.origin p + p { margin-top: .7rem; }
 
 /* Panes ------------------------------------------------------------------ */
 .card {
