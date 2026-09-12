@@ -848,23 +848,29 @@
         },
 
         databites: {
-            kind: 'Python · Pyodide · PWA',
-            title: 'DataBites — learn pandas in tiny bites',
+            kind: 'Pyodide · SQLite · JavaScript',
+            title: 'DataBites — Python, SQL and DAX in small bites',
             live: 'https://thelordbass.github.io/databites/',
             liveLabel: 'Open DataBites',
             repo: 'https://github.com/TheLordBass/databites',
             blocks: [
                 { h: 'What it is', p: [
-                    'A browser app that teaches pandas, seaborn and matplotlib in short lessons that each stand on their own. Real Python runs in the browser through Pyodide, so there is nothing to install and no notebook server to get running before you can learn anything.',
-                    'It is live, so you can open it and have run something in about ten seconds. Give the runtime a moment on the first load, since it is fetching a Python interpreter.'
+                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 160 lessons across nine tracks, 100 in Python, 35 in SQL and 25 in DAX, plus 124 practice problems, 50 Python, 50 SQL and 24 DAX.',
+                    'Nothing gets installed and nothing leaves the device. Your code and your progress stay in the browser, and after the first load it works with no connection. That first load pulls down about 25MB of Python runtime, so it is worth doing on wifi once.'
                 ]},
                 { h: 'Why I built it', p: [
-                    'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. If the material comes in pieces that each make sense alone, a five minute session is still worth doing, and you are far more likely to come back tomorrow.'
+                    'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. So the home screen is one button, the next lesson. Each concept gets three bullets at most before you type something, and getting stuck is one tap away from the answer with no penalty for taking it. A five minute session is still worth doing, and you are far more likely to come back tomorrow.'
                 ]},
-                { h: 'What it demonstrates', list: [
-                    'Working well outside the analyst comfort zone. This is a front-end build, not a query.',
-                    'Running an actual Python runtime client-side with Pyodide, along with all the loading and caching problems that brings with it.',
-                    'Installable as a PWA and works offline once it has cached.'
+                { h: 'The DAX engine', p: [
+                    'The part I am proudest of. You cannot run Microsoft\u2019s DAX engine in a browser, so I wrote one: about 2,200 lines of Python that handles measures, filter and row context, context transition, CALCULATE with ALL, ALLEXCEPT and KEEPFILTERS, the X iterators, RELATED, RANKX and time intelligence on a marked calendar table. Relationships filter one way from lookup to data, as they do in a default Power BI model.',
+                    'Every DAX lesson\u2019s answer was checked against the same numbers worked out separately in pandas. It also has a known gap, and I would sooner say so than have someone find it. Using a whole data table as a CALCULATE filter only filters that table. It does not reach the lookup tables through it the way Power BI\u2019s expanded tables do. Column filters, FILTER and SUMMARIZE over related columns all behave correctly.'
+                ]},
+                { h: 'One workspace, three languages', p: [
+                    'SQL runs in SQLite through Python\u2019s own sqlite3, and every DataFrame becomes a table of the same name. So the SQL lessons query the very same cafe table the pandas lessons use, and nothing needs keeping in sync. The sandbox has a Python, SQL and DAX switch over one shared workspace. Make a DataFrame in Python mode and it is a table in SQL mode.'
+                ]},
+                { h: 'Practice that tests honestly', p: [
+                    'The practice problems work like LeetCode. There is no starter code, and your answer is judged against hidden inputs that include the edge cases the problem is really about: ties, missing values, empty results. When it fails it shows you exactly which case broke, what was expected and what you returned.',
+                    'Each problem also carries tempting wrong answers that the tests must reject, like a >= where it should be >, or an inner join that quietly drops the customers who never ordered. If a wrong answer ever passed, the hidden cases would not be testing the trap, so this proves they do. Alternative correct answers go in the other direction and must pass, which catches tests that only allow one way of writing it.'
                 ]}
             ]
         },
