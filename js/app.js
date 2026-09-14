@@ -253,7 +253,7 @@
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
             { t: 'out',  v: ' SQL      |     6' },
-            { t: 'out',  v: ' Power BI |     4' },
+            { t: 'out',  v: ' Power BI |     5' },
             { t: 'out',  v: ' Tableau  |     3' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
@@ -386,6 +386,7 @@
                     ['COVID-19 Analysis',       'SQL',      'GitHub'],
                     ['DVD Rental Analysis',     'SQL',      'GitHub'],
                     ['Maven Market Dashboard',  'Power BI', 'GitHub'],
+                    ['Mobile Game Revenue',     'Power BI', 'GitHub'],
                     ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
                     ['Telecom Churn',           'Tableau',  'Tableau Public']
                 ]
@@ -499,6 +500,39 @@
                 { h: 'Under the hood', p: [
                     'Complaints as the fact table joined to flights on flight_id, which is what makes the punctuality comparison possible at all, plus a generated date table and an airports reference. Complaints per 1,000 flights reuses the same Eligible Flights measure the punctuality report uses, so the two reports cannot disagree with each other about how many flights there were.',
                     'Power Query cleaned 84 rows of channel casing, 90 airport codes, 642 duplicate flight records and 91 sentinel values in the delay columns.'
+                ]}
+            ]
+        },
+
+        game: {
+            kind: 'Power BI · DAX · Power Query',
+            title: 'Mobile game revenue',
+            repo: 'https://github.com/TheLordBass/Mobile-Game-Revenue-Analysis',
+            gallery: [
+                { src: 'assets/shots/mobile-game.jpg', cap: 'One page. Seven KPIs across the top, revenue by item category, revenue and paying players on one monthly axis, the Pareto curve, revenue by item and the top ten countries.', alt: 'Power BI dashboard for a free-to-play game: total revenue £109.83K, ARPPU £51.93, ARPU £7.76, 14K players, refund rate 2.13% and conversion 14.95%, above a donut of revenue by item category led by packs and currency, a monthly chart of paying players against revenue, a Pareto chart of revenue by player decile, a bar chart of revenue by item led by the Elite Scout Bundle, and the top ten countries by revenue led by the United Kingdom and United States.' }
+            ],
+            blocks: [
+                { h: 'What it is', p: [
+                    'Eighteen months of in-app purchases from Tactic Royale, a free-to-play football management game that does not exist. That will not surprise anyone who read the About section. The game and the data are both made up, generated so I could build the whole thing end to end: 14,151 players, 16,296 transactions and £109,834 of gross revenue between January 2025 and June 2026.'
+                ]},
+                { h: 'Where the growth came from', p: [
+                    'Revenue went from £796 in January 2025 to a peak of £9,351 in March 2026, roughly twelve times over. Two things moved. Paying players went from 67 to 383 a month, and the average paying player went from spending £11.88 a month to £24.42. Both matter, but more people paying did most of the work, and that is a different business problem from getting the players you already have to spend more.'
+                ]},
+                { h: 'What people pay for', p: [
+                    'Progression, almost entirely. Packs bring in 43.5% of revenue, in-game currency 37.9% and subscriptions 10.1%, with one-off purchases and boosts at a few per cent each. Cosmetics make under 2%. The four biggest earning items are all progression too: the Elite Scout Bundle at £18,807, 10000 Coins at £16,654, the Gold Scout Pack at £15,467 and 50000 Coins at £14,970.'
+                ]},
+                { h: 'Who pays', p: [
+                    'The top 10% of paying players bring in 64.5% of all revenue, and the top 1% bring in 13.2%. That is about 210 people carrying nearly two-thirds of the income, which looks fine in the averages and turns into a real problem the moment a few of them get bored.',
+                    'Power BI has no Pareto chart, so the curve is built from a column-and-line visual with a cumulative revenue measure. The one decision that mattered was fixing the percentage axis at 0 to 100. Left to auto-scale, the curve looks like a gentle slope. Fixed, it shows what is actually there: a near-vertical jump to 64.5% at the first decile, then a long flat tail.'
+                ]},
+                { h: 'What I would not claim', p: [
+                    'The conversion rate is 14.95%, which is not believable. Real free-to-play games usually convert somewhere between 2% and 5% of players. That number is a side effect of the data being synthetic, so the comparisons inside the dataset hold up and the absolute rate means nothing.',
+                    'Currency conversion also uses fixed rates, 1 GBP to 1.27 USD and 1.18 EUR. A real version would convert each purchase at the rate on the day it happened.'
+                ]},
+                { h: 'Getting the data usable', p: [
+                    'The biggest catch was the currency column. The supplied GBP amount was blank for 4,308 transactions, 26% of them, all non-GBP purchases. Summing it as given would have understated revenue by roughly a quarter, so the GBP value is rebuilt from the original amount and currency for every row.',
+                    'The other decisions: 140 test accounts removed in Power Query, because excluding them inside each measure would leave them counted everywhere else; 209 duplicate transactions removed, which had inflated gross revenue to £111,190; and dates parsed as UK format, since 10,691 of them would otherwise have had the day and month silently swapped.',
+                    'Transactions and sessions are two fact tables at different grains. Both relate to players and the date table but not to each other, because flattening them into one table would multiply every purchase by every session.'
                 ]}
             ]
         },
