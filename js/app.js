@@ -517,6 +517,9 @@
                 { h: 'What people pay for', p: [
                     'Progression, almost entirely. Packs bring in 43.5% of revenue, in-game currency 37.9% and subscriptions 10.1%, with one-off purchases and boosts at a few per cent each. Cosmetics make under 2%. The four biggest earning items are all progression too: the Elite Scout Bundle at £18,807, 10000 Coins at £16,654, the Gold Scout Pack at £15,467 and 50000 Coins at £14,970.'
                 ]},
+                { h: 'Refunds', p: [
+                    '2.13% of transactions were refunded, which sounds worse than it is once you look at the money. The refunded value comes to £734, 0.67% of gross, leaving £109,100 net. The average refund is roughly a third of an average purchase, so refunds mostly land on the small buys and hardly touch the packs and currency bundles that bring in the revenue.'
+                ]},
                 { h: 'Who pays', p: [
                     'The top 10% of paying players bring in 64.5% of all revenue, and the top 1% bring in 13.2%. That is about 210 people carrying nearly two-thirds of the income, which looks fine in the averages and turns into a real problem the moment a few of them get bored.',
                     'Power BI has no Pareto chart, so the curve is built from a column-and-line visual with a cumulative revenue measure. The one decision that mattered was fixing the percentage axis at 0 to 100. Left to auto-scale, the curve looks like a gentle slope. Fixed, it shows what is actually there: a near-vertical jump to 64.5% at the first decile, then a long flat tail.'
@@ -746,18 +749,29 @@
             repo: 'https://github.com/TheLordBass/Partner-Business-Modeling',
             blocks: [
                 { h: 'The decision', p: [
-                    'Two bonus schemes, both meant to get more drivers out on a busy Saturday. Somebody had to pick one, and a decent answer needed more than just which one costs less.'
+                    'Demand was due to spike on a Saturday and the business needed a lot more drivers online than the week before. Two bonus schemes were on the table and they reward completely different behaviour, so the question was what each one costs and who each one leaves out.'
                 ]},
                 { h: 'The two options', list: [
                     '<strong>Option 1, a $50 flat bonus.</strong> Needs 8+ supply hours, 90%+ acceptance rate, 10+ trips and a 4.7+ rating. Four conditions and all of them have to hold.',
                     '<strong>Option 2, $4 a trip.</strong> Needs 12+ trips and a 4.7+ rating. Two conditions, and what you get paid scales with what you do.'
                 ]},
-                { h: 'How I approached it', p: [
-                    'Ran every driver in the data against both sets of rules to get qualification rates and total payout under each. That part is straightforward.',
-                    'The interesting part is what each scheme is quietly encouraging. Option 1 has an acceptance rate condition, so it goes after availability and reliability, but it is all or nothing. Miss one of the four and you get nothing, and a driver who works out halfway through their shift that they have already failed has no reason to keep going. Option 2 keeps paying right to the end of the day, but it does nothing at all about acceptance rate.'
+                { h: 'What they cost', list: [
+                    '<strong>Option 1: $1,050.</strong> 21 drivers clear all four conditions, at $50 each.',
+                    '<strong>Option 2: $2,696.</strong> 674 qualifying trips at $4 each, about 2.6 times as much.',
+                    '<strong>Only 2 drivers</strong> clear Option 1 without clearing Option 2. They are the ones doing 10 or 11 trips while meeting every quality bar, and they were the main fairness argument against Option 2. At 2 people it does not hold up.'
                 ]},
-                { h: 'Why it matters', p: [
-                    'The SQL here is not hard. The analysis is in how you frame the answer. If I had come back with just the cheaper total I would have answered the question I was asked and completely missed the decision being made.'
+                { h: 'What I recommended', p: [
+                    'Option 1. It costs $1,646 less, under 40% of what Option 2 would, and the fairness objection only touches those 2 drivers.',
+                    'The cost gap is not the whole case either. Option 2 has no condition on acceptance or hours online, and it pays per trip to drivers who were already doing 12 or more, so a good chunk of that $2,696 pays for trips that would have happened anyway. Option 1 pays for hours online and requests accepted, which is what keeps riders from waiting on a surge day.'
+                ]},
+                { h: 'The bigger opportunity', p: [
+                    '10.92% of the drivers online, roughly one in nine, hold a 4.7+ rating but completed fewer than 10 trips and accepted under 90% of requests. Neither scheme is aimed at them. They are the biggest pool of spare supply in the data, and getting even some of them working more would add more cars than either bonus buys.'
+                ]},
+                { h: 'What this does not tell you', p: [
+                    'Both costs come from how drivers behaved before any bonus existed. The real test is how many extra drivers each scheme actually gets online, and a cheaper scheme that moves fewer people is not really the cheaper one. That needs a trial, not a query.'
+                ]},
+                { h: 'How it was built', p: [
+                    'Compound WHERE clauses translating each rule straight into SQL, COUNT and SUM over the filtered drivers to price each scheme, and a subquery for the share. That share needed an explicit CAST to FLOAT, because integer division returns 0 without complaint, and 0% looks like a believable answer.'
                 ]}
             ]
         },
