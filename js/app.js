@@ -254,10 +254,9 @@
             { t: 'head', v: ' area     | count' },
             { t: 'out',  v: ' SQL      |     6' },
             { t: 'out',  v: ' Power BI |     5' },
-            { t: 'out',  v: ' Tableau  |     3' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
-            { t: 'dim',  v: '(5 rows)' },
+            { t: 'dim',  v: '(4 rows)' },
             { t: 'dim',  v: '' },
             { t: 'ok',   v: '-- all public. click through any of it.' }
         ];
@@ -381,14 +380,11 @@
                     ['AdventureWorks Report',   'Power BI', 'GitHub'],
                     ['Airline Complaints',     'Power BI', 'GitHub'],
                     ['Airline Punctuality',     'Power BI', 'GitHub'],
-                    ['Call Centre Manager',     'Tableau',  'Tableau Public'],
-                    ['Contact Centre Agent',    'Tableau',  'Tableau Public'],
                     ['COVID-19 Analysis',       'SQL',      'GitHub'],
                     ['DVD Rental Analysis',     'SQL',      'GitHub'],
                     ['Maven Market Dashboard',  'Power BI', 'GitHub'],
                     ['Mobile Game Revenue',     'Power BI', 'GitHub'],
-                    ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
-                    ['Telecom Churn',           'Tableau',  'Tableau Public']
+                    ['NBA Trends 1996-2023',    'SQL',      'GitHub']
                 ]
             }
         };
@@ -573,87 +569,6 @@
                 { h: 'Where I would take it next', p: [
                     'The complaints report on this page is the direct follow-on, and the short version is that it did not go the way I expected. Complaints turned out to be almost uncorrelated with punctuality, which means none of the leverage described above would have moved them.',
                     'Two things. Quantifying how a single delay propagates through an aircraft rotation across the rest of its day, which is what would turn the reactionary finding into a number someone can act on. And attaching cost per delay minute, so the argument for buying turnaround buffer stops being about minutes and starts being about money.'
-                ]}
-            ]
-        },
-
-        'contact-agent': {
-            kind: 'Tableau · Contact centre analytics',
-            title: 'Contact centre — agent view',
-            repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1',
-            repoLabel: 'Open the live dashboard',
-            gallery: [
-                { src: 'assets/shots/tab-contact-agent.jpg', cap: 'One agent at a time. Handle time, satisfaction and resolution rate up top, with the distribution sitting underneath them.', alt: 'Tableau agent view for Becky: average handle time 180.3, average satisfaction 3.4, resolution rate 67.04%, a satisfaction rating bar chart, and a call answer ratio donut showing 517 answered against 114 missed.' }
-            ],
-            blocks: [
-                { h: 'Why this exists', p: [
-                    'I own reporting like this in my day job at British Airways, but the production version stays inside the business. So I rebuilt the same thinking on data I am allowed to publish. It is the closest I can get to showing you what I actually do all day.',
-                    'Picture a team leader with two minutes before a one-to-one. They do not need a report about the contact centre. They need everything about one person, on one screen, before they walk into the room.'
-                ]},
-                { h: 'What it shows', list: [
-                    '<strong>Average handle time</strong>, which is the efficiency number everyone looks at first, so it goes at the top.',
-                    '<strong>Satisfaction and resolution rate</strong> sat right next to it. Handle time on its own quietly rewards getting people off the phone, and these two are what stop that happening.',
-                    '<strong>The whole satisfaction distribution</strong>, not just the average. Becky in the screenshot averages 3.4, but that 3.4 is built out of 160 fours and 150 threes with 64 ones underneath it. Someone sitting flat on 3.4 the whole way through would show the same headline number and need a completely different conversation.',
-                    '<strong>Call answer ratio</strong> as a donut. 517 answered against 114 missed for this agent, which is the sort of thing that never comes up unless you put it on the screen.',
-                    '<strong>An agent picker</strong>, so one layout covers the whole team.'
-                ]},
-                { h: 'Why it is built this way', p: [
-                    'The thing I actually care about here is that the efficiency numbers and the experience numbers sit side by side. Contact centre reporting has a long history of squeezing handle time until service quality quietly falls over, and you only notice months later. Putting them together means the trade-off is on screen instead of buried.',
-                    'The test I hold a dashboard to is whether somebody uses it when I am not in the room. If a person has to ask me how to read it, I have not finished it, and no amount of polish on the visuals fixes that. It is the reason the agent picker is a plain dropdown and the numbers are just numbers.'
-                ]}
-            ]
-        },
-
-        'call-manager': {
-            kind: 'Tableau',
-            title: 'Call centre — manager dashboard',
-            repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2',
-            repoLabel: 'Open the live dashboard',
-            gallery: [
-                { src: 'assets/shots/tab-call-manager.jpg', cap: 'The team-level view. Volume against an average line, with all eight agents lined up on the same three measures.', alt: 'Tableau manager dashboard: satisfaction distribution for the month, average handling time 233.8, 27 inbound calls today, 70.47% resolution rate, call volume per weekday against an average line, and three colour-coded tables ranking eight agents on resolution rate, calls resolved and answer speed.' }
-            ],
-            blocks: [
-                { h: 'The brief', p: [
-                    'This is the other half of the agent view. Same data underneath, but the question has changed from "how is Becky getting on" to "where should I be looking this morning".'
-                ]},
-                { h: 'What it shows', list: [
-                    '<strong>Call volume over time with an average line through it</strong>, so a spike reads as a spike straight away instead of you having to work it out off the axis.',
-                    '<strong>Satisfaction distribution</strong> across the whole team.',
-                    '<strong>KPI tiles</strong> for the numbers a manager gets asked about.',
-                    '<strong>Every agent side by side</strong> on three measures at once, using diverging bars so you can see who is above and below average without reading a single figure.'
-                ]},
-                { h: 'What it turns up', p: [
-                    'Martha is the clearest case. Best resolution rate on the team at 78.74% and the most calls resolved at 163, but she is also the slowest to answer at 72.1 seconds, which is why that cell is red while the other two are green. You could read that as a problem or as somebody taking the time to actually finish a call properly. The dashboard will not tell you which, and it should not. It tells you where the conversation is.',
-                    'Dan sits at the other end, lowest on resolution at 59.18% and fewest resolved at 116. Same idea. The point is that you can see it in about two seconds without reading a single number.'
-                ]},
-                { h: 'The design thinking', p: [
-                    'A ranked list of agents is easy to build and very easy to misuse. Colouring against the range instead of just sorting keeps attention on who is unusual instead of who is top, and unusual is the useful question when you are deciding where your time goes today.',
-                    'The two dashboards are meant to answer each other. This one points you at a name. The agent view tells you what is going on with them.'
-                ]}
-            ]
-        },
-
-        churn: {
-            kind: 'Tableau · Customer analytics',
-            title: 'Telecom churn analysis',
-            repo: 'https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard',
-            repoLabel: 'Open the live dashboard',
-            gallery: [
-                { src: 'assets/shots/tab-telecom-churn.jpg', cap: 'Churn broken down four ways. Spend, contract type, tenure and internet service.', alt: 'Tableau churn dashboard: a total versus monthly charges scatter coloured by churn, contract type churn bars showing 1,655 of 3,875 month-to-month customers churning, churn by tenure bins, and internet service by churn showing fiber optic churning far more than DSL.' }
-            ],
-            blocks: [
-                { h: 'The question', p: [
-                    'Who leaves, and what have they got in common? Nobody can do much with a churn rate on its own. What you need is a description of who is at risk that is specific enough for somebody to go and do something about it.'
-                ]},
-                { h: 'What it found', list: [
-                    '<strong>Contract type is the big one.</strong> 1,655 of the 3,875 month-to-month customers churned, so roughly two in five walked. One and two year contracts barely move next to that. It is the finding you could actually build a retention plan on.',
-                    '<strong>Fiber optic customers leave far more than anybody else.</strong> 1,297 churned against 1,799 who stayed, so about forty per cent. DSL sits nearer twenty, and customers with no internet service at all almost never go. Whatever is happening with fiber is worth somebody looking into properly.',
-                    '<strong>The risk is concentrated right at the start.</strong> In the lowest tenure bin, 680 customers churned against 558 who stayed. More than half of the newest customers are gone. Get someone past that first stretch and it flips completely.',
-                    '<strong>Spend goes the opposite way to what you would guess.</strong> Plot total against monthly charges and the red thins out as total charges climb. People who have spent more with you leave less, which is the reverse of the usual assumption that the expensive customers are the flighty ones.'
-                ]},
-                { h: 'How it is built', p: [
-                    'A scatter for the continuous relationship, stacked bars for the categorical splits, and a binned tenure view with a parameter on the bin size so you can change the granularity without rebuilding the sheet.',
-                    'I put the conclusion in writing on the canvas instead of leaving people to work it out. A chart somebody has to explain is only half done.'
                 ]}
             ]
         },

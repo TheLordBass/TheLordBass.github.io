@@ -51,7 +51,7 @@ Two steps, both mechanical:
 
 1. **Card** — copy an `<article class="card project-card">` block in
    `index.html` and change the text. Set `data-category` to one of
-   `sql`, `tableau`, `bi`, `python`, `excel` so the filter picks it up, and set
+   `sql`, `bi`, `python`, `excel` so the filter picks it up, and set
    `data-project` to a new unique key.
 
    **Card order matters.** Featured cards (`.is-featured`) span two of the three
@@ -60,34 +60,20 @@ Two steps, both mechanical:
    normal, featured, normal, then the rest. Only give a card `.is-featured` if it
    has a screenshot — a double-width card with no image reads as a gap.
 
-   Use `.project-repo` for a GitHub link or `.project-viz` for a live dashboard —
-   the latter renders with a green "live" dot. For a Tableau project, also set
-   `repoLabel` on the `PROJECTS` entry so the modal button reads *Open the live
-   dashboard* rather than *View on GitHub*.
+   Use `.project-repo` for a GitHub link or `.project-viz` for something live
+   people can open, like DataBites; the latter renders with a green "live" dot.
+   Give that project's `PROJECTS` entry a `live` URL and a `liveLabel` as well,
+   so the modal leads with it and keeps GitHub as the second button.
 2. **Write-up** — add an entry to `PROJECTS` in `js/app.js` using the same key.
    Supported block types are `p` (array of paragraphs), `list` (array of bullet
    points, HTML allowed) and `code` (a preformatted snippet).
 
    Add a `gallery` array to the entry to show screenshots above the write-up —
-   each item takes `src`, `alt` and `cap`. The two Power BI projects use this.
+   each item takes `src`, `alt` and `cap`. The dashboard projects use this.
 
 Screenshots live in `assets/shots/` as JPEGs, resized to 1200–1400px wide at
 quality 84, which lands around 50–150KB each. Worth doing the same to anything
 you add; `System.Drawing` in PowerShell will do it without installing anything.
-
-### Refreshing a Tableau screenshot
-
-Tableau will export a dashboard at whatever size you ask for:
-
-```
-https://public.tableau.com/views/<Workbook>/<Sheet>.png?:showVizHome=no&:size=1800,860
-```
-
-That gives a clean 1799×886 render, far better than the `/thumb/views/` endpoint
-which caps at 736×454. One catch: **it silently drops viz extensions**. The agent
-view's Call Answer Ratio donut is one, and the export replaces it with the text
-"Tableau can't export Viz Extensions." For that dashboard, take a screenshot
-instead.
 
 To add a new filter category, add a `<button class="filter-btn" data-filter="…">`
 to the filter row and use that value as a card's `data-category`.
@@ -107,19 +93,6 @@ Small things left deliberately undone, because they need information only you ha
       did and what you found, without invented precision. If you have defensible
       numbers for the British Airways work, the experience section is where
       they'd carry the most weight.
-
-- [x] ~~KPI tiles rendering as `###`.~~ Not a real problem. It was an artifact of
-      Tableau's small thumbnail renderer. At full size every tile renders its
-      value properly, and the site now uses full-size images.
-
-- [ ] **Typo on the Churn Rate dashboard.** The annotation under the scatter
-      reads *"the less likey it is"* and should be *likely*. It sits on the
-      canvas, and the site now shows that dashboard at 1400px wide, so it is
-      more legible than it was. Fix and republish, then re-export the image.
-
-- [ ] **Add a description to two of the vizzes.** Only *Contact Centre Data Agent
-      View* has one on Tableau Public. The other two are blank, which is a free
-      opportunity to frame the work.
 
 ### Optional: a contact form that sends
 

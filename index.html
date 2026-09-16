@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Ibomeno Basiekanem — Data Analyst</title>
-    <meta name="description" content="Data analyst in Manchester. SQL, Excel, Power BI and Tableau, with live dashboards and documented code you can click through, including two airline reports that disagree with each other.">
+    <meta name="description" content="Data analyst in Manchester. SQL, Excel, Power BI and Tableau, with documented code you can click through, including two airline reports that disagree with each other.">
     <meta name="author" content="Ibomeno Basiekanem">
     <link rel="canonical" href="https://thelordbass.github.io/">
 
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thelordbass.github.io/">
     <meta property="og:title" content="Ibomeno Basiekanem — Data Analyst">
-    <meta property="og:description" content="Data analyst in Manchester. SQL, Excel, Power BI and Tableau. Live dashboards and documented code, plus the projects that changed my mind about something.">
+    <meta property="og:description" content="Data analyst in Manchester. SQL, Excel, Power BI and Tableau. Documented code, plus the projects that changed my mind about something.">
     <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
 
@@ -290,13 +290,12 @@
         <div class="section-head">
             <p class="eyebrow">Projects</p>
             <h2 class="section-title">Selected work</h2>
-            <p class="section-lede">All of it is public. The code sits on GitHub and the dashboards are live on Tableau Public, so you can go and poke at them. Open a card for the write-up or skip straight to the source.</p>
+            <p class="section-lede">All of it is public and the code sits on GitHub, so you can go and poke at it. Open a card for the write-up or skip straight to the source.</p>
         </div>
 
         <div class="filter-row" role="group" aria-label="Filter projects by discipline">
             <button type="button" class="filter-btn is-active" data-filter="all">All</button>
             <button type="button" class="filter-btn" data-filter="sql">SQL</button>
-            <button type="button" class="filter-btn" data-filter="tableau">Tableau</button>
             <button type="button" class="filter-btn" data-filter="bi">Power BI</button>
             <button type="button" class="filter-btn" data-filter="python">Python</button>
             <button type="button" class="filter-btn" data-filter="excel">Excel</button>
@@ -368,26 +367,21 @@
                 </div>
             </article>
 
-            <!-- Call centre manager dashboard.
-                 Order matters here: each two-column featured card is followed by a
-                 one-column card so the three-column grid packs without holes. -->
-            <article class="card project-card has-shot" data-category="tableau" data-project="call-manager">
-                <a class="project-shot" href="#" data-project="call-manager" aria-label="Open write-up: Call centre manager dashboard">
-                    <img src="assets/shots/tab-call-manager.jpg" width="1400" height="689" loading="lazy" decoding="async"
-                         alt="Tableau manager dashboard showing satisfaction rating distribution, headline KPI tiles, call volume over time against an average reference line, and agent-by-agent comparison bars.">
-                </a>
+            <!-- Maven Movies -->
+            <article class="card project-card" data-category="sql" data-project="maven-movies">
                 <div class="project-top">
-                    <span class="project-kind">Tableau</span>
-                    <h3 class="project-title">Call centre — manager dashboard</h3>
+                    <span class="project-kind">SQL · Due diligence</span>
+                    <h3 class="project-title">DVD rental acquisition analysis</h3>
                 </div>
                 <p class="project-desc">
-                    The team-level counterpart to the agent view: call volume against a rolling average,
-                    satisfaction distribution, and every agent ranked side by side on the same measures.
+                    Due diligence for investors looking at buying a rental chain. Who manages what, what
+                    the inventory is worth, which parts of the catalogue would hurt most if they walked
+                    out the door, and how much of the revenue rests on a handful of customers.
                 </p>
-                <ul class="tag-list"><li>Tableau</li><li>Reference lines</li><li>Comparison</li></ul>
+                <ul class="tag-list"><li>SQL</li><li>Multi-table joins</li><li>CASE</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="call-manager">Read the write-up</button>
-                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/CallCentreManagerDashboard/Dashboard2" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
+                    <button type="button" class="project-open" data-project="maven-movies">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-Movies-Project" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DVD rental acquisition analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -413,66 +407,21 @@
                 </div>
             </article>
 
-            <!-- Telecom churn -->
-            <article class="card project-card has-shot" data-category="tableau" data-project="churn">
-                <a class="project-shot" href="#" data-project="churn" aria-label="Open write-up: Telecom churn analysis">
-                    <img src="assets/shots/tab-telecom-churn.jpg" width="1400" height="689" loading="lazy" decoding="async"
-                         alt="Tableau churn dashboard with a total-versus-monthly-charges scatter coloured by churn, contract type churn bars, churn by tenure, and internet service by churn.">
-                </a>
+            <!-- COVID -->
+            <article class="card project-card" data-category="sql" data-project="covid">
                 <div class="project-top">
-                    <span class="project-kind">Tableau · Customer analytics</span>
-                    <h3 class="project-title">Telecom churn analysis</h3>
+                    <span class="project-kind">SQL · Exploratory analysis</span>
+                    <h3 class="project-title">COVID-19 global analysis</h3>
                 </div>
                 <p class="project-desc">
-                    Who leaves, and what they've got in common. Month-to-month customers churn at about
-                    forty per cent while anyone tied into one or two years barely moves. Fiber optic
-                    customers leave at roughly the same rate, which was the one I hadn't expected.
+                    Two tables, deaths and vaccinations, joined on country and date. What your odds
+                    looked like if you caught it, how much of each country had actually had it, and
+                    running vaccination totals built with partitioned window functions.
                 </p>
-                <ul class="tag-list"><li>Tableau</li><li>Churn analysis</li><li>Segmentation</li></ul>
+                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="churn">Read the write-up</button>
-                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/TelecomChurn_17516636066270/ChurnRateDashboard" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
-                </div>
-            </article>
-
-            <!-- Featured: Contact centre agent view (closest to the day job) -->
-            <article class="card project-card is-featured has-shot" data-category="tableau" data-project="contact-agent">
-                <a class="project-shot" href="#" data-project="contact-agent" aria-label="Open write-up: Contact centre agent view">
-                    <img src="assets/shots/tab-contact-agent.jpg" width="1400" height="583" loading="lazy" decoding="async"
-                         alt="Tableau dashboard for one contact centre agent, Becky: average handle time 180.3, average satisfaction 3.4, resolution rate 67.04%, a satisfaction rating distribution across scores one to five, and a call answer ratio donut showing 517 answered against 114 missed.">
-                </a>
-                <div class="project-top">
-                    <span class="project-kind">Tableau · Contact centre analytics</span>
-                    <h3 class="project-title">Contact centre — agent view</h3>
-                </div>
-                <p class="project-desc">
-                    I own the equivalent of this at British Airways but the real one can't leave the
-                    building, so I rebuilt the thinking on public data. Handle time, satisfaction,
-                    resolution rate and answered-call ratio for one agent at a time. The idea is that a
-                    team leader opens it in the two minutes before a one-to-one.
-                </p>
-                <ul class="tag-list"><li>Tableau</li><li>KPI design</li><li>Parameters</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="contact-agent">Read the write-up</button>
-                    <a class="project-viz" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/viz/ContactCentreDataAgentView/Dashboard1" target="_blank" rel="noopener noreferrer">Live<span class="sr-only"> interactive dashboard on Tableau Public</span></a>
-                </div>
-            </article>
-
-            <!-- Maven Movies -->
-            <article class="card project-card" data-category="sql" data-project="maven-movies">
-                <div class="project-top">
-                    <span class="project-kind">SQL · Due diligence</span>
-                    <h3 class="project-title">DVD rental acquisition analysis</h3>
-                </div>
-                <p class="project-desc">
-                    Due diligence for investors looking at buying a rental chain. Who manages what, what
-                    the inventory is worth, which parts of the catalogue would hurt most if they walked
-                    out the door, and how much of the revenue rests on a handful of customers.
-                </p>
-                <ul class="tag-list"><li>SQL</li><li>Multi-table joins</li><li>CASE</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="maven-movies">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Maven-Movies-Project" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DVD rental acquisition analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -498,21 +447,21 @@
                 </div>
             </article>
 
-            <!-- COVID -->
-            <article class="card project-card" data-category="sql" data-project="covid">
+            <!-- Uber -->
+            <article class="card project-card" data-category="sql" data-project="uber">
                 <div class="project-top">
-                    <span class="project-kind">SQL · Exploratory analysis</span>
-                    <h3 class="project-title">COVID-19 global analysis</h3>
+                    <span class="project-kind">SQL · Business modelling</span>
+                    <h3 class="project-title">Driver incentive scheme modelling</h3>
                 </div>
                 <p class="project-desc">
-                    Two tables, deaths and vaccinations, joined on country and date. What your odds
-                    looked like if you caught it, how much of each country had actually had it, and
-                    running vaccination totals built with partitioned window functions.
+                    Two bonus schemes, same set of drivers. A $50 flat payment with four conditions
+                    attached, or $4 a trip with two. Working out which one costs less is the easy half.
+                    Working out which one would actually change what drivers do is the other half.
                 </p>
-                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <ul class="tag-list"><li>SQL</li><li>Scenario modelling</li><li>Cost analysis</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="uber">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Partner-Business-Modeling" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for driver incentive scheme modelling on GitHub</span></a>
                 </div>
             </article>
 
@@ -535,24 +484,6 @@
                 <div class="project-actions">
                     <button type="button" class="project-open" data-project="adventureworks">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/AdventureWorks-Power-BI-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for AdventureWorks Power BI report on GitHub</span></a>
-                </div>
-            </article>
-
-            <!-- Uber -->
-            <article class="card project-card" data-category="sql" data-project="uber">
-                <div class="project-top">
-                    <span class="project-kind">SQL · Business modelling</span>
-                    <h3 class="project-title">Driver incentive scheme modelling</h3>
-                </div>
-                <p class="project-desc">
-                    Two bonus schemes, same set of drivers. A $50 flat payment with four conditions
-                    attached, or $4 a trip with two. Working out which one costs less is the easy half.
-                    Working out which one would actually change what drivers do is the other half.
-                </p>
-                <ul class="tag-list"><li>SQL</li><li>Scenario modelling</li><li>Cost analysis</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="uber">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Partner-Business-Modeling" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for driver incentive scheme modelling on GitHub</span></a>
                 </div>
             </article>
 
@@ -637,10 +568,6 @@
                 All repositories on GitHub
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
             </a>
-            <a class="btn btn-ghost" href="https://public.tableau.com/app/profile/ibomeno.basiekanem/vizzes" target="_blank" rel="noopener noreferrer">
-                Interactive dashboards on Tableau Public
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
         </p>
     </div>
 </section>
@@ -723,12 +650,6 @@
                             <a href="https://github.com/TheLordBass" target="_blank" rel="noopener noreferrer">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.4-1.27.73-1.56-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"></path></svg>
                                 github.com/TheLordBass
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://public.tableau.com/app/profile/ibomeno.basiekanem/vizzes" target="_blank" rel="noopener noreferrer">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="6" y1="6" x2="6" y2="18"></line><line x1="18" y1="6" x2="18" y2="18"></line></svg>
-                                Tableau Public
                             </a>
                         </li>
                         <li>
@@ -853,7 +774,6 @@
   "knowsAbout": ["SQL", "Demand Forecasting", "Capacity Planning", "Power BI", "Tableau", "DAX", "Excel", "Power Query", "Python", "Pandas", "Data Analysis", "Business Analysis"],
   "sameAs": [
     "https://github.com/TheLordBass",
-    "https://public.tableau.com/app/profile/ibomeno.basiekanem/vizzes",
     "https://www.linkedin.com/in/ibomeno-basiekanem/"
   ]
 }
