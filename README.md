@@ -111,7 +111,7 @@ that carry the same facts and can drift:
 | CV content | Where it appears on the site |
 |---|---|
 | Headline title | `<title>`, `og:title`, `.hero .eyebrow`, `assets/og-image.png` |
-| Core skills (6 groups) | the six `.skill-card` blocks |
+| Core skills | the tags on the six `.skill-card` blocks (the CV groups them into five) |
 | Role, dates, employer | experience section, "At a glance", JSON-LD `jobTitle` |
 | Anything factual | the hero terminal script in `js/app.js` § 3 |
 
