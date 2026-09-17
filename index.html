@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Ibomeno Basiekanem — Data Analyst</title>
-    <meta name="description" content="Data analyst in Manchester. SQL, Excel, Power BI and Tableau, with documented code you can click through, including two airline reports that disagree with each other.">
+    <meta name="description" content="Data analyst in Manchester. SQL, Power BI, Excel and Python, with documented code you can click through, including two airline reports that disagree with each other.">
     <meta name="author" content="Ibomeno Basiekanem">
     <link rel="canonical" href="https://thelordbass.github.io/">
 
@@ -13,15 +13,20 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thelordbass.github.io/">
     <meta property="og:title" content="Ibomeno Basiekanem — Data Analyst">
-    <meta property="og:description" content="Data analyst in Manchester. SQL, Excel, Power BI and Tableau. Documented code, plus the projects that changed my mind about something.">
+    <meta property="og:description" content="Data analyst in Manchester. SQL, Power BI, Excel and Python. Documented code, plus the projects that changed my mind about something.">
     <meta property="og:locale" content="en_GB">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://thelordbass.github.io/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ibomeno Basiekanem, Data Analyst in Manchester. I like finding the thing the numbers were hiding.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thelordbass.github.io/assets/og-image.png">
 
-    <meta name="theme-color" content="#1d2021" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#f9f5d7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#16130f" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
 
     <!-- Inline favicon: a shell prompt, no extra request -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231d2021'/><text y='70' x='50' text-anchor='middle' font-size='62' font-family='monospace' font-weight='700' fill='%23fe8019'>&gt;_</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2316130f'/><text y='70' x='50' text-anchor='middle' font-size='62' font-family='monospace' font-weight='700' fill='%23f07050'>&gt;_</text></svg>">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -332,9 +337,10 @@
                     <h3 class="project-title">COVID-19 global analysis</h3>
                 </div>
                 <p class="project-desc">
-                    Two tables, deaths and vaccinations, joined on country and date. What your odds
-                    looked like if you caught it, how much of each country had actually had it, and
-                    running vaccination totals built with partitioned window functions.
+                    Deaths and vaccinations by country, joined on country and date. The main lesson was
+                    that no single death rate told you much, because the odds of dying if you caught it
+                    kept falling as treatment got better. Running vaccination totals showed how uneven
+                    the rollout was.
                 </p>
                 <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
                 <div class="project-actions">
@@ -374,9 +380,9 @@
                 </div>
                 <p class="project-desc">
                     Three things everyone says about the NBA, checked against 12,000-odd player seasons.
-                    Do high-volume scorers give up efficiency, are players getting smaller, and which
-                    clubs actually produce the good ones. Two of the three answers came back the wrong
-                    way round.
+                    Players with a usage rate over 30% had the best true shooting, not the worst, and part
+                    of the drop in average height since 2015 was the league changing how it measured
+                    players in 2019.
                 </p>
                 <ul class="tag-list"><li>SQL</li><li>CTEs</li><li>Window functions</li></ul>
                 <div class="project-actions">
@@ -436,9 +442,10 @@
                     <h3 class="project-title">Maven Market retail dashboard</h3>
                 </div>
                 <p class="project-desc">
-                    Three pages of Power BI tracking transactions, profit and returns against monthly
-                    targets across the USA, Canada and Mexico. Brand-level margin and return rate
-                    underneath, weekly revenue trending, and a gauge running against a $240K target.
+                    41,012 transactions and $155,752 profit across stores in the USA, Canada and Mexico.
+                    The current month beat its transaction and profit goals by about 5.6%, but returns
+                    came in 2.9% over target, and Stores 20 and 23 combine low sales with some of the
+                    highest return rates.
                 </p>
                 <ul class="tag-list"><li>Power BI</li><li>DAX</li><li>KPI design</li></ul>
                 <div class="project-actions">
@@ -476,31 +483,14 @@
                     <h3 class="project-title">AdventureWorks executive report</h3>
                 </div>
                 <p class="project-desc">
-                    Built on the assumption an exec gives it about ten seconds. $1.83M revenue against
-                    target, orders and returns against goal, category performance. Everything else got
-                    pushed onto drill-through pages for product and customer detail.
+                    $1.83M revenue, 3.31% ahead of goal, on 22,534 orders. The most ordered product is a
+                    water bottle and the most profitable is the Mountain-200 bike, so the volume and the
+                    money come from different places. Product and customer detail sit on drill-through pages.
                 </p>
                 <ul class="tag-list"><li>Power BI</li><li>Drill-through</li><li>Data modelling</li></ul>
                 <div class="project-actions">
                     <button type="button" class="project-open" data-project="adventureworks">Read the write-up</button>
                     <a class="project-repo" href="https://github.com/TheLordBass/AdventureWorks-Power-BI-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for AdventureWorks Power BI report on GitHub</span></a>
-                </div>
-            </article>
-
-            <!-- League of Legends -->
-            <article class="card project-card" data-category="sql" data-project="lol">
-                <div class="project-top">
-                    <span class="project-kind">SQL</span>
-                    <h3 class="project-title">League of Legends matchmaking</h3>
-                </div>
-                <p class="project-desc">
-                    Pick rates, win rates and per-champion stats pulled apart in SQL. Mostly an excuse to
-                    look at whether the champions everyone picks are the ones actually winning games.
-                </p>
-                <ul class="tag-list"><li>SQL</li><li>Aggregation</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="lol">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/League-of-legends-analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for League of Legends analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -538,24 +528,6 @@
                     <button type="button" class="project-open" data-project="databites">Read the write-up</button>
                     <a class="project-viz" href="https://thelordbass.github.io/databites/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open DataBites in the browser</span></a>
                     <a class="project-repo" href="https://github.com/TheLordBass/databites" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DataBites on GitHub</span></a>
-                </div>
-            </article>
-
-            <!-- SQL practice -->
-            <article class="card project-card" data-category="sql" data-project="practice">
-                <div class="project-top">
-                    <span class="project-kind">SQL · Practice</span>
-                    <h3 class="project-title">SQL challenge sets</h3>
-                </div>
-                <p class="project-desc">
-                    Worked solutions to business-scenario SQL problems. This is the practice behind
-                    everything else on this page, and I've left it public because the working seems
-                    worth showing as well as the finished thing.
-                </p>
-                <ul class="tag-list"><li>SQL</li><li>Problem solving</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="practice">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass?tab=repositories" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for SQL challenge sets on GitHub</span></a>
                 </div>
             </article>
 

@@ -1,6 +1,6 @@
 # thelordbass.github.io
 
-Personal portfolio site for Ibomeno Basiekanem — Business Analyst.
+Personal portfolio site for Ibomeno Basiekanem, Data Analyst.
 Live at **https://thelordbass.github.io/**
 
 Plain HTML, CSS and JavaScript. No build step, no framework, no dependencies,
@@ -28,8 +28,8 @@ small PowerShell static file server. Pass `-Port 9000` to use a different port.
 index.html          all content — edit this for copy changes
 css/style.css       design tokens at the top, then sections in order
 js/app.js           theme, nav, terminal, sandbox, filters, modals, form
-js/canvas-bg.js     ambient background animation
-assets/shots/       Power BI dashboard screenshots
+assets/shots/       dashboard screenshots used on cards and in write-ups
+assets/og-image.png link preview image (1200x630) for LinkedIn, Slack etc.
 serve.ps1           local dev server
 ```
 
@@ -56,8 +56,8 @@ Two steps, both mechanical:
 
    **Card order matters.** Featured cards (`.is-featured`) span two of the three
    grid columns, so each one must be followed by an ordinary one-column card or
-   the grid leaves a visible hole. Current pattern: featured, normal, featured,
-   normal, featured, normal, then the rest. Only give a card `.is-featured` if it
+   the grid leaves a visible hole. Current pattern: featured, normal, repeated
+   five times, then the rest. Only give a card `.is-featured` if it
    has a screenshot — a double-width card with no image reads as a gap.
 
    Use `.project-repo` for a GitHub link or `.project-viz` for something live
@@ -80,83 +80,69 @@ to the filter row and use that value as a card's `data-category`.
 
 ---
 
-## Still to do
+## Contact form
 
-Small things left deliberately undone, because they need information only you have:
-
-- [x] ~~Add your CV.~~ Done — `assets/ibomeno-basiekanem-cv.pdf`, linked from the
-      hero and the contact section.
-- [x] ~~Add your LinkedIn.~~ Done — `linkedin.com/in/ibomeno-basiekanem`, in the
-      contact section and in the structured data.
-- [x] ~~Confirm your job title.~~ Done — see the note below.
-- [ ] **Consider adding real figures.** The project write-ups describe what you
-      did and what you found, without invented precision. If you have defensible
-      numbers for the British Airways work, the experience section is where
-      they'd carry the most weight.
-
-### Optional: a contact form that sends
-
-The form currently opens the visitor's email client with a pre-filled message.
-That works everywhere and stores nothing, but it does depend on them having a
-mail client configured.
+The form opens the visitor's email client with a pre-filled message. That works
+everywhere and stores nothing, but it does depend on them having a mail client
+configured.
 
 If you'd rather receive submissions directly, [Formspree](https://formspree.io)
-has a free tier and works on a static site — create a form, then point the
-`<form>` at your endpoint and swap the `mailto:` handler in `js/app.js` § 7 for
-a `fetch()` POST.
+has a free tier and works on a static site: create a form, point the `<form>` at
+your endpoint and swap the `mailto:` handler in `js/app.js` § 7 for a `fetch()`
+POST.
 
 ---
 
-## Two job titles, on purpose
+## Job titles
 
-This mirrors the CV, which does exactly the same thing.
-
-**Data Analyst** is the headline identity — browser tab, `og:title`, header
-subtitle, hero eyebrow. That's what the CV leads with and what's being targeted.
+**Data Analyst** is the headline identity: browser tab, `og:title`, the hero
+eyebrow and the link preview image.
 
 **Customer Service Analyst** is used wherever the site states the actual role at
-British Airways — the hero sentence, the experience timeline, "At a glance", the
-meta description and the `jobTitle` in the structured data.
-
-Deliberate, not an oversight. If you ever want one title throughout, the headline
-set is those four places.
+British Airways: "At a glance", the experience entry, the hero terminal and the
+`jobTitle` in the structured data.
 
 ## Keeping this in sync with the CV
 
-The site is aligned to `assets/ibomeno-basiekanem-cv.pdf`. If you revise the CV,
-these are the places that carry the same facts and will drift:
+The site is deliberately about me, and the job detail lives in
+`assets/ibomeno-basiekanem-cv.pdf`. If you revise the CV, these are the places
+that carry the same facts and can drift:
 
 | CV content | Where it appears on the site |
 |---|---|
-| Headline title | `<title>`, `og:title`, `.brand-text span`, `.hero .eyebrow` |
-| Professional summary | `.hero-lede`, the About `.prose` paragraphs |
+| Headline title | `<title>`, `og:title`, `.hero .eyebrow`, `assets/og-image.png` |
 | Core skills (6 groups) | the six `.skill-card` blocks |
-| British Airways bullets | `.timeline-context` + `.timeline-points` |
-| Role, dates, employer | timeline, "At a glance", JSON-LD `jobTitle` |
-| Headline numbers | `.hero-facts` (100+ agents, 4 dashboards, ~1 day/week) |
+| Role, dates, employer | experience section, "At a glance", JSON-LD `jobTitle` |
 | Anything factual | the hero terminal script in `js/app.js` § 3 |
 
 **Note on the published CV:** it includes a phone number. That was a deliberate
-choice — a downloadable CV on a public site will be scraped. To change it later,
-replace the PDF at the same path and the two download links keep working.
+choice, since a downloadable CV on a public site will be scraped. To change it
+later, replace the PDF at the same path and the download links keep working.
+
+## Link preview image
+
+`assets/og-image.png` is what LinkedIn, Slack, WhatsApp and the rest show when
+someone shares the link. It was drawn with `System.Drawing` in PowerShell in the
+site's colours, so if the name, title or tagline change, regenerate it too.
+LinkedIn caches previews; after changing it, run the URL through
+https://www.linkedin.com/post-inspector/ to refresh.
 
 ## The design
 
-It's a TUI. Not a "cyber" theme — the references are tools people actually use:
+It's a TUI. Not a "cyber" theme. The references are tools people actually use:
 tmux status lines, lazygit panes, vim gutters, `psql` output, k9s tables.
 
-- **Palette** is [gruvbox](https://github.com/morhetz/gruvbox) (Pavel Pertsev),
-  picked because it's warm, specific and nothing like a framework default.
-  Three of its light-mode colours were darkened to clear WCAG AA — noted in the
-  token block in `style.css`.
+- **Palette** shares its ground and accent with
+  [DataBites](https://thelordbass.github.io/databites/), so moving between the
+  two feels like one place. Light-mode colours used as text are darkened to
+  clear WCAG AA, noted in the token block in `style.css`.
 - **Type** is IBM Plex Mono throughout. A terminal has one font; committing to
   that is the point.
 - **Chrome**: numbered tab bar at the top, fixed status line at the bottom
   showing the current section and scroll position, `┌─ label ───` pane rules,
   `▸` markers instead of bullets, `├─ └─` tree glyphs on the timeline, and
   inverse-video for anything selected.
-- **No background animation.** The floating-particle canvas that used to be
-  here was replaced by a faint character-cell grid in CSS.
+- **No background animation.** A faint character-cell grid in CSS instead.
 
 ### Keyboard
 
@@ -175,14 +161,13 @@ trapping you. Bindings are defined in `js/app.js` § 2b.
 break the column alignment that makes the output read as a query result. Keep
 new script lines to **about 40 characters** or they'll scroll sideways.
 
-## Notes on the earlier design
+## Other notes
 
 - **Dark by default**, with a light theme that follows the system preference on
   first visit and remembers an explicit choice after that.
 - **Accessibility**: all text clears WCAG AA (4.5:1) in both themes, the modal
   traps focus and closes on <kbd>Esc</kbd>, everything is keyboard reachable,
   and there's a skip link.
-- **Motion**: the background animation and the terminal typing both respect
-  `prefers-reduced-motion`, and the canvas pauses when the tab is hidden.
+- **Motion**: the terminal typing respects `prefers-reduced-motion`.
 - **Print**: `Ctrl+P` gives a clean document — navigation, forms and animation
   are dropped, and link targets are printed after the link text.

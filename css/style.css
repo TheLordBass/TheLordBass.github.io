@@ -3,13 +3,13 @@
    A TUI. Not a "cyber" theme — this borrows from tools people actually use:
    tmux status lines, lazygit panes, vim gutters, k9s tables.
 
-   Palette is gruvbox (Pavel Pertsev), chosen because it is warm, specific,
-   and nothing like a framework default. Type is IBM Plex Mono throughout,
-   because a terminal has one font and committing to that is the whole point.
+   Palette shares its ground and accent with DataBites, so the two sites feel
+   like one place. Type is IBM Plex Mono throughout, because a terminal has
+   one font and committing to that is the whole point.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Tokens — gruvbox dark
+   1. Tokens — dark
    -------------------------------------------------------------------------- */
 :root {
     /* Ground shared with DataBites (thelordbass.github.io/databites), so
@@ -63,7 +63,7 @@
 
     --accent:     #b23a26;
     --accent-2:   #8e2d1e;
-    /* Same rule the gruvbox light palette needed: these are used as text, so
+    /* These are used as text, so
        every one is darkened until it clears 4.5:1 on --bg while staying the
        same hue as its DataBites counterpart. Verified, not eyeballed. */
     --yellow:     #6b4f34;

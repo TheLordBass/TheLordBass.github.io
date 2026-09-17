@@ -27,7 +27,7 @@
             }
             if (label) label.textContent = mode;
             var meta = $('meta[name="theme-color"]');
-            if (meta) meta.setAttribute('content', mode === 'dark' ? '#1d2021' : '#f9f5d7');
+            if (meta) meta.setAttribute('content', mode === 'dark' ? '#16130f' : '#faf7f0');
         }
 
         var stored = null;
@@ -252,8 +252,8 @@
             { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
-            { t: 'out',  v: ' SQL      |     6' },
             { t: 'out',  v: ' Power BI |     5' },
+            { t: 'out',  v: ' SQL      |     4' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
             { t: 'dim',  v: '(4 rows)' },
@@ -634,7 +634,7 @@
                 ]},
                 { h: 'What it shows', list: [
                     '<strong>Three headline numbers.</strong> Transactions, profit and returns, each against its goal with the variance worked out, so you get "+5.69% against target" instead of "18,325" and no idea whether that is good.',
-                    '<strong>Returns treated as a warning.</strong> Sitting 2.9% under goal gets coloured differently from the two measures that are ahead, because what you do about it is a different job.',
+                    '<strong>Returns treated as a warning.</strong> 496 returns against a goal of 482 is 2.9% over, so that card goes red while the two measures beating their goals stay green. For returns lower is better, so the colouring has to run the other way round.',
                     '<strong>Brand-level detail</strong> with conditional formatting across transactions, profit, margin and return rate, so a 1.64% return rate on one brand stands out without anybody having to go looking for it.',
                     '<strong>Geography and trend.</strong> A map of activity across North America, weekly revenue trending, and a gauge running against the $240K target.'
                 ]},
@@ -776,24 +776,6 @@
             ]
         },
 
-        lol: {
-            kind: 'SQL',
-            title: 'League of Legends matchmaking analysis',
-            repo: 'https://github.com/TheLordBass/League-of-legends-analysis',
-            blocks: [
-                { h: 'The project', p: [
-                    'Match data pulled apart in SQL to see what actually correlates with winning, as opposed to what everyone in the client assumes correlates with winning.'
-                ]},
-                { h: 'What I looked at', list: [
-                    '<strong>Pick rate.</strong> What gets chosen and how that moves.',
-                    '<strong>Win rate.</strong> And more usefully, the gap between how popular something is and how well it does, because that gap is where the interesting cases live.',
-                    '<strong>Per-champion breakdown</strong> for the ones worth a closer look.'
-                ]},
-                { h: 'Why this one', p: [
-                    'Working on something you actually care about is where you learn the difference between a query that runs and a query that answers something. Games data is also messy in genuinely useful ways. Patch versions, role assignments and rank tiers all change what counts as a fair comparison, and you have to decide what to do about that before any of the numbers mean anything.'
-                ]}
-            ]
-        },
 
         epl: {
             kind: 'Excel',
@@ -838,25 +820,6 @@
                 { h: 'Practice that tests honestly', p: [
                     'The practice problems work like LeetCode. There is no starter code, and your answer is judged against hidden inputs that include the edge cases the problem is really about: ties, missing values, empty results. When it fails it shows you exactly which case broke, what was expected and what you returned.',
                     'Each problem also carries tempting wrong answers that the tests must reject, like a >= where it should be >, or an inner join that quietly drops the customers who never ordered. If a wrong answer ever passed, the hidden cases would not be testing the trap, so this proves they do. Alternative correct answers go in the other direction and must pass, which catches tests that only allow one way of writing it.'
-                ]}
-            ]
-        },
-
-        practice: {
-            kind: 'SQL · Practice',
-            title: 'SQL challenge sets',
-            repo: 'https://github.com/TheLordBass?tab=repositories',
-            blocks: [
-                { h: 'What these are', p: [
-                    'Worked solutions to business-scenario SQL problems, left public. There are two collections. An eight-part challenge built around real business situations, and a set of solutions from the Analyst Builder platform covering the scenarios that come up over and over in analyst work.'
-                ]},
-                { h: 'Why they are on here', p: [
-                    'The finished projects further up this page are the output. This is the practice. It felt more honest to show both than to present the polished stuff as though it turned up fully formed.'
-                ]},
-                { h: 'Repositories', list: [
-                    '<a href="https://github.com/TheLordBass/8_SQL_Challenge" target="_blank" rel="noopener noreferrer">8_SQL_Challenge</a>, built around business problems.',
-                    '<a href="https://github.com/TheLordBass/Analyst-Builder-SQL-question-Solutions" target="_blank" rel="noopener noreferrer">Analyst-Builder-SQL-question-Solutions</a>, analyst scenario solutions.',
-                    '<a href="https://github.com/TheLordBass/Learning-Pandas" target="_blank" rel="noopener noreferrer">Learning-Pandas</a>, notebooks tracking how the pandas learning is going.'
                 ]}
             ]
         }
