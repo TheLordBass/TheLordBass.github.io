@@ -238,9 +238,9 @@
 
         // Kept to ~40 columns so the tables stay aligned without sideways scroll.
         var script = [
-            { t: 'cmd',  v: 'SELECT * FROM analyst;' },
+            { t: 'cmd',  v: 'SELECT * FROM me;' },
             { t: 'dim',  v: '' },
-            { t: 'head', v: ' role     | Customer Service Analyst' },
+            { t: 'head', v: ' role     | Customer Service Advisor' },
             { t: 'out',  v: ' employer | British Airways' },
             { t: 'out',  v: ' likes    | Counter-intuitive results' },
             { t: 'out',  v: ' based    | Manchester, UK' },
@@ -355,11 +355,11 @@
                 sql: 'SELECT * FROM toolkit;',
                 cols: ['tool', 'used_for'],
                 rows: [
-                    ['SQL',       'Production queries, CTEs, window functions'],
-                    ['Excel',     'Forecast models, Power Query, pivots'],
-                    ['Power BI',  'Executive reporting, DAX, drill-through'],
-                    ['Tableau',   'Operational dashboards, parameters'],
-                    ['Python',    'Cleaning, ETL, reporting automation']
+                    ['SQL',       'Joins, CTEs, window functions, subqueries'],
+                    ['Excel',     'Power Query, XLOOKUP, pivot tables'],
+                    ['Power BI',  'Star schemas, DAX, drill-through'],
+                    ['Tableau',   'Dashboards, parameters'],
+                    ['Python',    'pandas, still learning']
                 ]
             },
             focus: {
@@ -367,7 +367,7 @@
                 cols: ['area', 'focus'],
                 rows: [
                     ['Framing',      'Checking the question before touching data'],
-                    ['Forecasting',  'Turning a history into a number to plan on'],
+                    ['Modelling',     'Star schemas and measures that agree'],
                     ['Cleaning',     'Finding what the data quietly gets wrong'],
                     ['Dashboards',   'Building for the decision, not every field'],
                     ['Writing up',   'Saying what I am not confident about too']

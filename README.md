@@ -1,6 +1,6 @@
 # thelordbass.github.io
 
-Personal portfolio site for Ibomeno Basiekanem, Data Analyst.
+Personal portfolio site for Ibomeno Basiekanem.
 Live at **https://thelordbass.github.io/**
 
 Plain HTML, CSS and JavaScript. No build step, no framework, no dependencies,
@@ -93,14 +93,16 @@ POST.
 
 ---
 
-## Job titles
+## How the site describes the work
 
-**Data Analyst** is the headline identity: browser tab, `og:title`, the hero
-eyebrow and the link preview image.
+The headline is the work, not a job title: browser tab, `og:title`, the hero
+eyebrow and the link preview image all say data analysis.
 
-**Customer Service Analyst** is used wherever the site states the actual role at
-British Airways: "At a glance", the experience entry, the hero terminal and the
-`jobTitle` in the structured data.
+**Customer Service Advisor** is the real role at British Airways, and it is used
+everywhere the site states it: "At a glance", the experience entry, the hero
+terminal and the `jobTitle` in the structured data. It matches the CV, and it
+should stay matched. The skill cards describe what the projects on this page
+show, so anything that can't be pointed at doesn't belong in them.
 
 ## Keeping this in sync with the CV
 
@@ -110,8 +112,8 @@ that carry the same facts and can drift:
 
 | CV content | Where it appears on the site |
 |---|---|
-| Headline title | `<title>`, `og:title`, `.hero .eyebrow`, `assets/og-image.png` |
-| Core skills | the tags on the six `.skill-card` blocks (the CV groups them into five) |
+| Headline | `<title>`, `og:title`, `.hero .eyebrow`, `.hero-lede`, `assets/og-image.png` |
+| Skills | the tags on the six `.skill-card` blocks (the CV groups them into four) |
 | Role, dates, employer | experience section, "At a glance", JSON-LD `jobTitle` |
 | Anything factual | the hero terminal script in `js/app.js` § 3 |
 
