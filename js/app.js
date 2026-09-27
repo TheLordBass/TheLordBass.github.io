@@ -252,8 +252,8 @@
             { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
-            { t: 'out',  v: ' Power BI |     5' },
-            { t: 'out',  v: ' SQL      |     5' },
+            { t: 'out',  v: ' Power BI |     4' },
+            { t: 'out',  v: ' SQL      |     4' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
             { t: 'dim',  v: '(4 rows)' },
@@ -381,8 +381,6 @@
                     ['Airline Complaints',     'Power BI', 'GitHub'],
                     ['Airline Punctuality',     'Power BI', 'GitHub'],
                     ['COVID-19 Analysis',       'SQL',      'GitHub'],
-                    ['DVD Rental Analysis',     'SQL',      'GitHub'],
-                    ['Maven Market Dashboard',  'Power BI', 'GitHub'],
                     ['Mobile Game Revenue',     'Power BI', 'GitHub'],
                     ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
                     ['US EV Adoption',          'SQL',      'GitHub']
@@ -621,32 +619,6 @@
             ]
         },
 
-        'maven-market': {
-            kind: 'Power BI · DAX · KPI design',
-            title: 'Maven Market retail dashboard',
-            repo: 'https://github.com/TheLordBass/Maven-market-PowerBI',
-            gallery: [
-                { src: 'assets/shots/maven-topline.jpg', cap: 'Topline. The three headline numbers against goal, weekly revenue trending, and a gauge against target.', alt: 'Maven Market topline page: transactions, profit and returns against goal, a North America map, weekly revenue trend and a revenue gauge.' },
-                { src: 'assets/shots/maven-store.jpg',   cap: 'Store performance. Same measures, broken out by location.', alt: 'Maven Market store performance page breaking metrics down by store location.' },
-                { src: 'assets/shots/maven-product.jpg', cap: 'Product effect. Which brands and products are moving the headline numbers.', alt: 'Maven Market product effect page showing brand and product level contribution.' }
-            ],
-            blocks: [
-                { h: 'The brief', p: [
-                    'A retail chain running across the USA, Canada and Mexico wanted one place to see whether the current month was on track. Not a report anyone sits down and reads. A screen you glance at.'
-                ]},
-                { h: 'What it shows', list: [
-                    '<strong>Three headline numbers.</strong> Transactions, profit and returns, each against its goal with the variance worked out, so you get "+5.69% against target" instead of "18,325" and no idea whether that is good.',
-                    '<strong>Returns treated as a warning.</strong> 496 returns against a goal of 482 is 2.9% over, so that card goes red while the two measures beating their goals stay green. For returns lower is better, so the colouring has to run the other way round.',
-                    '<strong>Brand-level detail</strong> with conditional formatting across transactions, profit, margin and return rate, so a 1.64% return rate on one brand stands out without anybody having to go looking for it.',
-                    '<strong>Geography and trend.</strong> A map of activity across North America, weekly revenue trending, and a gauge running against the $240K target.'
-                ]},
-                { h: 'What I was designing for', p: [
-                    'With a dataset this wide the temptation is to put all of it on the page. I built the top row so the three numbers that decide whether anyone needs to act are readable from across a desk, and pushed the brand table to the left where it backs up the headline instead of fighting it.',
-                    'The other two pages follow the same idea. Store performance and product effect, each one answering the question the topline page makes you ask next.'
-                ]}
-            ]
-        },
-
         adventureworks: {
             kind: 'Power BI · Drill-through · Data modelling',
             title: 'AdventureWorks executive report',
@@ -670,38 +642,6 @@
                 { h: 'The modelling underneath', p: [
                     'None of the visible stuff works unless the model is right first. Proper relationships between the fact and dimension tables, a date table that can carry the time intelligence, and measures written once and reused instead of recalculated in every visual. Most of the work in a report like this never shows up on the page.'
                 ]}
-            ]
-        },
-
-        'maven-movies': {
-            kind: 'SQL · Due diligence',
-            title: 'DVD rental acquisition analysis',
-            repo: 'https://github.com/TheLordBass/Maven-Movies-Project',
-            blocks: [
-                { h: 'The scenario', p: [
-                    'Investors were thinking about buying a DVD rental chain and wanted due diligence before they committed to anything. I had the company database and a list of the things that were making them nervous.'
-                ]},
-                { h: 'What they needed to know', list: [
-                    '<strong>Who runs what.</strong> Managers mapped to store locations, which meant joining across staff, address, city and country.',
-                    '<strong>What the inventory is worth.</strong> A full count and valuation, not a sample.',
-                    '<strong>Where the risk sits.</strong> Replacement cost broken down by film category, so they knew which bit of the catalogue would actually hurt if it went missing.',
-                    '<strong>Who is paying for all this.</strong> Customer lifetime value ranked, to see how much of the revenue rested on how few people.'
-                ]},
-                { h: 'Techniques', p: [
-                    'Joins across three or more tables, SUM and AVG and COUNT for the financial summaries, CASE for the categorising, and explicit NULL handling. That last one mattered more than it sounds. A missing address quietly dropping a store out of a count is exactly the kind of mistake that makes it all the way into a valuation without anyone noticing.'
-                ]},
-                { h: 'Sample approach', code:
-'SELECT\n' +
-'    c.name                       AS category,\n' +
-'    COUNT(f.film_id)             AS films,\n' +
-'    SUM(f.replacement_cost)      AS total_exposure,\n' +
-'    ROUND(AVG(f.replacement_cost), 2) AS avg_cost\n' +
-'FROM film f\n' +
-'JOIN film_category fc ON f.film_id  = fc.film_id\n' +
-'JOIN category      c  ON fc.category_id = c.category_id\n' +
-'GROUP BY c.name\n' +
-'ORDER BY total_exposure DESC;'
-                }
             ]
         },
 
