@@ -253,7 +253,7 @@
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
             { t: 'out',  v: ' Power BI |     5' },
-            { t: 'out',  v: ' SQL      |     4' },
+            { t: 'out',  v: ' SQL      |     5' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
             { t: 'dim',  v: '(4 rows)' },
@@ -384,7 +384,8 @@
                     ['DVD Rental Analysis',     'SQL',      'GitHub'],
                     ['Maven Market Dashboard',  'Power BI', 'GitHub'],
                     ['Mobile Game Revenue',     'Power BI', 'GitHub'],
-                    ['NBA Trends 1996-2023',    'SQL',      'GitHub']
+                    ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
+                    ['US EV Adoption',          'SQL',      'GitHub']
                 ]
             }
         };
@@ -453,7 +454,8 @@
                 var shown = 0;
 
                 cards.forEach(function (card) {
-                    var match = want === 'all' || card.getAttribute('data-category') === want;
+                    var match = want === 'all' ||
+                        (' ' + card.getAttribute('data-category') + ' ').indexOf(' ' + want + ' ') !== -1;
                     card.hidden = !match;
                     if (match) shown++;
                 });
@@ -777,6 +779,39 @@
         },
 
 
+        ev: {
+            kind: 'SQL Server · Power BI · DAX',
+            title: 'US electric vehicle adoption',
+            repo: 'https://github.com/TheLordBass/Analyzing-U.S.-Electric-Vehicle-Market-Share',
+            gallery: [
+                { src: 'assets/shots/ev-market.jpg', cap: 'One page. Six KPIs across the top, alternative fuels split into meaningful and niche, fleet size against EV rate, a map of adoption by state, and the top and bottom five.', alt: 'Power BI dashboard: national EV rate 1.24%, 3.56M EVs, California the state with the most and North Dakota the least, California 35.34% of US EVs and an electrified share of 4.27%, above a bar chart of alternative fuels, a scatter of total vehicles against EV rate with the 1.24% national line, a map of EV rate by state, and top and bottom five state rankings.' }
+            ],
+            blocks: [
+                { h: 'The question', p: [
+                    'Where Americans are actually buying electric cars, where they are not, and what that should tell anyone deciding where to put chargers. The data is vehicle registrations by fuel type for all 50 states and DC, about 287 million vehicles, as a single snapshot.'
+                ]},
+                { h: 'What it showed', list: [
+                    '<strong>Petrol still dominates.</strong> 84.6% of registered vehicles run on it. Fully electric is 1.24% nationally, about 3.56 million cars, and even with plug-in and standard hybrids added the electrified share only reaches 4.27%.',
+                    '<strong>Adoption is concentrated.</strong> California has 35.3% of every EV in the country with about 13% of the vehicles. Its rate of 3.41% is 2.75 times the national figure, while North Dakota and Mississippi sit at 0.13%, a 26-fold gap inside one country.',
+                    '<strong>Count and rate tell different stories.</strong> Texas has 230,100 EVs, almost as many as Florida, but at 0.89% it has the lowest rate of the four biggest fleets, because 25.8 million vehicles swallow them. Ranked by count it looks like an EV state. Ranked by rate it does not. That is why I reported both all the way through.',
+                    '<strong>Hydrogen follows the pumps.</strong> All 16,900 hydrogen vehicles in the US are in California, the only state with a public refuelling network. It is the neatest example in the data of adoption following infrastructure.'
+                ]},
+                { h: 'What I would do with it', p: [
+                    'Rural states that lag need fast charging along the highways to deal with range anxiety, not dense city networks they do not need yet. The leading states have the opposite problem, which is grid capacity for charging at home and at work.',
+                    'The real prize is the big fleets with low rates. Lifting Texas from 0.89% to the Florida rate of 1.37% would add roughly 124,000 EVs, close to the whole EV fleet of New York State.'
+                ]},
+                { h: 'What I would not claim', p: [
+                    'Why the gap exists stays a hypothesis. Population density, charger coverage and political lean all line up with the pattern, but this dataset has registrations and nothing else, so it cannot separate them, and there are exceptions either way. Florida leans Republican and sits above the national rate, and Nevada is a swing state in the top five.',
+                    'It is also one point in time, so there is no growth curve. The obvious next step is joining charger counts from the US Department of Energy to get chargers per EV by state.'
+                ]},
+                { h: 'A mistake I caught in my own query', p: [
+                    'The share column in the large-states query uses a window function, and window functions run after the WHERE clause. So the 67.09% it shows is the share California has of those four states, not of the US. The real national figure is 35.3%. The write-up says so, because a number that is right for the wrong question is the easiest kind to repeat.'
+                ]},
+                { h: 'How it was built', p: [
+                    'SQL Server for the import and the market-share queries: a CTE totalling every fuel type per state, joined back to get the share for each fuel, plus TOP 5 and a window function for the comparisons. Power BI on top with Power Query and DAX, and a 0.5% line to split alternative fuels into the ones with real scale and the rounding errors.'
+                ]}
+            ]
+        },
         epl: {
             kind: 'Excel',
             title: 'Premier League analysis',
