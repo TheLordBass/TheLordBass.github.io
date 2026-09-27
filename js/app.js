@@ -26,8 +26,12 @@
                     mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
             }
             if (label) label.textContent = mode;
-            var meta = $('meta[name="theme-color"]');
-            if (meta) meta.setAttribute('content', mode === 'dark' ? '#16130f' : '#faf7f0');
+            // Both tags, not just the first: each carries a prefers-color-scheme
+            // media query, so updating only the dark one left the browser bar
+            // on the old colour whenever the system was in light mode.
+            $$('meta[name="theme-color"]').forEach(function (meta) {
+                meta.setAttribute('content', mode === 'dark' ? '#16130f' : '#faf7f0');
+            });
         }
 
         var stored = null;
@@ -185,6 +189,11 @@
             }
 
             if (typing()) return;
+
+            // A write-up is open: its own handler owns the keyboard, and
+            // jumping the page underneath it just loses your place.
+            var modal = $('#modal');
+            if (modal && !modal.hidden) return;
 
             var k = e.key;
 
@@ -394,6 +403,8 @@
             });
         }
 
+        var renders = 0;
+
         function render(key) {
             var d = data[key];
             if (!d) return;
@@ -403,8 +414,13 @@
                 '<div class="t-line t-dim">running…</div>';
 
             var delay = reduceMotion ? 0 : 260;
+            var ticket = ++renders;
 
             setTimeout(function () {
+                // Clicking chips quickly queues several results; only the
+                // latest click is allowed to paint, or an older query can
+                // land last and show the wrong table under the wrong chip.
+                if (ticket !== renders) return;
                 var html =
                     '<div class="t-line t-cmd">=> ' + esc(d.sql) + '</div>' +
                     '<table class="res-table"><thead><tr>' +
@@ -441,15 +457,25 @@
         var buttons = $$('.filter-btn');
         var cards = $$('.project-card');
         var empty = $('#grid-empty');
+        var grid = $('#project-grid');
         if (!buttons.length || !cards.length) return;
+
+        buttons.forEach(function (b) {
+            b.setAttribute('aria-pressed', String(b.classList.contains('is-active')));
+        });
 
         buttons.forEach(function (btn) {
             btn.addEventListener('click', function () {
-                buttons.forEach(function (b) { b.classList.remove('is-active'); });
+                buttons.forEach(function (b) {
+                    b.classList.remove('is-active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
                 btn.classList.add('is-active');
+                btn.setAttribute('aria-pressed', 'true');
 
                 var want = btn.getAttribute('data-filter');
                 var shown = 0;
+                if (grid) grid.classList.toggle('is-filtered', want !== 'all');
 
                 cards.forEach(function (card) {
                     var match = want === 'all' ||
