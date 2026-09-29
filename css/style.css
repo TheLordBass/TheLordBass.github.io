@@ -12,6 +12,9 @@
    1. Tokens — dark
    -------------------------------------------------------------------------- */
 :root {
+    /* Tells the browser which way round native scrollbars and form controls
+       should be drawn. Without it Firefox kept them light in the dark theme. */
+    color-scheme: dark;
     /* Ground shared with DataBites (thelordbass.github.io/databites), so
        moving between the two sites feels like one place. Same warm paper and
        ink; the structure here stays a TUI. Hues below map one-to-one onto
@@ -51,6 +54,7 @@
 }
 
 [data-theme="light"] {
+    color-scheme: light;
     --bg:         #faf7f0;
     --bg-1:       #fffdf8;
     --bg-2:       #f1ebdf;
@@ -226,7 +230,9 @@ main { position: relative; z-index: 1; }
     padding: clamp(1rem, 2vw, 1.4rem);
     transition: border-color var(--t);
 }
-.card:hover { border-color: var(--fg-faint); }
+/* Only on cards you can act on; a hover on a skill card or the sidebar read
+   as though it could be clicked. */
+.project-card:hover { border-color: var(--fg-faint); }
 
 .pane-title {
     font-size: .8rem;
@@ -409,18 +415,6 @@ main { position: relative; z-index: 1; }
 .hero-lede { color: var(--fg-dim); max-width: 62ch; margin-bottom: 1.75rem; }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
-
-.hero-facts {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: .9rem 1.5rem;
-    list-style: none;
-    padding: 1.1rem 0 0;
-    border-top: 1px solid var(--line-2);
-}
-.hero-facts li { display: flex; flex-direction: column; padding-left: .8rem; border-left: 2px solid var(--accent); }
-.hero-facts strong { font-size: .98rem; color: var(--yellow); }
-.hero-facts span { font-size: .78rem; color: var(--fg-faint); }
 
 /* Terminal --------------------------------------------------------------- */
 .terminal {
@@ -666,19 +660,6 @@ main { position: relative; z-index: 1; }
 .timeline-org  { font-size: .85rem; color: var(--fg-faint); margin-bottom: .9rem; }
 .timeline-note { font-size: .85rem; color: var(--fg-dim); margin: -.4rem 0 .9rem; max-width: 72ch; }
 
-.timeline-context {
-    font-size: .87rem;
-    color: var(--fg-dim);
-    padding-left: .8rem;
-    border-left: 2px solid var(--accent);
-    margin-bottom: .9rem;
-    max-width: 60ch;
-}
-
-.timeline-points { list-style: none; padding: 0; display: grid; gap: .45rem; max-width: 60ch; }
-.timeline-points li { color: var(--fg-dim); font-size: .87rem; padding-left: 1.2rem; text-indent: -1.2rem; }
-.timeline-points li::before { content: "▸ "; color: var(--accent); }
-
 /* --------------------------------------------------------------------------
    12. Contact
    -------------------------------------------------------------------------- */
@@ -727,7 +708,9 @@ main { position: relative; z-index: 1; }
     resize: vertical;
     transition: border-color var(--t);
 }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+/* Keeps the site-wide focus ring as well; a 1px border colour change on
+   its own was too faint to find when tabbing through the form. */
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
 .field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--red); }
 
 .field-error { font-size: .78rem; color: var(--red); margin-top: .25rem; }
@@ -822,6 +805,10 @@ main { position: relative; z-index: 1; }
 .keys-list dt { display: flex; gap: .2rem; align-items: center; }
 .keys-list dd { margin: 0; color: var(--fg-dim); font-size: .85rem; }
 .keys-foot { font-size: .8rem; color: var(--fg-faint); padding-top: .9rem; border-top: 1px dashed var(--line-2); }
+.keys-switch { display: flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--fg-dim); margin-bottom: 1rem; cursor: pointer; }
+.keys-switch input { accent-color: var(--accent); width: 1rem; height: 1rem; }
+/* Shortcuts switched off: the status line stops advertising them. */
+.keys-off .sl-keys { display: none; }
 
 /* --------------------------------------------------------------------------
    14. Footer
@@ -896,5 +883,6 @@ main { position: relative; z-index: 1; }
     body { background: #fff; color: #000; padding-bottom: 0; }
     .section { padding-block: 1.25rem; page-break-inside: avoid; }
     .card { border: 1px solid #ccc; }
-    a::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; }
+    /* Real addresses only: in-page links printed as "(#)" and "(#about)". */
+    a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; }
 }

@@ -1,6 +1,8 @@
 /* ==========================================================================
    Ibomeno Basiekanem — portfolio behaviour
-   No dependencies. Everything degrades to readable HTML if this fails.
+   No dependencies. Without JavaScript the page still reads top to bottom and
+   every link works; the write-ups, filters, terminal and sandbox need it.
+   The theme is set by a small script in <head>, before first paint.
    ========================================================================== */
 (function () {
     'use strict';
@@ -34,14 +36,9 @@
             });
         }
 
-        var stored = null;
-        try { stored = localStorage.getItem(KEY); } catch (e) {}
-
-        if (stored) {
-            apply(stored);
-        } else {
-            apply(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        }
+        // The <head> script has already picked the theme; this just syncs the
+        // toggle's label and the browser bar colour to it.
+        apply(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
         if (btn) {
             btn.addEventListener('click', function () {
@@ -90,15 +87,20 @@
             .map(function (l) { return $(l.getAttribute('href')); })
             .filter(Boolean);
 
+        // The hero is watched too, so scrolling back to the top clears the
+        // active tab and the status line reads "~" instead of "~/about".
+        var hero = $('#top');
+        if (hero) sections.unshift(hero);
+
         if (sections.length && 'IntersectionObserver' in window) {
             var spy = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (!entry.isIntersecting) return;
+                    var id = entry.target.id;
                     links.forEach(function (l) {
-                        l.classList.toggle('is-active',
-                            l.getAttribute('href') === '#' + entry.target.id);
+                        l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
                     });
-                    if (slSection) slSection.textContent = '~/' + entry.target.id;
+                    if (slSection) slSection.textContent = id === 'top' ? '~' : '~/' + id;
                 });
             }, { rootMargin: '-45% 0px -50% 0px' });
 
@@ -164,8 +166,10 @@
             if (!overlay) return;
             overlay.hidden = !on;
             if (on) {
-                var close = overlay.querySelector('[data-close-keys]');
-                if (close && close.focus) close.focus();
+                // The first [data-close-keys] is the backdrop, a div that cannot
+                // take focus, so focus used to stay on the page behind.
+                var close = overlay.querySelector('button[data-close-keys]');
+                if (close) close.focus();
             } else if (helpBtn) {
                 helpBtn.focus();
             }
@@ -175,6 +179,20 @@
         if (overlay) {
             overlay.addEventListener('click', function (e) {
                 if (e.target.closest('[data-close-keys]')) showKeys(false);
+            });
+        }
+
+        // Single-key shortcuts can be switched off (WCAG 2.1.4): voice control
+        // users can set them off by accident. Remembered per browser; the
+        // <head> script applies the saved choice before first paint.
+        var KEYS = 'ib-keys';
+        var switchBox = $('#keys-enabled');
+        function shortcutsOn() { return !document.documentElement.classList.contains('keys-off'); }
+        if (switchBox) {
+            switchBox.checked = shortcutsOn();
+            switchBox.addEventListener('change', function () {
+                document.documentElement.classList.toggle('keys-off', !switchBox.checked);
+                try { localStorage.setItem(KEYS, switchBox.checked ? 'on' : 'off'); } catch (e) {}
             });
         }
 
@@ -188,7 +206,24 @@
                 return;
             }
 
+            // The shortcuts panel is a dialog: keep Tab inside it while open.
+            if (e.key === 'Tab' && overlay && !overlay.hidden) {
+                var inside = $$('a[href], button:not([disabled]), input:not([disabled])', overlay)
+                    .filter(function (el) { return el.offsetParent !== null; });
+                if (!inside.length) return;
+                var head = inside[0], tail = inside[inside.length - 1];
+                if (!overlay.contains(document.activeElement)) {
+                    e.preventDefault(); head.focus();
+                } else if (e.shiftKey && document.activeElement === head) {
+                    e.preventDefault(); tail.focus();
+                } else if (!e.shiftKey && document.activeElement === tail) {
+                    e.preventDefault(); head.focus();
+                }
+                return;
+            }
+
             if (typing()) return;
+            if (!shortcutsOn()) return;
 
             // A write-up is open: its own handler owns the keyboard, and
             // jumping the page underneath it just loses your place.
@@ -407,8 +442,9 @@
         }
 
         var renders = 0;
+        var live = $('#sandbox-live');
 
-        function render(key) {
+        function render(key, announce) {
             var d = data[key];
             if (!d) return;
 
@@ -439,18 +475,25 @@
                     d.rows.length + ' row' + (d.rows.length === 1 ? '' : 's') + ')</div>';
 
                 out.innerHTML = html;
+                // A short line for screen readers, and only after a click: the
+                // table itself stays out of the live region.
+                if (announce && live) live.textContent = d.sql + ' returned ' + d.rows.length + ' rows.';
             }, delay);
         }
 
         chips.forEach(function (chip) {
             chip.addEventListener('click', function () {
-                chips.forEach(function (c) { c.classList.remove('is-active'); });
+                chips.forEach(function (c) {
+                    c.classList.remove('is-active');
+                    c.setAttribute('aria-pressed', 'false');
+                });
                 chip.classList.add('is-active');
-                render(chip.getAttribute('data-query-key'));
+                chip.setAttribute('aria-pressed', 'true');
+                render(chip.getAttribute('data-query-key'), true);
             });
         });
 
-        render('skills');
+        render('skills', false);
     }());
 
     /* ----------------------------------------------------------------------
@@ -830,18 +873,28 @@
 
         var lastFocus = null;
 
+        // Gallery text, links and labels are plain text, so they are escaped:
+        // one double quote in an alt would otherwise end the attribute and
+        // break the image. Write-up blocks are left as HTML on purpose, since
+        // they use <strong> and <a>.
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
+
         function build(key) {
             var p = PROJECTS[key];
             if (!p) return '';
 
-            var html = '<p class="m-kind">' + p.kind + '</p>' +
-                       '<h2 class="m-title" id="modal-title">' + p.title + '</h2>';
+            var html = '<p class="m-kind">' + esc(p.kind) + '</p>' +
+                       '<h2 class="m-title" id="modal-title">' + esc(p.title) + '</h2>';
 
             if (p.gallery) {
                 html += '<div class="m-gallery">' + p.gallery.map(function (g) {
                     return '<figure class="m-shot">' +
-                           '<img src="' + g.src + '" alt="' + g.alt + '" loading="lazy" decoding="async">' +
-                           '<figcaption>' + g.cap + '</figcaption>' +
+                           '<img src="' + esc(g.src) + '" alt="' + esc(g.alt) + '" loading="lazy" decoding="async">' +
+                           '<figcaption>' + esc(g.cap) + '</figcaption>' +
                            '</figure>';
                 }).join('') + '</div>';
             }
@@ -859,13 +912,13 @@
             // Where a project is both runnable and readable, the running version
             // leads and the source follows.
             if (p.live) {
-                html += '<a class="btn btn-primary" href="' + p.live + '" target="_blank" rel="noopener noreferrer">' +
-                        (p.liveLabel || 'Open it') + '</a>' +
-                        '<a class="btn btn-ghost" href="' + p.repo + '" target="_blank" rel="noopener noreferrer">' +
-                        (p.repoLabel || 'View on GitHub') + '</a>';
+                html += '<a class="btn btn-primary" href="' + esc(p.live) + '" target="_blank" rel="noopener noreferrer">' +
+                        esc(p.liveLabel || 'Open it') + '</a>' +
+                        '<a class="btn btn-ghost" href="' + esc(p.repo) + '" target="_blank" rel="noopener noreferrer">' +
+                        esc(p.repoLabel || 'View on GitHub') + '</a>';
             } else {
-                html += '<a class="btn btn-primary" href="' + p.repo + '" target="_blank" rel="noopener noreferrer">' +
-                        (p.repoLabel || 'View on GitHub') + '</a>';
+                html += '<a class="btn btn-primary" href="' + esc(p.repo) + '" target="_blank" rel="noopener noreferrer">' +
+                        esc(p.repoLabel || 'View on GitHub') + '</a>';
             }
 
             html += '<button type="button" class="btn btn-ghost" data-close-modal>Close</button></div>';
@@ -1004,13 +1057,30 @@
         var btn = $('#copy-email');
         if (!btn) return;
 
+        var original = btn.textContent;
+        var timer = null;
+
+        // If the clipboard is refused, select the address on the page so a
+        // normal copy works. "Press Ctrl+C" on its own had nothing selected
+        // to copy, and is the wrong key on a Mac anyway.
+        function selectAddress() {
+            var link = $('.contact-card a[href^="mailto:"]');
+            if (!link || !window.getSelection) return false;
+            var range = document.createRange();
+            range.selectNodeContents(link);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            return true;
+        }
+
         btn.addEventListener('click', function () {
             var value = btn.getAttribute('data-email');
-            var original = 'Copy address';
 
             function done(ok) {
-                btn.textContent = ok ? 'Copied' : 'Press Ctrl+C';
-                setTimeout(function () { btn.textContent = original; }, 1800);
+                btn.textContent = ok ? 'Copied' : (selectAddress() ? 'Selected, now copy it' : 'Copy it from above');
+                clearTimeout(timer);
+                timer = setTimeout(function () { btn.textContent = original; }, ok ? 1800 : 4000);
             }
 
             if (navigator.clipboard && navigator.clipboard.writeText) {

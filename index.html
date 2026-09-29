@@ -34,6 +34,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Theme before first paint. app.js is deferred to the end, so leaving
+         this to it meant light-mode visitors saw the dark theme flash first. -->
+    <script>
+        (function () {
+            var t = null;
+            try { t = localStorage.getItem('ib-theme'); } catch (e) {}
+            if (t !== 'light' && t !== 'dark') {
+                t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+            try { if (localStorage.getItem('ib-keys') === 'off') document.documentElement.classList.add('keys-off'); } catch (e) {}
+        }());
+    </script>
 </head>
 <body>
 
@@ -282,12 +296,15 @@
             </div>
 
             <div class="chip-row" role="group" aria-label="Example queries">
-                <button type="button" class="chip is-active" data-query-key="skills">SELECT * FROM toolkit;</button>
-                <button type="button" class="chip" data-query-key="focus">SELECT area, focus FROM day_to_day;</button>
-                <button type="button" class="chip" data-query-key="projects">SELECT name, type FROM projects;</button>
+                <button type="button" class="chip is-active" data-query-key="skills" aria-pressed="true">SELECT * FROM toolkit;</button>
+                <button type="button" class="chip" data-query-key="focus" aria-pressed="false">SELECT area, focus FROM day_to_day;</button>
+                <button type="button" class="chip" data-query-key="projects" aria-pressed="false">SELECT name, type FROM projects;</button>
             </div>
 
-            <div class="sandbox-out" id="sandbox-out" role="status" aria-live="polite"></div>
+            <!-- The table itself is not a live region: that read the whole thing
+                 out on every click. The short line below announces the result. -->
+            <div class="sandbox-out" id="sandbox-out"></div>
+            <p class="sr-only" id="sandbox-live" aria-live="polite"></p>
         </div>
     </div>
 </section>
@@ -310,6 +327,10 @@
             <button type="button" class="filter-btn" data-filter="python">Python</button>
             <button type="button" class="filter-btn" data-filter="excel">Excel</button>
         </div>
+
+        <noscript>
+            <p class="grid-empty">The write-ups and filters need JavaScript. Every card's Code link still goes straight to the project on GitHub.</p>
+        </noscript>
 
         <div class="project-grid" id="project-grid">
 
@@ -690,6 +711,10 @@
             <div><dt><kbd>?</kbd></dt><dd>this panel</dd></div>
             <div><dt><kbd>Esc</kbd></dt><dd>close any panel</dd></div>
         </dl>
+        <label class="keys-switch">
+            <input type="checkbox" id="keys-enabled" checked>
+            Single-key shortcuts on
+        </label>
         <p class="keys-foot">Mouse works fine too. <button type="button" class="linkish" data-close-keys>dismiss</button></p>
     </div>
 </div>
@@ -699,7 +724,7 @@
      ========================================================== -->
 <div class="statusline" id="statusline" aria-hidden="true">
     <span class="sl-mode">NORMAL</span>
-    <span class="sl-file" id="sl-section">~/about</span>
+    <span class="sl-file" id="sl-section">~</span>
     <span class="sl-keys">
         <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> jump
         <span class="sl-sep">·</span> <kbd>/</kbd> filter
