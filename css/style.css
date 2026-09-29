@@ -658,6 +658,7 @@ main { position: relative; z-index: 1; }
 .timeline-date { font-size: .78rem; color: var(--accent); margin-bottom: .3rem; }
 .timeline-role { font-size: 1.05rem; color: var(--yellow); margin-bottom: .15rem; }
 .timeline-org  { font-size: .85rem; color: var(--fg-faint); margin-bottom: .9rem; }
+.timeline-note { font-size: .85rem; color: var(--fg-dim); margin: -.4rem 0 .9rem; max-width: 72ch; }
 
 .timeline-context {
     font-size: .87rem;
