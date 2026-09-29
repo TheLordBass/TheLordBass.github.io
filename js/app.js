@@ -391,8 +391,11 @@
                     ['Airline Complaints',     'Power BI', 'GitHub'],
                     ['Airline Punctuality',     'Power BI', 'GitHub'],
                     ['COVID-19 Analysis',       'SQL',      'GitHub'],
+                    ['DataBites',               'Python',   'GitHub + live'],
+                    ['Driver Incentive Scheme', 'SQL',      'GitHub'],
                     ['Mobile Game Revenue',     'Power BI', 'GitHub'],
                     ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
+                    ['Premier League Analysis', 'Excel',    'GitHub'],
                     ['US EV Adoption',          'SQL',      'GitHub']
                 ]
             }
