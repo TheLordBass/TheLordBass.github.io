@@ -384,18 +384,18 @@
                 ]
             },
             projects: {
-                sql: 'SELECT name, type, published_on FROM projects ORDER BY name;',
-                cols: ['name', 'type', 'published_on'],
+                sql: 'SELECT name, type FROM projects;',
+                cols: ['name', 'type'],
                 rows: [
-                    ['Airline Complaints',     'Power BI', 'GitHub'],
-                    ['Airline Punctuality',     'Power BI', 'GitHub'],
-                    ['COVID-19 Analysis',       'SQL',      'GitHub'],
-                    ['DataBites',               'Python',   'GitHub + live'],
-                    ['Driver Incentive Scheme', 'SQL',      'GitHub'],
-                    ['Mobile Game Revenue',     'Power BI', 'GitHub'],
-                    ['NBA Trends 1996-2023',    'SQL',      'GitHub'],
-                    ['Premier League Analysis', 'Excel',    'GitHub'],
-                    ['US EV Adoption',          'SQL',      'GitHub']
+                    ['Airline Complaints',      'Power BI'],
+                    ['Airline Punctuality',     'Power BI'],
+                    ['COVID-19 Analysis',       'SQL'],
+                    ['DataBites',               'Python'],
+                    ['Driver Incentive Scheme', 'SQL'],
+                    ['Mobile Game Revenue',     'Power BI'],
+                    ['NBA Trends 1996-2023',    'SQL'],
+                    ['Premier League Analysis', 'Excel'],
+                    ['US EV Adoption',          'SQL']
                 ]
             }
         };
@@ -776,24 +776,28 @@
             live: 'https://thelordbass.github.io/databites/',
             liveLabel: 'Open DataBites',
             repo: 'https://github.com/TheLordBass/databites',
+            gallery: [
+                { src: 'assets/shots/databites.jpg', cap: 'On a phone, which is what it was built for. Home is one next lesson, each lesson is three bullets and an editor, and the tracks screen shows how far there is to go.', alt: 'Three DataBites phone screens: the home screen with one next lesson and a Begin button, a pandas lesson with three short bullets above a Python editor, and the tracks screen showing 12 tracks and 195 lessons.' }
+            ],
             blocks: [
                 { h: 'What it is', p: [
-                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 160 lessons across nine tracks, 100 in Python, 35 in SQL and 25 in DAX, plus 124 practice problems, 50 Python, 50 SQL and 24 DAX.',
+                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 195 lessons across 12 tracks, 110 in Python (10 of them statistics), 35 in SQL, 35 in DAX (10 of those on Power BI modelling) and 15 across three projects, plus 124 practice problems, 50 Python, 50 SQL and 24 DAX.',
                     'Nothing gets installed and nothing leaves the device. Your code and your progress stay in the browser, and after the first load it works with no connection. That first load pulls down about 25MB of Python runtime, so it is worth doing on wifi once.'
                 ]},
                 { h: 'Why I built it', p: [
                     'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. So the home screen is one button, the next lesson. Each concept gets three bullets at most before you type something, and getting stuck is one tap away from the answer with no penalty for taking it. A five minute session is still worth doing, and you are far more likely to come back tomorrow.'
                 ]},
                 { h: 'How it was built', p: [
-                    'With Claude, Anthropic\u2019s AI model. All 32 of its commits were co-written with Claude, and a lot of the code came out of that back and forth, the DAX engine included. It would feel wrong to put it on a portfolio without saying so.',
+                    'With Claude, Anthropic\u2019s AI model. All 39 of its commits were co-written with Claude, and a lot of the code came out of that back and forth, the DAX engine included. It would feel wrong to put it on a portfolio without saying so.',
                     'What was mine was the reason for it and the direction: what it should teach, what to leave out, and how a lesson should feel on a phone. All of that came from the specific ways I kept bouncing off other tutorials.'
                 ]},
                 { h: 'The DAX engine', p: [
-                    'You cannot run Microsoft\u2019s DAX engine in a browser, so we built one: about 2,200 lines of Python that handles measures, filter and row context, context transition, CALCULATE with ALL, ALLEXCEPT and KEEPFILTERS, the X iterators, RELATED, RANKX and time intelligence on a marked calendar table. Relationships filter one way from lookup to data, as they do in a default Power BI model.',
-                    'Every DAX lesson\u2019s answer was checked against the same numbers worked out separately in pandas. It also has a known gap, and I would sooner say so than have someone find it. Using a whole data table as a CALCULATE filter only filters that table. It does not reach the lookup tables through it the way Power BI\u2019s expanded tables do. Column filters, FILTER and SUMMARIZE over related columns all behave correctly.'
+                    'You cannot run Microsoft\u2019s DAX engine in a browser, so we built one: about 2,400 lines of Python that handles measures, filter and row context, context transition, CALCULATE with ALL, ALLEXCEPT and KEEPFILTERS, the X iterators, RELATED, RANKX, calculated columns and time intelligence on a marked calendar table. Relationships filter one way from lookup to data, as they do in a default Power BI model.',
+                    'Every DAX lesson\u2019s answer was checked against the same numbers worked out separately in pandas. This page used to flag one gap: a whole table used as a CALCULATE filter did not reach the lookup tables behind it. It does now, the way Power BI\u2019s expanded tables do, and it stops at a blank key where Power BI would use the blank row.'
                 ]},
                 { h: 'One workspace, three languages', p: [
-                    'SQL runs in SQLite through Python\u2019s own sqlite3, and every DataFrame becomes a table of the same name. So the SQL lessons query the very same cafe table the pandas lessons use, and nothing needs keeping in sync. The sandbox has a Python, SQL and DAX switch over one shared workspace. Make a DataFrame in Python mode and it is a table in SQL mode.'
+                    'SQL runs in SQLite through Python\u2019s own sqlite3, and every DataFrame becomes a table of the same name. So the SQL lessons query the very same cafe table the pandas lessons use, and nothing needs keeping in sync. The sandbox has a Python, SQL and DAX switch over one shared workspace. Make a DataFrame in Python mode and it is a table in SQL mode.',
+                    'Where SQLite does something differently from PostgreSQL, BigQuery or SQL Server, the lesson says so underneath: LIMIT against TOP, integer division, date functions and the rest, so what you learn carries over to whatever database a job uses.'
                 ]},
                 { h: 'Practice that tests honestly', p: [
                     'The practice problems work like LeetCode. There is no starter code, and your answer is judged against hidden inputs that include the edge cases the problem is really about: ties, missing values, empty results. When it fails it shows you exactly which case broke, what was expected and what you returned.',

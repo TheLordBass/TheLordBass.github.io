@@ -57,7 +57,7 @@ Two steps, both mechanical:
    **Card order matters.** Featured cards (`.is-featured`) span two of the three
    grid columns, so each one must be followed by an ordinary one-column card or
    the grid leaves a visible hole. Current pattern: featured, normal, repeated
-   five times, then the rest. Only give a card `.is-featured` if it
+   four times, then DataBites featured on its own as the last row. Only give a card `.is-featured` if it
    has a screenshot — a double-width card with no image reads as a gap.
 
    Use `.project-repo` for a GitHub link or `.project-viz` for something live
