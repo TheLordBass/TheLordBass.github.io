@@ -261,8 +261,8 @@
             { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
-            { t: 'out',  v: ' Power BI |     4' },
             { t: 'out',  v: ' SQL      |     4' },
+            { t: 'out',  v: ' Power BI |     3' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
             { t: 'dim',  v: '(4 rows)' },
@@ -387,7 +387,6 @@
                 sql: 'SELECT name, type, published_on FROM projects ORDER BY name;',
                 cols: ['name', 'type', 'published_on'],
                 rows: [
-                    ['AdventureWorks Report',   'Power BI', 'GitHub'],
                     ['Airline Complaints',     'Power BI', 'GitHub'],
                     ['Airline Punctuality',     'Power BI', 'GitHub'],
                     ['COVID-19 Analysis',       'SQL',      'GitHub'],
@@ -646,32 +645,6 @@
 'GROUP BY usage_quartile\n' +
 'ORDER BY usage_quartile;'
                 }
-            ]
-        },
-
-        adventureworks: {
-            kind: 'Power BI · Drill-through · Data modelling',
-            title: 'AdventureWorks executive report',
-            repo: 'https://github.com/TheLordBass/AdventureWorks-Power-BI-',
-            gallery: [
-                { src: 'assets/shots/aw-exec.jpg',     cap: 'Executive summary. Revenue, orders and returns against goal, with category and region for context.', alt: 'AdventureWorks executive summary: $1.83M revenue against goal, monthly orders and returns, a category treemap, subcategory bars, a product table with return rates and a world map.' },
-                { src: 'assets/shots/aw-product.jpg',  cap: 'Product detail. The drill-through sitting behind any product in the summary table.', alt: 'AdventureWorks product detail drill-through page.' },
-                { src: 'assets/shots/aw-customer.jpg', cap: 'Customer detail. Who is buying and how that splits by segment.', alt: 'AdventureWorks customer detail page showing customer segments and orders.' }
-            ],
-            blocks: [
-                { h: 'The brief', p: [
-                    'A cycling retailer with a big catalogue and sales all over the world. The report had to work for an exec who is giving it ten seconds and for an analyst who needs to know exactly which product is dragging the return rate up.'
-                ]},
-                { h: 'How it is structured', list: [
-                    '<strong>Executive summary page.</strong> $1.83M revenue against a $1.77M goal, monthly orders and returns each against target, with enough sparkline context that one bad month does not read as a trend.',
-                    '<strong>Category breakdown</strong> through a treemap and subcategory bars, which makes it obvious straight away that accessories bring the volume and bikes bring the money.',
-                    '<strong>Product table with return rates</strong>, so your best seller and your most returned product are on the same screen.',
-                    '<strong>Drill-through pages</strong> for product and customer. Keeps the summary clean and the detail one click away.',
-                    '<strong>Date slicer and regional filters</strong> for Europe, North America and Pacific, so the same page works for different teams.'
-                ]},
-                { h: 'The modelling underneath', p: [
-                    'None of the visible stuff works unless the model is right first. Proper relationships between the fact and dimension tables, a date table that can carry the time intelligence, and measures written once and reused instead of recalculated in every visual. Most of the work in a report like this never shows up on the page.'
-                ]}
             ]
         },
 
