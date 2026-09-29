@@ -478,16 +478,6 @@ main { position: relative; z-index: 1; }
 
 .about-side { background: var(--bg-1); border: 1px solid var(--line-2); padding: clamp(1rem, 2vw, 1.4rem); }
 
-/* Photo framed like a file the pane is displaying, not a decorative avatar. */
-.mugshot { margin: 0 0 1.4rem; border: 1px solid var(--line-2); background: var(--bg); }
-.mugshot img { width: 100%; filter: saturate(.9) contrast(1.02); }
-.mugshot figcaption {
-    padding: .35rem .6rem;
-    border-top: 1px solid var(--line-2);
-    font-size: .72rem;
-    color: var(--fg-faint);
-}
-
 .side-title {
     font-size: .8rem;
     text-transform: lowercase;
