@@ -394,7 +394,7 @@
                     ['Driver Incentive Scheme', 'SQL'],
                     ['Mobile Game Revenue',     'Power BI'],
                     ['NBA Trends 1996-2023',    'SQL'],
-                    ['Premier League Analysis', 'Excel'],
+                    ['Premier League Dashboard','Excel'],
                     ['US EV Adoption',          'SQL']
                 ]
             }
@@ -756,16 +756,32 @@
             ]
         },
         epl: {
-            kind: 'Excel',
-            title: 'Premier League analysis',
+            kind: 'Excel · Power Query · Dynamic arrays',
+            title: 'Premier League season dashboard, 2000/01 to 2021/22',
             repo: 'https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-',
+            gallery: [
+                { src: 'assets/shots/epl-card.jpg', cap: 'Set to 2021/22. Click the arrows and every number on the page is worked out again for that season: the table, the zones and the summary.', alt: 'Excel dashboard set to the 2021/22 season: a full Premier League table with Man City top on 93 points, zones for the Champions League, Europa League and relegation, and a season summary naming the champions, European qualifiers and relegated clubs.' }
+            ],
             blocks: [
-                { h: 'The project', p: [
-                    'A Premier League season worked through in Excel. Pivot tables, lookups, derived measures.'
+                { h: 'What it is', p: [
+                    'Twenty-two seasons of Premier League results, 8,360 matches, in one Excel workbook. Pick a season with the spin button and it pulls out that season’s 380 matches, rebuilds the league table from scratch (wins, draws, losses, goals, points, cards, clean sheets, shots and conversion rate), marks the champions, European places and relegated clubs, and writes its own plain-English summary: best defence, most clinical attack, fewest cards.',
+                    'Before any of it I checked the data: every season has 380 matches, 20 clubs and 38 games per club, there are no missing values or duplicate fixtures, and every result agrees with its scoreline.'
                 ]},
-                { h: 'The point of it', p: [
-                    'Excel is still where most business analysis really happens, and building a workbook someone else can pick up is a different skill from writing a query. Consistent structure, formulas that do not fall over when a row gets added, and calculations you can trace back to where the number came from instead of finding it hard-coded in a cell.',
-                    'It is on here because a portfolio that only shows the impressive tools is not an honest picture of the job.'
+                { h: 'What 22 seasons showed', list: [
+                    '<strong>Home advantage is real, until the fans go.</strong> Home teams won 45.9% of all matches. In 2020/21, played almost entirely behind closed doors, away teams won more than home teams, 40.3% to 37.9%, the only time in 22 seasons. The yellow card gap closed too: away sides normally get about 24% more yellows, and that season it was 1.45 a match against 1.42.',
+                    '<strong>Titles are won at both ends.</strong> Every champion was top three for goals scored, and 21 of 22 were top three for fewest conceded. Goal difference correlates 0.97 with points. Cards barely register at −0.25.',
+                    '<strong>The 40 point rule holds, just.</strong> Forty points would have kept a club up in 21 of 22 seasons. The exception is West Ham, relegated with 42 in 2002/03.',
+                    '<strong>More goals, fewer red cards.</strong> Goals per match went from 2.57 (2000/01 to 2008/09) to 2.75 (2009/10 to 2021/22), while red cards fell by about a third.',
+                    '<strong>A league of six.</strong> Man United, Chelsea, Arsenal, Liverpool, Man City and Tottenham took 83 of the 88 top-four places and 21 of the 22 titles. Leicester in 2015/16 is the one that got away.'
+                ]},
+                { h: 'How it was built', p: [
+                    'Power Query combines 22 season CSV files from a folder and keeps 16 of their 45 columns. From there everything runs off one cell: the spin button sets a number, that picks a season, and FILTER spills its 380 matches. SORT and UNIQUE give the club list, COUNTIFS and SUMIF build the table, RANK.EQ ranks it on points with goal difference as the tie-break, XLOOKUP finds the season leaders, and text formulas turn them into the summary sentences.'
+                ]},
+                { h: 'What I would not claim', list: [
+                    '<strong>Points deductions are not applied</strong>, because the table is built from results. The only one in this period is Portsmouth in 2009/10, and they finish bottom either way.',
+                    '<strong>European places go by league position.</strong> In reality cup winners can take them. In 2012/13 Everton finished 6th and did not qualify.',
+                    '<strong>Ties name one club.</strong> When clubs are level on a summary figure the dashboard names the first alphabetically, so the 2021/22 view credits Liverpool alone for the best defence although Man City matched it.',
+                    '<strong>Shots on target are not comparable across 2013/14</strong>, where the source seems to have changed how it recorded them. Goals per shot is fine across every season.'
                 ]}
             ]
         },
