@@ -368,7 +368,8 @@
                     ['Excel',     'Power Query, XLOOKUP, pivot tables'],
                     ['Power BI',  'Star schemas, DAX, drill-through'],
                     ['Tableau',   'Dashboards, parameters'],
-                    ['Python',    'pandas, still learning']
+                    ['Python',    'pandas, still learning'],
+                    ['AI tools',  'Drafting SQL and DAX, then checking it']
                 ]
             },
             focus: {

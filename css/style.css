@@ -515,6 +515,12 @@ main { position: relative; z-index: 1; }
 
 .skill-icon { display: none; }   /* a TUI has no icon set */
 
+/* A seventh card would leave two empty cells at three columns, so it runs
+   the full width under the others instead; the text is capped so the line
+   length stays readable. */
+.skill-card.is-wide { grid-column: 1 / -1; }
+.skill-card.is-wide p { max-width: 90ch; }
+
 .skill-card h3 { font-size: .98rem; color: var(--yellow); margin-bottom: .5rem; }
 .skill-card h3::before { content: "» "; color: var(--accent); }
 .skill-card p { color: var(--fg-dim); font-size: .87rem; margin-bottom: .9rem; }
