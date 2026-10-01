@@ -869,18 +869,18 @@
             liveLabel: 'Open DataBites',
             repo: 'https://github.com/TheLordBass/databites',
             gallery: [
-                { src: 'assets/shots/databites.jpg', cap: 'On a phone, which is what it was built for. Home is one next lesson, each lesson is three bullets and an editor, and the tracks screen shows how far there is to go.', alt: 'Three DataBites phone screens: the home screen with one next lesson and a Begin button, a pandas lesson with three short bullets above a Python editor, and the tracks screen showing 12 tracks and 195 lessons.' }
+                { src: 'assets/shots/databites.jpg', cap: 'On a phone, which is what it was built for. Home is one next lesson, each lesson is three bullets and an editor, and the tracks screen shows how far there is to go.', alt: 'Three DataBites phone screens: the home screen with one next lesson and a Begin button, the first Python course lesson with three short bullets above a Python editor, and the tracks screen showing 15 tracks and 305 lessons.' }
             ],
             blocks: [
                 { h: 'What it is', p: [
-                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 195 lessons across 12 tracks, 110 in Python (10 of them statistics), 35 in SQL, 35 in DAX (10 of those on Power BI modelling) and 15 across three projects, plus 124 practice problems, 50 Python, 50 SQL and 24 DAX.',
+                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 305 lessons across 15 tracks: 220 in Python (a 60-lesson course for complete beginners, plus pandas, statistics, AI and algorithms), 35 in SQL, 35 in DAX (10 of those on Power BI modelling) and 15 across three projects. On top of that are 139 practice problems and a PL-300 prep section with 107 exam-style questions for the Power BI Data Analyst exam.',
                     'Nothing gets installed and nothing leaves the device. Your code and your progress stay in the browser, and after the first load it works with no connection. That first load pulls down about 25MB of Python runtime, so it is worth doing on wifi once.'
                 ]},
                 { h: 'Why I built it', p: [
-                    'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. So the home screen is one button, the next lesson. Each concept gets three bullets at most before you type something, and getting stuck is one tap away from the answer with no penalty for taking it. A five minute session is still worth doing, and you are far more likely to come back tomorrow.'
+                    'Most data tutorials are built as long sessions that assume you can hold an hour of context in your head at once. That does not match how a lot of people learn, me included. So the home screen leads with one thing, the next lesson. Each concept gets three bullets at most before you type something, and getting stuck is one tap away from the answer with no penalty for taking it. A five minute session is still worth doing, and you are far more likely to come back tomorrow.'
                 ]},
                 { h: 'How it was built', p: [
-                    'With Claude, Anthropic\u2019s AI model. All 39 of its commits were co-written with Claude, and a lot of the code came out of that back and forth, the DAX engine included. It would feel wrong to put it on a portfolio without saying so.',
+                    'With Claude, Anthropic\u2019s AI model. It was co-written with Claude from the first commit, and a lot of the code came out of that back and forth, the DAX engine included. It would feel wrong to put it on a portfolio without saying so.',
                     'What was mine was the reason for it and the direction: what it should teach, what to leave out, and how a lesson should feel on a phone. All of that came from the specific ways I kept bouncing off other tutorials.'
                 ]},
                 { h: 'The DAX engine', p: [

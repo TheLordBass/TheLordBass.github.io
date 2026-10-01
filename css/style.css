@@ -675,7 +675,9 @@ main { position: relative; z-index: 1; }
 .project-viz::before  { content: "● ";   color: var(--green); }
 .project-repo:hover, .project-viz:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 
-.grid-empty { text-align: center; color: var(--fg-faint); padding: 2.5rem 0; }
+/* fg-dim, not fg-faint: this sits on the open background, where the cursor
+   glow can pass behind it, and fg-faint dips under 4.5:1 at the glow's centre. */
+.grid-empty { text-align: center; color: var(--fg-dim); padding: 2.5rem 0; }
 .grid-empty::before { content: "-- "; }
 .grid-empty::after  { content: " --"; }
 
