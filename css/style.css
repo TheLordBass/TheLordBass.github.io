@@ -441,14 +441,23 @@ main { position: relative; z-index: 1; }
     align-items: start;
 }
 
-/* Sized so "I like finding the thing" (24 mono characters, about 0.58em each)
-   fits its column on one line, so the headline reads as the two lines it is
-   written as. At the old size it wrapped to four and left "thing" and
-   "hiding." on their own. The mobile size is set in section 15. */
+/* Sized so "Data hides things." (18 mono characters, about 0.58em each)
+   always fits its column on one line; the second sentence sits underneath
+   as a smaller line of its own. The mobile size is set in section 15. */
 .hero-title {
-    font-size: clamp(1.75rem, 3.1vw, 2.3rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     letter-spacing: -0.02em;
     margin-bottom: 1.1rem;
+    text-wrap: balance;
+}
+.hero-sub {
+    display: block;
+    margin-top: .7rem;
+    font-size: clamp(1.1rem, .5em, 1.5rem);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.4;
+    color: var(--fg-dim);
     text-wrap: balance;
 }
 
@@ -864,7 +873,7 @@ main { position: relative; z-index: 1; }
 @media (max-width: 980px) {
     .hero-grid { grid-template-columns: 1fr; }
     /* One column: the name and intro come first, the terminal follows. */
-    .hero-title { font-size: clamp(1.15rem, 5.9vw, 2.4rem); }
+    .hero-title { font-size: clamp(1.5rem, 8vw, 3rem); }
     .terminal-body { height: 16rem; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .about-side { position: static; }
