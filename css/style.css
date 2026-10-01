@@ -125,6 +125,46 @@ body::after {
 }
 [data-theme="light"] body::after { opacity: .035; }
 
+/* Cursor spotlight ---------------------------------------------------------
+   Two layers that follow the pointer: a soft glow in the accent colour, and
+   the character-cell grid redrawn in the accent and masked to a circle, so
+   the grid looks lit up like a torch across a terminal. Fixed to the
+   viewport, like the grid it sits on, so the lines stay lined up. It sits
+   behind <main>, so it shows in the gaps between panes, not over the text. */
+.cursor-glow {
+    --gx: 50vw;
+    --gy: 30vh;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .5s ease;
+    background:
+        radial-gradient(520px circle at var(--gx) var(--gy),
+            color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%);
+}
+.cursor-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(to right,  var(--accent) 0 1px, transparent 1px 64px),
+        repeating-linear-gradient(to bottom, var(--accent) 0 1px, transparent 1px 64px);
+    opacity: .35;
+    -webkit-mask-image: radial-gradient(260px circle at var(--gx) var(--gy), #000, transparent 75%);
+            mask-image: radial-gradient(260px circle at var(--gx) var(--gy), #000, transparent 75%);
+}
+.cursor-glow.is-on { opacity: 1; }
+[data-theme="light"] .cursor-glow {
+    background:
+        radial-gradient(520px circle at var(--gx) var(--gy),
+            color-mix(in srgb, var(--accent) 7%, transparent), transparent 70%);
+}
+[data-theme="light"] .cursor-glow::before { opacity: .22; }
+/* Mouse and trackpad only: no pointer to follow on a touch screen. */
+@media (hover: none), (pointer: coarse) { .cursor-glow { display: none; } }
+
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
 
@@ -813,7 +853,7 @@ main { position: relative; z-index: 1; }
 /* --------------------------------------------------------------------------
    14. Footer
    -------------------------------------------------------------------------- */
-.site-footer { border-top: 1px solid var(--line-2); background: var(--bg-1); padding-block: 1.5rem; }
+.site-footer { position: relative; z-index: 1; border-top: 1px solid var(--line-2); background: var(--bg-1); padding-block: 1.5rem; }
 .footer-inner { display: flex; flex-wrap: wrap; gap: .3rem 1.5rem; justify-content: space-between; font-size: .8rem; color: var(--fg-faint); }
 
 /* --------------------------------------------------------------------------
@@ -875,11 +915,12 @@ main { position: relative; z-index: 1; }
         transition-duration: .01ms !important;
     }
     .t-caret::after { animation: none; }
+    .cursor-glow { display: none; }
 }
 
 @media print {
     .tuibar, .statusline, .modal, .keys, .sandbox, .filter-row,
-    .hero-actions, .form-card, .skip-link, .terminal { display: none !important; }
+    .hero-actions, .form-card, .skip-link, .terminal, .cursor-glow { display: none !important; }
     body { background: #fff; color: #000; padding-bottom: 0; }
     .section { padding-block: 1.25rem; page-break-inside: avoid; }
     .card { border: 1px solid #ccc; }

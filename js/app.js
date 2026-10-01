@@ -50,6 +50,39 @@
     }());
 
     /* ----------------------------------------------------------------------
+       1b. Cursor spotlight
+       Moves the glow layer with the pointer. One style write per frame at
+       most, mouse and trackpad only, and nothing at all with reduced motion.
+       ---------------------------------------------------------------------- */
+    (function spotlight() {
+        var glow = $('.cursor-glow');
+        if (!glow || reduceMotion) return;
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        var x = 0, y = 0, queued = false;
+
+        function paint() {
+            glow.style.setProperty('--gx', x + 'px');
+            glow.style.setProperty('--gy', y + 'px');
+            queued = false;
+        }
+
+        window.addEventListener('pointermove', function (e) {
+            if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+            x = e.clientX;
+            y = e.clientY;
+            glow.classList.add('is-on');
+            if (!queued) { queued = true; window.requestAnimationFrame(paint); }
+        }, { passive: true });
+
+        // Fade out when the pointer leaves the window, back in when it returns.
+        document.documentElement.addEventListener('mouseleave', function () {
+            glow.classList.remove('is-on');
+        });
+        window.addEventListener('blur', function () { glow.classList.remove('is-on'); });
+    }());
+
+    /* ----------------------------------------------------------------------
        2. Header: mobile nav, stuck state, scroll spy
        ---------------------------------------------------------------------- */
     (function header() {
