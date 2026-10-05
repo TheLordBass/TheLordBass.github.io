@@ -552,7 +552,27 @@ main { position: relative; z-index: 1; }
     margin-bottom: 2rem;
 }
 
-.skill-icon { display: none; }   /* a TUI has no icon set */
+/* Icon and title share the first row; the text and tags run full width
+   underneath. The icon sits in a small bordered cell, like a key on the
+   status line, so it stays in the TUI's language. */
+.skill-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: .65rem;
+    align-content: start;
+}
+.skill-card > p, .skill-card > .tag-list { grid-column: 1 / -1; }
+.skill-icon {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: .6rem;
+    border: 1px solid var(--line-2);
+    background: var(--bg-2);
+    color: var(--accent);
+}
+.skill-icon svg { width: 1.05rem; height: 1.05rem; }
 
 /* A seventh card would leave two empty cells at three columns, so it runs
    the full width under the others instead; the text is capped so the line
@@ -560,8 +580,7 @@ main { position: relative; z-index: 1; }
 .skill-card.is-wide { grid-column: 1 / -1; }
 .skill-card.is-wide p { max-width: 90ch; }
 
-.skill-card h3 { font-size: .98rem; color: var(--yellow); margin-bottom: .5rem; }
-.skill-card h3::before { content: "» "; color: var(--accent); }
+.skill-card h3 { font-size: .98rem; color: var(--yellow); margin-bottom: .6rem; align-self: center; }
 .skill-card p { color: var(--fg-dim); font-size: .87rem; margin-bottom: .9rem; }
 
 .tag-list { display: flex; flex-wrap: wrap; gap: .3rem .5rem; list-style: none; padding: 0; font-size: .76rem; }
