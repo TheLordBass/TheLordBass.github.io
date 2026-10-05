@@ -184,15 +184,15 @@
         }
 
         function currentIndex() {
-            // Whichever section header is nearest the top of the viewport.
-            var best = 0, bestDist = Infinity;
+            // The last section whose top has reached the header, or -1 while
+            // still in the hero. "Nearest header" used to count the hero as
+            // About, so j from the top skipped About and went to Skills.
+            var current = -1;
             order.forEach(function (id, i) {
                 var el = document.getElementById(id);
-                if (!el) return;
-                var d = Math.abs(el.getBoundingClientRect().top - 80);
-                if (d < bestDist) { bestDist = d; best = i; }
+                if (el && el.getBoundingClientRect().top <= 100) current = i;
             });
-            return best;
+            return current;
         }
 
         function showKeys(on) {
@@ -294,7 +294,10 @@
                     break;
                 case 'k':
                     e.preventDefault();
-                    go(order[Math.max(0, currentIndex() - 1)]);
+                    var at = currentIndex();
+                    // From the first section, k goes back up to the hero.
+                    if (at <= 0) window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+                    else go(order[at - 1]);
                     break;
                 case '/':
                     e.preventDefault();
