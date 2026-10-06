@@ -15,7 +15,7 @@
     /* Tells the browser which way round native scrollbars and form controls
        should be drawn. Without it Firefox kept them light in the dark theme. */
     color-scheme: dark;
-    /* Ground shared with DataBites (thelordbass.github.io/databites), so
+    /* Ground shared with DataBites (ibomenobasiekanem.com/databites), so
        moving between the two sites feels like one place. Same warm paper and
        ink; the structure here stays a TUI. Hues below map one-to-one onto
        six of that app's track inks, the original six. */

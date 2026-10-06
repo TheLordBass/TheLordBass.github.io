@@ -1,7 +1,7 @@
 # thelordbass.github.io
 
 Personal portfolio site for Ibomeno Basiekanem.
-Live at **https://thelordbass.github.io/**
+Live at **https://ibomenobasiekanem.com/**
 
 Plain HTML, CSS and JavaScript. No build step, no framework, no dependencies,
 no tracking. Push to `main` and GitHub Pages serves it.
@@ -135,7 +135,7 @@ It's a TUI. Not a "cyber" theme. The references are tools people actually use:
 tmux status lines, lazygit panes, vim gutters, `psql` output, k9s tables.
 
 - **Palette** shares its ground and accent with
-  [DataBites](https://thelordbass.github.io/databites/), so moving between the
+  [DataBites](https://ibomenobasiekanem.com/databites/), so moving between the
   two feels like one place. Light-mode colours used as text are darkened to
   clear WCAG AA, noted in the token block in `style.css`.
 - **Type** is IBM Plex Mono throughout. A terminal has one font; committing to

@@ -874,7 +874,7 @@
         databites: {
             kind: 'Pyodide · SQLite · JavaScript',
             title: 'DataBites — Python, SQL and DAX in small bites',
-            live: 'https://thelordbass.github.io/databites/',
+            live: 'https://ibomenobasiekanem.com/databites/',
             liveLabel: 'Open DataBites',
             repo: 'https://github.com/TheLordBass/databites',
             gallery: [
