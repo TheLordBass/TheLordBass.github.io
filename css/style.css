@@ -97,10 +97,10 @@ html {
 
 body {
     background-color: var(--bg);
-    /* Faint character-cell grid, like a terminal you can almost see through. */
-    background-image:
-        repeating-linear-gradient(to right,  var(--line) 0 1px, transparent 1px 64px),
-        repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px 64px);
+    /* Dot grid paper: one dot every 24px, quieter behind text than ruled
+       lines. Fixed to the viewport so the cursor's lit dots line up with it. */
+    background-image: radial-gradient(circle, var(--line-2) 1.1px, transparent 1.6px);
+    background-size: 24px 24px;
     background-attachment: fixed;
     color: var(--fg);
     font-family: var(--mono);
@@ -127,10 +127,10 @@ body::after {
 
 /* Cursor spotlight ---------------------------------------------------------
    Two layers that follow the pointer: a soft glow in the accent colour, and
-   the character-cell grid redrawn in the accent and masked to a circle, so
-   the grid looks lit up like a torch across a terminal. Fixed to the
-   viewport, like the grid it sits on, so the lines stay lined up. It sits
-   behind <main>, so it shows in the gaps between panes, not over the text. */
+   the dot grid redrawn in the accent and masked to a circle, so the dots
+   nearest the pointer light up. Fixed to the viewport, like the dots it sits
+   on, so they stay lined up. It sits behind <main>, so it shows in the gaps
+   between panes, not over the text. */
 .cursor-glow {
     --gx: 50vw;
     --gy: 30vh;
@@ -148,10 +148,9 @@ body::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image:
-        repeating-linear-gradient(to right,  var(--accent) 0 1px, transparent 1px 64px),
-        repeating-linear-gradient(to bottom, var(--accent) 0 1px, transparent 1px 64px);
-    opacity: .45;
+    background-image: radial-gradient(circle, var(--accent) 1.3px, transparent 1.9px);
+    background-size: 24px 24px;
+    opacity: .75;
     -webkit-mask-image: radial-gradient(300px circle at var(--gx) var(--gy), #000, transparent 75%);
             mask-image: radial-gradient(300px circle at var(--gx) var(--gy), #000, transparent 75%);
 }
@@ -165,7 +164,7 @@ body::after {
         radial-gradient(560px circle at var(--gx) var(--gy),
             color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
 }
-[data-theme="light"] .cursor-glow::before { opacity: .3; }
+[data-theme="light"] .cursor-glow::before { opacity: .55; }
 /* Mouse and trackpad only: no pointer to follow on a touch screen. */
 @media (hover: none), (pointer: coarse) { .cursor-glow { display: none; } }
 
