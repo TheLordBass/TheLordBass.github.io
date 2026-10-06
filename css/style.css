@@ -99,7 +99,7 @@ body {
     background-color: var(--bg);
     /* Dot grid paper: one dot every 24px, quieter behind text than ruled
        lines. Fixed to the viewport so the cursor's lit dots line up with it. */
-    background-image: radial-gradient(circle, var(--line-2) 1.1px, transparent 1.6px);
+    background-image: radial-gradient(circle, var(--line-2) .8px, transparent 1.3px);
     background-size: 24px 24px;
     background-attachment: fixed;
     color: var(--fg);
@@ -148,7 +148,7 @@ body::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, var(--accent) 1.3px, transparent 1.9px);
+    background-image: radial-gradient(circle, var(--accent) 1px, transparent 1.5px);
     background-size: 24px 24px;
     opacity: .75;
     -webkit-mask-image: radial-gradient(300px circle at var(--gx) var(--gy), #000, transparent 75%);
