@@ -877,11 +877,11 @@
             liveLabel: 'Open DataBites',
             repo: 'https://github.com/TheLordBass/databites',
             gallery: [
-                { src: 'assets/shots/databites.jpg', cap: 'On a phone, which is what it was built for. Home is one next lesson, each lesson is three bullets and an editor, and the tracks screen shows how far there is to go.', alt: 'Three DataBites phone screens: the home screen with one next lesson and a Begin button, the first Python course lesson with three short bullets above a Python editor, and the tracks screen showing 15 tracks and 305 lessons.' }
+                { src: 'assets/shots/databites.jpg', cap: 'On a phone, which is what it was built for. Home leads with the next lesson, each lesson is three bullets and an editor, and the tracks screen lays everything out as a numbered path.', alt: 'Three DataBites phone screens: the home screen with one next lesson and a Begin button, the first SQL lesson with three short bullets above a SQL editor, and the tracks screen showing 15 tracks and 370 lessons as a numbered learning path.' }
             ],
             blocks: [
                 { h: 'What it is', p: [
-                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 305 lessons across 15 tracks: 220 in Python (a 60-lesson course for complete beginners, plus pandas, statistics, AI and algorithms), 35 in SQL, 35 in DAX (10 of those on Power BI modelling) and 15 across three projects. On top of that are 139 practice problems and a PL-300 prep section with 107 exam-style questions for the Power BI Data Analyst exam.',
+                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 370 lessons across 15 tracks: 285 in Python (an 80-lesson course for complete beginners, plus pandas, messy data, statistics, AI and algorithms), 35 in SQL, 35 in DAX (10 of those on Power BI modelling) and 15 across three projects, laid out as a numbered path in the order to take them. On top of that are 139 practice problems and a PL-300 prep section with 107 exam-style questions for the Power BI Data Analyst exam.',
                     'Nothing gets installed and nothing leaves the device. Your code and your progress stay in the browser, and after the first load it works with no connection. That first load pulls down about 25MB of Python runtime, so it is worth doing on wifi once.'
                 ]},
                 { h: 'Why I built it', p: [
