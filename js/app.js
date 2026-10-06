@@ -72,6 +72,11 @@
             x = e.clientX;
             y = e.clientY;
             glow.classList.add('is-on');
+            // Text that sits on the open background, not inside a card: the
+            // glow dims while the pointer is over it, so reading wins.
+            var reading = e.target && e.target.closest &&
+                e.target.closest('.hero-copy, .section-head, .prose, .about-side, .timeline, .contact-grid, .grid-more, .filter-row');
+            glow.classList.toggle('is-dim', !!reading);
             if (!queued) { queued = true; window.requestAnimationFrame(paint); }
         }, { passive: true });
 

@@ -139,10 +139,10 @@ body::after {
     z-index: 0;
     pointer-events: none;
     opacity: 0;
-    transition: opacity .5s ease;
+    transition: opacity .35s ease;
     background:
         radial-gradient(560px circle at var(--gx) var(--gy),
-            color-mix(in srgb, var(--accent) 19%, transparent), transparent 70%);
+            color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%);
 }
 .cursor-glow::before {
     content: "";
@@ -151,17 +151,21 @@ body::after {
     background-image:
         repeating-linear-gradient(to right,  var(--accent) 0 1px, transparent 1px 64px),
         repeating-linear-gradient(to bottom, var(--accent) 0 1px, transparent 1px 64px);
-    opacity: .55;
+    opacity: .45;
     -webkit-mask-image: radial-gradient(300px circle at var(--gx) var(--gy), #000, transparent 75%);
             mask-image: radial-gradient(300px circle at var(--gx) var(--gy), #000, transparent 75%);
 }
 .cursor-glow.is-on { opacity: 1; }
+/* Over text you are reading (hero, section intros, the About prose), the
+   glow backs right off so the lit grid lines stop running through letters.
+   It comes back as soon as the pointer moves to empty space or a card. */
+.cursor-glow.is-on.is-dim { opacity: .3; }
 [data-theme="light"] .cursor-glow {
     background:
         radial-gradient(560px circle at var(--gx) var(--gy),
-            color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
+            color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
 }
-[data-theme="light"] .cursor-glow::before { opacity: .35; }
+[data-theme="light"] .cursor-glow::before { opacity: .3; }
 /* Mouse and trackpad only: no pointer to follow on a touch screen. */
 @media (hover: none), (pointer: coarse) { .cursor-glow { display: none; } }
 
