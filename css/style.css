@@ -897,7 +897,7 @@ main { position: relative; z-index: 1; }
    15. Responsive
    -------------------------------------------------------------------------- */
 @media (max-width: 980px) {
-    .hero-grid { grid-template-columns: 1fr; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
     /* One column: the name and intro come first, the terminal follows. */
     .hero-title { font-size: clamp(1.5rem, 8vw, 3rem); }
     .terminal-body { height: 16rem; }
