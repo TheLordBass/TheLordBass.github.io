@@ -17,12 +17,12 @@
     <meta property="og:locale" content="en_GB">
     <!-- Bump ?v= whenever og-image.png changes: LinkedIn caches the image by
          its URL and ignores a new file at the same address. -->
-    <meta property="og:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=4">
+    <meta property="og:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=5">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Ibomeno Basiekanem, data analysis in Manchester. Data hides things. And there's a thrill in finding them, and in explaining how.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=4">
+    <meta name="twitter:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=5">
 
     <meta name="theme-color" content="#16130f" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
@@ -396,23 +396,26 @@
                 </div>
             </article>
 
-            <!-- NBA: strong project, but no screenshot — a double-width card with
-                 no image reads as a gap, so it sits at normal width. -->
-            <article class="card project-card" data-category="sql" data-project="nba">
+            <!-- Premier League Excel. Normal width with a picture: making it featured
+                 would leave six featured cards to three normal ones, and holes. -->
+            <article class="card project-card has-shot" data-category="excel" data-project="epl">
+                <a class="project-shot" href="#" data-project="epl" aria-label="Open write-up: Premier League season dashboard">
+                    <img src="assets/shots/epl-card.jpg" width="1031" height="580" loading="lazy" decoding="async"
+                         alt="Excel dashboard set to the 2021/22 season: a full Premier League table with Man City top on 93 points, zones for the Champions League, Europa League and relegation, and a season summary naming the champions, European qualifiers and relegated clubs.">
+                </a>
                 <div class="project-top">
-                    <span class="project-kind">SQL · Window functions</span>
-                    <h3 class="project-title">NBA trends &amp; performance, 1996–2023</h3>
+                    <span class="project-kind">Excel · Power Query · Dynamic arrays</span>
+                    <h3 class="project-title">Premier League season dashboard</h3>
                 </div>
                 <p class="project-desc">
-                    Three things everyone says about the NBA, checked against 12,000-odd player seasons.
-                    Players with a usage rate over 30% had the best true shooting, not the worst, and part
-                    of the drop in average height since 2015 was the league changing how it measured
-                    players in 2019.
+                    8,360 matches from 2000/01 to 2021/22, rebuilt into a league table for any season
+                    you pick. My favourite find: 2020/21, played without fans, is the only season where
+                    away teams won more games than home teams.
                 </p>
-                <ul class="tag-list"><li>SQL</li><li>CTEs</li><li>Window functions</li></ul>
+                <ul class="tag-list"><li>Excel</li><li>Power Query</li><li>FILTER &amp; XLOOKUP</li><li>Dashboard</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="nba">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/NBA-Player-Stats" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for NBA trends and performance analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="epl">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Premier League Excel analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -438,22 +441,24 @@
                 </div>
             </article>
 
-            <!-- COVID -->
-            <article class="card project-card" data-category="sql" data-project="covid">
+            <!-- Healthcare claims. SQL done, Power BI dashboard still to come:
+                 add "bi" to data-category, a screenshot and drop the status
+                 line once it exists. -->
+            <article class="card project-card" data-category="sql" data-project="claims">
                 <div class="project-top">
-                    <span class="project-kind">SQL · Exploratory analysis</span>
-                    <h3 class="project-title">COVID-19 global analysis</h3>
+                    <span class="project-kind">SQL Server · Window functions</span>
+                    <h3 class="project-title">Healthcare claims analysis</h3>
+                    <p class="project-status">In progress: Power BI next</p>
                 </div>
                 <p class="project-desc">
-                    Deaths and vaccinations by country, joined on country and date. The main lesson was
-                    that no single death rate told you much, because the odds of dying if you caught it
-                    kept falling as treatment got better. Running vaccination totals showed how uneven
-                    the rollout was.
+                    449 health insurance claims, followed to where the money goes. Inpatient care is 22%
+                    of claims but 70% of the 1.55 million paid, and the single largest claim was paid 14
+                    times the average for its procedure code.
                 </p>
-                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <ul class="tag-list"><li>SQL Server</li><li>Window functions</li><li>Data quality</li><li>Healthcare</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="claims">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Healthcare-Claims-Analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for the healthcare claims analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -479,26 +484,23 @@
                 </div>
             </article>
 
-            <!-- Premier League Excel. Normal width with a picture: making it featured
-                 would leave six featured cards to three normal ones, and holes. -->
-            <article class="card project-card has-shot" data-category="excel" data-project="epl">
-                <a class="project-shot" href="#" data-project="epl" aria-label="Open write-up: Premier League season dashboard">
-                    <img src="assets/shots/epl-card.jpg" width="1031" height="580" loading="lazy" decoding="async"
-                         alt="Excel dashboard set to the 2021/22 season: a full Premier League table with Man City top on 93 points, zones for the Champions League, Europa League and relegation, and a season summary naming the champions, European qualifiers and relegated clubs.">
-                </a>
+            <!-- NBA: strong project, but no screenshot — a double-width card with
+                 no image reads as a gap, so it sits at normal width. -->
+            <article class="card project-card" data-category="sql" data-project="nba">
                 <div class="project-top">
-                    <span class="project-kind">Excel · Power Query · Dynamic arrays</span>
-                    <h3 class="project-title">Premier League season dashboard</h3>
+                    <span class="project-kind">SQL · Window functions</span>
+                    <h3 class="project-title">NBA trends &amp; performance, 1996–2023</h3>
                 </div>
                 <p class="project-desc">
-                    8,360 matches from 2000/01 to 2021/22, rebuilt into a league table for any season
-                    you pick. My favourite find: 2020/21, played without fans, is the only season where
-                    away teams won more games than home teams.
+                    Three things everyone says about the NBA, checked against 12,000-odd player seasons.
+                    Players with a usage rate over 30% had the best true shooting, not the worst, and part
+                    of the drop in average height since 2015 was the league changing how it measured
+                    players in 2019.
                 </p>
-                <ul class="tag-list"><li>Excel</li><li>Power Query</li><li>FILTER &amp; XLOOKUP</li><li>Dashboard</li></ul>
+                <ul class="tag-list"><li>SQL</li><li>CTEs</li><li>Window functions</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="epl">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Premier-League-Analysis-with-Excel-" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for Premier League Excel analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="nba">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/NBA-Player-Stats" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for NBA trends and performance analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -527,24 +529,22 @@
                 </div>
             </article>
 
-            <!-- Healthcare claims. SQL done, Power BI dashboard still to come:
-                 add "bi" to data-category, a screenshot and drop the status
-                 line once it exists. -->
-            <article class="card project-card" data-category="sql" data-project="claims">
+            <!-- COVID -->
+            <article class="card project-card" data-category="sql" data-project="covid">
                 <div class="project-top">
-                    <span class="project-kind">SQL Server · Window functions</span>
-                    <h3 class="project-title">Healthcare claims analysis</h3>
-                    <p class="project-status">In progress: Power BI next</p>
+                    <span class="project-kind">SQL · Exploratory analysis</span>
+                    <h3 class="project-title">COVID-19 global analysis</h3>
                 </div>
                 <p class="project-desc">
-                    449 health insurance claims, followed to where the money goes. Inpatient care is 22%
-                    of claims but 70% of the 1.55 million paid, and the single largest claim was paid 14
-                    times the average for its procedure code.
+                    Deaths and vaccinations by country, joined on country and date. The main lesson was
+                    that no single death rate told you much, because the odds of dying if you caught it
+                    kept falling as treatment got better. Running vaccination totals showed how uneven
+                    the rollout was.
                 </p>
-                <ul class="tag-list"><li>SQL Server</li><li>Window functions</li><li>Data quality</li><li>Healthcare</li></ul>
+                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="claims">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Healthcare-Claims-Analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for the healthcare claims analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
                 </div>
             </article>
 
