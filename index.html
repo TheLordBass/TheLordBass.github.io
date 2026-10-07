@@ -502,8 +502,8 @@
                 </div>
             </article>
 
-            <!-- Featured: DataBites. Five featured cards and four normal ones,
-                 so this last one sits on its own row. -->
+            <!-- Featured: DataBites. Five featured cards and five normal ones,
+                 so every row of three is full. -->
             <article class="card project-card is-featured has-shot" data-category="python" data-project="databites">
                 <a class="project-shot" href="#" data-project="databites" aria-label="Open write-up: DataBites">
                     <img src="assets/shots/databites.jpg" width="1400" height="788" loading="lazy" decoding="async"
@@ -524,6 +524,27 @@
                     <button type="button" class="project-open" data-project="databites">Read the write-up</button>
                     <a class="project-viz" href="https://ibomenobasiekanem.com/databites/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open DataBites in the browser</span></a>
                     <a class="project-repo" href="https://github.com/TheLordBass/databites" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for DataBites on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Healthcare claims. SQL done, Power BI dashboard still to come:
+                 add "bi" to data-category, a screenshot and drop the status
+                 line once it exists. -->
+            <article class="card project-card" data-category="sql" data-project="claims">
+                <div class="project-top">
+                    <span class="project-kind">SQL Server · Window functions</span>
+                    <h3 class="project-title">Healthcare claims analysis</h3>
+                    <p class="project-status">In progress: Power BI next</p>
+                </div>
+                <p class="project-desc">
+                    449 health insurance claims, followed to where the money goes. Inpatient care is 22%
+                    of claims but 70% of the 1.55 million paid, and the single largest claim was paid 14
+                    times the average for its procedure code.
+                </p>
+                <ul class="tag-list"><li>SQL Server</li><li>Window functions</li><li>Data quality</li><li>Healthcare</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="claims">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Healthcare-Claims-Analysis" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for the healthcare claims analysis on GitHub</span></a>
                 </div>
             </article>
 

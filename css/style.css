@@ -677,6 +677,11 @@ main { position: relative; z-index: 1; }
 
 .project-title { font-size: 1rem; color: var(--yellow); }
 
+/* Unfinished work says so, the way a status line would. */
+.project-status { margin-top: .45rem; font-size: .74rem; color: var(--fg-dim); }
+.project-status::before { content: "-- "; color: var(--yellow); }
+.project-status::after  { content: " --"; color: var(--yellow); }
+
 .project-desc { color: var(--fg-dim); font-size: .85rem; margin-bottom: .9rem; flex: 1 0 auto; max-width: 72ch; }
 .project-card > .tag-list { margin-bottom: 1rem; }
 

@@ -338,7 +338,7 @@
             { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area     | count' },
-            { t: 'out',  v: ' SQL      |     4' },
+            { t: 'out',  v: ' SQL      |     5' },
             { t: 'out',  v: ' Power BI |     3' },
             { t: 'out',  v: ' Python   |     1' },
             { t: 'out',  v: ' Excel    |     1' },
@@ -903,6 +903,53 @@
                 { h: 'Practice that tests honestly', p: [
                     'The practice problems work like LeetCode. There is no starter code, and your answer is judged against hidden inputs that include the edge cases the problem is really about: ties, missing values, empty results. When it fails it shows you exactly which case broke, what was expected and what you returned.',
                     'Each problem also carries tempting wrong answers that the tests must reject, like a >= where it should be >, or an inner join that quietly drops the customers who never ordered. If a wrong answer ever passed, the hidden cases would not be testing the trap, so this proves they do. Alternative correct answers go in the other direction and must pass, which catches tests that only allow one way of writing it.'
+                ]}
+            ]
+        },
+
+        claims: {
+            kind: 'SQL Server · T-SQL · Window functions',
+            title: 'Healthcare claims analysis',
+            repo: 'https://github.com/TheLordBass/Healthcare-Claims-Analysis',
+            blocks: [
+                { h: 'Work in progress', p: [
+                    'The SQL half is done. A Power BI dashboard on the same data comes next, and this write-up gets its screenshots when it is built.'
+                ]},
+                { h: 'The question', p: [
+                    '449 health insurance claims and one question: where does the money go? I broke spend down by claim type, by procedure (CPT code) and by diagnosis (ICD code), then looked at how much of it sits in a handful of very large claims.'
+                ]},
+                { h: 'What it showed', list: [
+                    '<strong>Inpatient care drives the cost.</strong> Inpatient claims are 22% of claims but 70.4% of the 1.55 million paid, and an average inpatient claim is paid about nine times as much as an outpatient one. Pharmacy is 18% of claims and under 1% of spend.',
+                    '<strong>Spend sits in a few codes.</strong> The top 10 procedure codes take 61.7% of everything paid and the top 10 diagnosis codes 60.3%. Hypertension (I10) is the costliest diagnosis.',
+                    '<strong>Ten claims carry 15.9% of all spend.</strong> They are 2.2% of claims, and all ten are inpatient.',
+                    '<strong>Some big claims sit far above their code’s norm.</strong> The largest, 35,000, was paid 14 times the average for its procedure code, and another 10 times. Those are the claims an insurer would want to review.'
+                ]},
+                { h: 'A ranking that misleads', p: [
+                    'Ranking procedure codes by average paid per claim looked like it would show the expensive procedures. It mostly showed one-off claims: 9 of the top 10 codes appear on a single claim, so their “average” is just that one claim. Only one code is expensive across several claims.',
+                    'So the last query looks at the largest claims one by one instead, each next to how many claims share its code and what that code pays on average. That is what shows a 35,000 claim on a code that normally pays under 2,500.'
+                ]},
+                { h: 'What I would not claim', p: [
+                    'The results use the data as supplied, with the problems flagged rather than fixed. 77 claims, 18.9% of the money paid, carry a procedure code that cannot be valid as written: too short, too long, or text. Some look like codes that lost their leading zeros in Excel, with 00123 turning into 123.',
+                    'The dates need fixing, not just converting. Every date stored as text has a day above 12, and every real date has a day of 12 or below. That is what Excel does when it opens US month/day dates with UK settings: it converts the ones it can read the other way round and leaves the rest as text. So the converted dates probably have day and month swapped.',
+                    'Otherwise it is clean: no duplicate claims, no missing amounts, and no claim paid more than it was billed.'
+                ]},
+                { h: 'How it was built', p: [
+                    'SQL Server. GROUP BY with RANK() for the claim type, procedure and diagnosis rankings, and window functions partitioned by procedure code so each large claim keeps its own row while sitting next to its code’s claim count and average.'
+                ]},
+                { h: 'Sample approach', code:
+'SELECT TOP 10\n' +
+'       claim_id, member_id, claim_type, cpt_code, paid_amount,\n' +
+'       COUNT(*) OVER (PARTITION BY cpt_code) AS claims_for_code,\n' +
+'       CAST(AVG(paid_amount) OVER (PARTITION BY cpt_code)\n' +
+'            AS DECIMAL(10,2)) AS code_avg_paid\n' +
+'FROM claims\n' +
+'ORDER BY paid_amount DESC;'
+                },
+                { h: 'Next', list: [
+                    'Member-level costs: the highest-cost members and which claim types drive them.',
+                    'Billed against paid, by claim type, provider and procedure.',
+                    'A minimum claim count on the average-paid ranking, and diagnosis codes rolled up to their category, so B20 and B20.1 count together.',
+                    'The Power BI dashboard.'
                 ]}
             ]
         }
