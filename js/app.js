@@ -467,11 +467,11 @@
                     ['Airline Complaints',      'Power BI'],
                     ['Airline Punctuality',     'Power BI'],
                     ['COVID-19 Analysis',       'SQL'],
-                    ['DataBites',               'Python'],
                     ['Driver Incentive Scheme', 'SQL'],
                     ['Mobile Game Revenue',     'Power BI'],
                     ['NBA Trends 1996-2023',    'SQL'],
                     ['Premier League Dashboard','Excel'],
+                    ['QueryCafe',               'Python'],
                     ['US EV Adoption',          'SQL']
                 ]
             }
@@ -873,12 +873,12 @@
 
         databites: {
             kind: 'Pyodide · SQLite · JavaScript',
-            title: 'DataBites — Python, SQL and DAX in small bites',
+            title: 'QueryCafe — Python, SQL and DAX in small bites',
             live: 'https://ibomenobasiekanem.com/databites/',
-            liveLabel: 'Open DataBites',
+            liveLabel: 'Open QueryCafe',
             repo: 'https://github.com/TheLordBass/databites',
             gallery: [
-                { src: 'assets/shots/databites.jpg', cap: 'On a phone, which is what it was built for. Home leads with the next lesson, each lesson is three bullets and an editor, and the tracks screen lays everything out as a numbered path.', alt: 'Three DataBites phone screens: the home screen with one next lesson and a Begin button, the first SQL lesson with three short bullets above a SQL editor, and the tracks screen showing 15 tracks and 370 lessons as a numbered learning path.' }
+                { src: 'assets/shots/querycafe.jpg', cap: 'On a phone, which is what it was built for. Home leads with the next lesson, each lesson is three bullets and an editor, and the tracks screen lays everything out as a numbered path.', alt: 'Three QueryCafe phone screens: the home screen with one next lesson and a Begin button, the first SQL lesson with three short bullets above a SQL editor, and the tracks screen showing 15 tracks and 370 lessons as a numbered learning path.' }
             ],
             blocks: [
                 { h: 'What it is', p: [

@@ -57,11 +57,11 @@ Two steps, both mechanical:
    **Card order matters.** Featured cards (`.is-featured`) span two of the three
    grid columns, so each one must be followed by an ordinary one-column card or
    the grid leaves a visible hole. Current pattern: featured, normal, repeated
-   four times, then DataBites featured on its own as the last row. Only give a card `.is-featured` if it
+   four times, then QueryCafe featured on its own as the last row. Only give a card `.is-featured` if it
    has a screenshot — a double-width card with no image reads as a gap.
 
    Use `.project-repo` for a GitHub link or `.project-viz` for something live
-   people can open, like DataBites; the latter renders with a green "live" dot.
+   people can open, like QueryCafe; the latter renders with a green "live" dot.
    Give that project's `PROJECTS` entry a `live` URL and a `liveLabel` as well,
    so the modal leads with it and keeps GitHub as the second button.
 2. **Write-up** — add an entry to `PROJECTS` in `js/app.js` using the same key.
@@ -135,7 +135,7 @@ It's a TUI. Not a "cyber" theme. The references are tools people actually use:
 tmux status lines, lazygit panes, vim gutters, `psql` output, k9s tables.
 
 - **Palette** shares its ground and accent with
-  [DataBites](https://ibomenobasiekanem.com/databites/), so moving between the
+  [QueryCafe](https://ibomenobasiekanem.com/databites/), so moving between the
   two feels like one place. Light-mode colours used as text are darkened to
   clear WCAG AA, noted in the token block in `style.css`.
 - **Type** is IBM Plex Mono throughout. A terminal has one font; committing to

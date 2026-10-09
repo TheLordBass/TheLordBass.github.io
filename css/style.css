@@ -3,7 +3,7 @@
    A TUI. Not a "cyber" theme — this borrows from tools people actually use:
    tmux status lines, lazygit panes, vim gutters, k9s tables.
 
-   Palette shares its ground and accent with DataBites, so the two sites feel
+   Palette shares its ground and accent with QueryCafe, so the two sites feel
    like one place. Type is IBM Plex Mono throughout, because a terminal has
    one font and committing to that is the whole point.
    ========================================================================== */
@@ -15,7 +15,7 @@
     /* Tells the browser which way round native scrollbars and form controls
        should be drawn. Without it Firefox kept them light in the dark theme. */
     color-scheme: dark;
-    /* Ground shared with DataBites (ibomenobasiekanem.com/databites), so
+    /* Ground shared with QueryCafe (ibomenobasiekanem.com/databites), so
        moving between the two sites feels like one place. Same warm paper and
        ink; the structure here stays a TUI. Hues below map one-to-one onto
        six of that app's track inks, the original six. */
@@ -69,7 +69,7 @@
     --accent-2:   #8e2d1e;
     /* These are used as text, so
        every one is darkened until it clears 4.5:1 on --bg while staying the
-       same hue as its DataBites counterpart. Verified, not eyeballed. */
+       same hue as its QueryCafe counterpart. Verified, not eyeballed. */
     --yellow:     #6b4f34;
     --green:      #4a5537;
     --aqua:       #375043;
@@ -112,7 +112,7 @@ body {
 }
 [data-theme="light"] body { background-blend-mode: multiply; }
 
-/* Paper grain, shared with DataBites. Sits over the character-cell grid
+/* Paper grain, shared with QueryCafe. Sits over the character-cell grid
    rather than replacing it — the grid is structure, this is texture. */
 body::after {
     content: "";
