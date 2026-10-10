@@ -441,12 +441,14 @@
                 sql: 'SELECT * FROM toolkit;',
                 cols: ['tool', 'used_for'],
                 rows: [
-                    ['SQL',       'Joins, CTEs, window functions, subqueries'],
-                    ['Excel',     'Power Query, XLOOKUP, pivot tables'],
-                    ['Power BI',  'Star schemas, DAX, drill-through'],
-                    ['Tableau',   'Dashboards, parameters'],
-                    ['Python',    'pandas, still learning'],
-                    ['AI tools',  'Drafting SQL and DAX, then checking it']
+                    ['SQL',        'Joins, CTEs, window functions, subqueries'],
+                    ['Excel',      'Power Query, XLOOKUP, pivot tables'],
+                    ['Office',     'Word reports, PowerPoint decks'],
+                    ['Power BI',   'Star schemas, DAX, drill-through'],
+                    ['Salesforce', 'CRM, every day at BA'],
+                    ['Tableau',    'Dashboards, parameters'],
+                    ['Python',     'pandas, still learning'],
+                    ['AI tools',   'Drafting SQL and DAX, then checking it']
                 ]
             },
             focus: {
@@ -457,7 +459,8 @@
                     ['Modelling',     'Star schemas and measures that agree'],
                     ['Cleaning',     'Finding what the data quietly gets wrong'],
                     ['Dashboards',   'Building for the decision, not every field'],
-                    ['Writing up',   'Saying what I am not confident about too']
+                    ['Writing up',   'Saying what I am not confident about too'],
+                    ['Improving',    'Fixing the process, not just the one case']
                 ]
             },
             projects: {
@@ -468,6 +471,7 @@
                     ['Airline Punctuality',     'Power BI'],
                     ['COVID-19 Analysis',       'SQL'],
                     ['Driver Incentive Scheme', 'SQL'],
+                    ['Healthcare Claims',       'SQL'],
                     ['Mobile Game Revenue',     'Power BI'],
                     ['NBA Trends 1996-2023',    'SQL'],
                     ['Premier League Dashboard','Excel'],
