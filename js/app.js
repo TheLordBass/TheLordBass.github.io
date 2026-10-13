@@ -882,7 +882,7 @@
             liveLabel: 'Open QueryCafe',
             repo: 'https://github.com/TheLordBass/databites',
             gallery: [
-                { src: 'assets/shots/querycafe.jpg', cap: 'On a phone, which is what it was built for. Home leads with the next lesson, each lesson is three bullets and an editor (here an Excel formula, drawn back as the column it fills), and Courses lays everything out as a path in seven stages.', alt: 'Three QueryCafe phone screens in its dark green and caramel theme: the home screen with the next lesson, a Continue button and today’s special in points; an Excel lesson whose IF formula is drawn back as the column it fills, under a formula bar; and the Courses screen with the first of seven stages and every course open below it.' }
+                { src: 'assets/shots/querycafe.jpg', cap: 'On a phone, which is what it was built for. Home leads with the next lesson, each lesson is three bullets and an editor (here an Excel formula, drawn back as the column it fills), and Courses lays everything out as a path in seven stages.', alt: 'Three QueryCafe phone screens in its dark matcha and caramel theme: the home screen with the next lesson, a Continue button and today’s special in points; an Excel lesson whose IF formula is drawn back as the column it fills, under a formula bar; and the Courses screen with the first of seven stages and every course open below it.' }
             ],
             blocks: [
                 { h: 'What it is', p: [
