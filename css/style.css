@@ -654,6 +654,9 @@ main { position: relative; z-index: 1; }
 }
 
 .project-card { display: flex; flex-direction: column; height: 100%; padding: 0; }
+/* The whole card opens its write-up (see app.js), so it says so on hover. */
+.project-card[data-project] { cursor: pointer; }
+.project-card[data-project]:hover .project-open { text-decoration: underline; text-underline-offset: 3px; }
 .project-card.is-featured { grid-column: span 2; }
 .project-card[hidden] { display: none; }
 

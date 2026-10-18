@@ -1052,11 +1052,13 @@
             return html;
         }
 
-        function open(key) {
+        // returnTo: where focus goes on close, when the click came from
+        // something that cannot hold focus itself (the body of a card).
+        function open(key, returnTo) {
             var html = build(key);
             if (!html) return;
 
-            lastFocus = document.activeElement;
+            lastFocus = returnTo || document.activeElement;
             body.innerHTML = html;
             root.hidden = false;
             document.body.style.overflow = 'hidden';
@@ -1074,12 +1076,24 @@
             if (lastFocus && lastFocus.focus) lastFocus.focus();
         }
 
-        // Open triggers
+        // Open triggers: the picture and the "Read the write-up" button
         $$('[data-project]').forEach(function (el) {
-            if (el.classList.contains('project-card')) return; // the card itself is not a trigger
+            if (el.classList.contains('project-card')) return; // handled below
             el.addEventListener('click', function (e) {
                 e.preventDefault();
                 open(el.getAttribute('data-project'));
+            });
+        });
+
+        // A click anywhere else on a card opens it too. The card's own links
+        // and buttons keep their job (Code and Live still go to GitHub and
+        // the app), and a drag to select text is not taken as a click. The
+        // button stays the keyboard route in, and focus returns to it.
+        $$('.project-card[data-project]').forEach(function (card) {
+            card.addEventListener('click', function (e) {
+                if (e.target.closest('a, button')) return;
+                if (String(window.getSelection()).length) return;
+                open(card.getAttribute('data-project'), $('.project-open', card));
             });
         });
 
