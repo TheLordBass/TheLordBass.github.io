@@ -462,8 +462,9 @@
                 </div>
             </article>
 
-            <!-- Featured: Airline customer complaints (companion to the punctuality report) -->
-            <article class="card project-card is-featured has-shot" data-category="bi" data-project="complaints">
+            <!-- Airline customer complaints (companion to the punctuality report).
+                 Normal width with a picture, so it, NBA and COVID make a row of three. -->
+            <article class="card project-card has-shot" data-category="bi" data-project="complaints">
                 <a class="project-shot" href="#" data-project="complaints" aria-label="Open write-up: Airline customer complaints">
                     <img src="assets/shots/airline-complaints.jpg" width="1400" height="782" loading="lazy" decoding="async"
                          alt="Power BI dashboard showing average resolution time of 22.37 days, 977 complaints, delay as the most complained-about category and £172.36K total compensation, above complaint volume and payout by category, a channel breakdown pie, a monthly complaint line and complaints per 1,000 flights ranked by airport.">
@@ -504,8 +505,28 @@
                 </div>
             </article>
 
-            <!-- Featured: QueryCafe. Five featured cards and five normal ones,
-                 so every row of three is full. -->
+            <!-- COVID -->
+            <article class="card project-card" data-category="sql" data-project="covid">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Exploratory analysis</span>
+                    <h3 class="project-title">COVID-19 global analysis</h3>
+                </div>
+                <p class="project-desc">
+                    Deaths and vaccinations by country, joined on country and date. The main lesson was
+                    that no single death rate told you much, because the odds of dying if you caught it
+                    kept falling as treatment got better. Running vaccination totals showed how uneven
+                    the rollout was.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Featured: QueryCafe, paired with JobScratch. Four featured cards each
+                 beside a normal one, plus one row of three normal cards, so every
+                 row of three is full. -->
             <article class="card project-card is-featured has-shot" data-category="python" data-project="databites">
                 <a class="project-shot" href="#" data-project="databites" aria-label="Open write-up: QueryCafe">
                     <img src="assets/shots/querycafe.jpg" width="1400" height="788" loading="lazy" decoding="async"
@@ -529,22 +550,23 @@
                 </div>
             </article>
 
-            <!-- COVID -->
-            <article class="card project-card" data-category="sql" data-project="covid">
+            <!-- JobScratch: an app rather than an analysis, so it matches no filter
+                 and only shows under All. No Live link or screenshot: the live copy
+                 sits behind a sign-in because it holds my CV and saved jobs. -->
+            <article class="card project-card" data-category="app" data-project="jobscratch">
                 <div class="project-top">
-                    <span class="project-kind">SQL · Exploratory analysis</span>
-                    <h3 class="project-title">COVID-19 global analysis</h3>
+                    <span class="project-kind">Next.js · TypeScript · Claude API</span>
+                    <h3 class="project-title">JobScratch — my job search, as a website</h3>
                 </div>
                 <p class="project-desc">
-                    Deaths and vaccinations by country, joined on country and date. The main lesson was
-                    that no single death rate told you much, because the odds of dying if you caught it
-                    kept falling as treatment got better. Running vaccination totals showed how uneven
-                    the rollout was.
+                    Built for my own job hunt. It searches 14 job sources at once, merges the same job
+                    listed on several sites, and uses Claude to score each job against my CV and tailor
+                    a CV and cover letter without inventing anything. Built with Claude as my coding partner.
                 </p>
-                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <ul class="tag-list"><li>TypeScript</li><li>Next.js</li><li>React</li><li>Claude API</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="jobscratch">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Jobscratch" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for JobScratch on GitHub</span></a>
                 </div>
             </article>
 

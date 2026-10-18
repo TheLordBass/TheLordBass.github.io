@@ -337,12 +337,13 @@
             { t: 'cmd',  v: 'SELECT area, count(*) FROM projects' },
             { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
-            { t: 'head', v: ' area     | count' },
-            { t: 'out',  v: ' SQL      |     5' },
-            { t: 'out',  v: ' Power BI |     3' },
-            { t: 'out',  v: ' Python   |     1' },
-            { t: 'out',  v: ' Excel    |     1' },
-            { t: 'dim',  v: '(4 rows)' },
+            { t: 'head', v: ' area       | count' },
+            { t: 'out',  v: ' SQL        |     5' },
+            { t: 'out',  v: ' Power BI   |     3' },
+            { t: 'out',  v: ' Python     |     1' },
+            { t: 'out',  v: ' Excel      |     1' },
+            { t: 'out',  v: ' TypeScript |     1' },
+            { t: 'dim',  v: '(5 rows)' },
             { t: 'dim',  v: '' },
             { t: 'ok',   v: '-- all public. click through any of it.' }
         ];
@@ -472,6 +473,7 @@
                     ['COVID-19 Analysis',       'SQL'],
                     ['Driver Incentive Scheme', 'SQL'],
                     ['Healthcare Claims',       'SQL'],
+                    ['JobScratch',              'TypeScript'],
                     ['Mobile Game Revenue',     'Power BI'],
                     ['NBA Trends 1996-2023',    'SQL'],
                     ['Premier League Dashboard','Excel'],
@@ -957,6 +959,32 @@
                     'Billed against paid, by claim type, provider and procedure.',
                     'A minimum claim count on the average-paid ranking, and diagnosis codes rolled up to their category, so B20 and B20.1 count together.',
                     'The Power BI dashboard.'
+                ]}
+            ]
+        },
+
+        jobscratch: {
+            kind: 'Next.js · TypeScript · Claude API',
+            title: 'JobScratch — my job search, as a website',
+            repo: 'https://github.com/TheLordBass/Jobscratch',
+            blocks: [
+                { h: 'What it is', p: [
+                    'The website I use for my own job search. It searches 14 job sources at once, from remote boards like Remotive and Himalayas to Reed, Adzuna, Jooble and Google Jobs, plus companies’ own careers pages on Greenhouse, Lever and Ashby. When the same job turns up on several sites, the duplicates are merged and every apply link is kept, so I apply in the right place.',
+                    'It also tracks applications from saved to applied, interviewing and offer, with notes and a CSV export.'
+                ]},
+                { h: 'Matching and tailoring with Claude', p: [
+                    'Upload a CV once and it can score every job in a list against it: a 0 to 100 match, a one-line verdict and up to three things the job wants that the CV does not show. For a single job, Claude gives a fuller match analysis, then rewrites the CV for that job and writes a cover letter, which download as Word, PDF or Markdown.',
+                    'It is told never to invent anything. Employers, titles, dates and numbers have to come from the CV, and anything the job wants that the CV cannot back up goes in the gap analysis instead. Jobs are only scored once they have a full description, because a score worked out from a two-line snippet would not mean much.'
+                ]},
+                { h: 'LinkedIn without scraping', p: [
+                    'LinkedIn, Indeed and Glassdoor have no public jobs API and their terms forbid scraping, so the server never scrapes them. Their jobs come in through Google Jobs results, or one at a time from a bookmark or browser extension that reads the job page I am already looking at.'
+                ]},
+                { h: 'Where the data lives', p: [
+                    'Everything personal stays in the browser by default. Server storage is optional, and it only switches on behind a password, so a CV is never open to anyone who finds the link. That is also why there is no live link here: my copy holds my own CV and saved jobs.'
+                ]},
+                { h: 'How it was built', p: [
+                    'With Claude, the same way as QueryCafe. 21 of its pull requests came from Claude coding sessions, and I directed what it should do and merged the changes. It is Next.js and React in TypeScript, with the Anthropic SDK for Claude, zod schemas to check the structured match results, and the docx library for the Word downloads.',
+                    'Every push and pull request runs linting, type checks, 18 files of unit tests and a production build on GitHub.'
                 ]}
             ]
         }
