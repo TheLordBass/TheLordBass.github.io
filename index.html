@@ -551,9 +551,14 @@
             </article>
 
             <!-- JobScratch: an app rather than an analysis, so it matches no filter
-                 and only shows under All. No Live link or screenshot: the live copy
-                 sits behind a sign-in because it holds my CV and saved jobs. -->
-            <article class="card project-card" data-category="app" data-project="jobscratch">
+                 and only shows under All. No Live link: the live copy sits behind a
+                 sign-in because it holds my CV and saved jobs, so the screenshots are
+                 of a local copy filled with made-up demo data. -->
+            <article class="card project-card has-shot" data-category="app" data-project="jobscratch">
+                <a class="project-shot" href="#" data-project="jobscratch" aria-label="Open write-up: JobScratch">
+                    <img src="assets/shots/jobscratch.jpg" width="1400" height="788" loading="lazy" decoding="async"
+                         alt="Three JobScratch phone screens in its dark theme, with made-up demo data: My jobs sorted by best match, led by a Data Analyst job at 88% marked Interviewing; that job's full description laid out with headings and bullet points; and its match analysis, an 88% score with strengths, gaps and keywords.">
+                </a>
                 <div class="project-top">
                     <span class="project-kind">Next.js · TypeScript · Claude API</span>
                     <h3 class="project-title">JobScratch — my job search, as a website</h3>
