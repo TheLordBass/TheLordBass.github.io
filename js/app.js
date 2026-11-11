@@ -443,10 +443,11 @@
                 cols: ['tool', 'used_for'],
                 rows: [
                     ['SQL',        'Joins, CTEs, window functions, subqueries'],
-                    ['Excel',      'Power Query, XLOOKUP, pivot tables'],
-                    ['Office',     'Word reports, PowerPoint decks'],
+                    ['Excel',      'Power Query, XLOOKUP, SUMIFS, pivots'],
+                    ['Office',     'Outlook, Teams, SharePoint, Word'],
                     ['Power BI',   'Star schemas, DAX, drill-through'],
                     ['Salesforce', 'CRM, every day at BA'],
+                    ['Amadeus',    'Airline bookings at BA'],
                     ['Tableau',    'Dashboards, parameters'],
                     ['Python',     'pandas, still learning'],
                     ['AI tools',   'Drafting SQL and DAX, then checking it']
