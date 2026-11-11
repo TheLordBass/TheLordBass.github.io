@@ -131,31 +131,24 @@ https://www.linkedin.com/post-inspector/ to refresh.
 
 ## The design
 
-It's a TUI. Not a "cyber" theme. The references are tools people actually use:
-tmux status lines, lazygit panes, vim gutters, `psql` output, k9s tables.
+It is laid out like a report dashboard, since that is the work it shows.
 
 - **Palette** shares its ground and accent with
   [QueryCafe](https://ibomenobasiekanem.com/databites/), so moving between the
   two feels like one place. Light-mode colours used as text are darkened to
   clear WCAG AA, noted in the token block in `style.css`.
-- **Type** is IBM Plex Mono throughout. A terminal has one font; committing to
-  that is the point.
-- **Chrome**: numbered tab bar at the top, fixed status line at the bottom
-  showing the current section and scroll position, `┌─ label ───` pane rules,
-  `▸` markers instead of bullets, `├─ └─` tree glyphs on the timeline, and
-  inverse-video for anything selected.
-- **No background animation.** A faint character-cell grid in CSS instead.
-
-### Keyboard
-
-The site is keyboard-driven, which is the part that makes it a tool rather than
-a picture of one. `1`–`5` jump to sections, `j`/`k` step through them, `g`/`G`
-go to top and bottom, `/` jumps to the project filter, `t` toggles the theme,
-`?` shows the shortcut panel and `Esc` closes anything.
-
-Every binding is a no-op while focus is in a text field, so typing a message in
-the contact form never triggers a jump. `Esc` from a field blurs it rather than
-trapping you. Bindings are defined in `js/app.js` § 2b.
+- **Type** is IBM Plex Sans for reading and IBM Plex Mono for figures, data
+  labels and anything that is actually SQL.
+- **KPI tiles** under the intro. Every figure on them is stated elsewhere on
+  the page or the CV; the project count is filled in from the cards.
+- **The project filter is a bar chart** (`#slicer`). Each bar is a button, and
+  `js/app.js` § 5 works out its count and length from the cards, so adding a
+  card updates the chart by itself. A new tool needs one more `.slicer-row`
+  and a matching `data-category` on its cards.
+- **Each card has a headline figure** (`.project-figure`): one number from the
+  project and what it measures. Take it from the write-up, never invent one.
+- **Two terminal panels are kept**: the typed SQL intro and the query sandbox.
+- **No background animation.**
 
 ### Terminal lines
 

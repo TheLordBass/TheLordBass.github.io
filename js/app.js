@@ -50,44 +50,6 @@
     }());
 
     /* ----------------------------------------------------------------------
-       1b. Cursor spotlight
-       Moves the glow layer with the pointer. One style write per frame at
-       most, mouse and trackpad only, and nothing at all with reduced motion.
-       ---------------------------------------------------------------------- */
-    (function spotlight() {
-        var glow = $('.cursor-glow');
-        if (!glow || reduceMotion) return;
-        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-        var x = 0, y = 0, queued = false;
-
-        function paint() {
-            glow.style.setProperty('--gx', x + 'px');
-            glow.style.setProperty('--gy', y + 'px');
-            queued = false;
-        }
-
-        window.addEventListener('pointermove', function (e) {
-            if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
-            x = e.clientX;
-            y = e.clientY;
-            glow.classList.add('is-on');
-            // Text that sits on the open background, not inside a card: the
-            // glow dims while the pointer is over it, so reading wins.
-            var reading = e.target && e.target.closest &&
-                e.target.closest('.hero-copy, .section-head, .prose, .about-side, .timeline, .contact-grid, .grid-more, .filter-row');
-            glow.classList.toggle('is-dim', !!reading);
-            if (!queued) { queued = true; window.requestAnimationFrame(paint); }
-        }, { passive: true });
-
-        // Fade out when the pointer leaves the window, back in when it returns.
-        document.documentElement.addEventListener('mouseleave', function () {
-            glow.classList.remove('is-on');
-        });
-        window.addEventListener('blur', function () { glow.classList.remove('is-on'); });
-    }());
-
-    /* ----------------------------------------------------------------------
        2. Header: mobile nav, stuck state, scroll spy
        ---------------------------------------------------------------------- */
     (function header() {
@@ -118,15 +80,14 @@
             });
         }
 
-        // Scroll spy — drives both the tab bar and the status line filename
+        // Scroll spy: marks the tab for the section in view
         var links = $$('.tab');
-        var slSection = $('#sl-section');
         var sections = links
             .map(function (l) { return $(l.getAttribute('href')); })
             .filter(Boolean);
 
         // The hero is watched too, so scrolling back to the top clears the
-        // active tab and the status line reads "~" instead of "~/about".
+        // active tab.
         var hero = $('#top');
         if (hero) sections.unshift(hero);
 
@@ -138,180 +99,11 @@
                     links.forEach(function (l) {
                         l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
                     });
-                    if (slSection) slSection.textContent = id === 'top' ? '~' : '~/' + id;
                 });
             }, { rootMargin: '-45% 0px -50% 0px' });
 
             sections.forEach(function (s) { spy.observe(s); });
         }
-
-        // Status line scroll percentage, the way a pager reports position
-        var slPos = $('#sl-pos');
-        if (slPos) {
-            var tick = false;
-            var update = function () {
-                var doc = document.documentElement;
-                var max = doc.scrollHeight - doc.clientHeight;
-                var pct = max <= 0 ? 100 : Math.round((window.scrollY / max) * 100);
-                slPos.textContent = pct <= 0 ? 'Top' : (pct >= 100 ? 'Bot' : pct + '%');
-                tick = false;
-            };
-            window.addEventListener('scroll', function () {
-                if (tick) return;
-                tick = true;
-                window.requestAnimationFrame(update);
-            }, { passive: true });
-            update();
-        }
-    }());
-
-    /* ----------------------------------------------------------------------
-       2b. Keyboard navigation
-       This is the part that makes it a tool rather than a picture of one.
-       Every binding is a no-op while focus is in a text field, so typing a
-       message in the contact form never triggers a jump.
-       ---------------------------------------------------------------------- */
-    (function keyboard() {
-        var overlay = $('#keys');
-        var helpBtn = $('#help-toggle');
-        var order = ['about', 'skills', 'projects', 'experience', 'contact'];
-
-        function typing() {
-            var el = document.activeElement;
-            if (!el) return false;
-            var tag = el.tagName;
-            return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
-        }
-
-        function go(id) {
-            var el = document.getElementById(id);
-            if (el) el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-        }
-
-        function currentIndex() {
-            // The last section whose top has reached the header, or -1 while
-            // still in the hero. "Nearest header" used to count the hero as
-            // About, so j from the top skipped About and went to Skills.
-            var current = -1;
-            order.forEach(function (id, i) {
-                var el = document.getElementById(id);
-                if (el && el.getBoundingClientRect().top <= 100) current = i;
-            });
-            return current;
-        }
-
-        function showKeys(on) {
-            if (!overlay) return;
-            overlay.hidden = !on;
-            if (on) {
-                // The first [data-close-keys] is the backdrop, a div that cannot
-                // take focus, so focus used to stay on the page behind.
-                var close = overlay.querySelector('button[data-close-keys]');
-                if (close) close.focus();
-            } else if (helpBtn) {
-                helpBtn.focus();
-            }
-        }
-
-        if (helpBtn) helpBtn.addEventListener('click', function () { showKeys(overlay.hidden); });
-        if (overlay) {
-            overlay.addEventListener('click', function (e) {
-                if (e.target.closest('[data-close-keys]')) showKeys(false);
-            });
-        }
-
-        // Single-key shortcuts can be switched off (WCAG 2.1.4): voice control
-        // users can set them off by accident. Remembered per browser; the
-        // <head> script applies the saved choice before first paint.
-        var KEYS = 'ib-keys';
-        var switchBox = $('#keys-enabled');
-        function shortcutsOn() { return !document.documentElement.classList.contains('keys-off'); }
-        if (switchBox) {
-            switchBox.checked = shortcutsOn();
-            switchBox.addEventListener('change', function () {
-                document.documentElement.classList.toggle('keys-off', !switchBox.checked);
-                try { localStorage.setItem(KEYS, switchBox.checked ? 'on' : 'off'); } catch (e) {}
-            });
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.metaKey || e.ctrlKey || e.altKey) return;
-
-            // Escape always works, even from a field, so nothing traps you.
-            if (e.key === 'Escape') {
-                if (overlay && !overlay.hidden) { showKeys(false); return; }
-                if (typing() && document.activeElement.blur) document.activeElement.blur();
-                return;
-            }
-
-            // The shortcuts panel is a dialog: keep Tab inside it while open.
-            if (e.key === 'Tab' && overlay && !overlay.hidden) {
-                var inside = $$('a[href], button:not([disabled]), input:not([disabled])', overlay)
-                    .filter(function (el) { return el.offsetParent !== null; });
-                if (!inside.length) return;
-                var head = inside[0], tail = inside[inside.length - 1];
-                if (!overlay.contains(document.activeElement)) {
-                    e.preventDefault(); head.focus();
-                } else if (e.shiftKey && document.activeElement === head) {
-                    e.preventDefault(); tail.focus();
-                } else if (!e.shiftKey && document.activeElement === tail) {
-                    e.preventDefault(); head.focus();
-                }
-                return;
-            }
-
-            if (typing()) return;
-            if (!shortcutsOn()) return;
-
-            // A write-up is open: its own handler owns the keyboard, and
-            // jumping the page underneath it just loses your place.
-            var modal = $('#modal');
-            if (modal && !modal.hidden) return;
-
-            var k = e.key;
-
-            if (k >= '1' && k <= '5') {
-                e.preventDefault();
-                go(order[Number(k) - 1]);
-                return;
-            }
-
-            switch (k) {
-                case '?':
-                    e.preventDefault();
-                    showKeys(overlay ? overlay.hidden : false);
-                    break;
-                case 't':
-                    e.preventDefault();
-                    if ($('#theme-toggle')) $('#theme-toggle').click();
-                    break;
-                case 'g':
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-                    break;
-                case 'G':
-                    e.preventDefault();
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: reduceMotion ? 'auto' : 'smooth' });
-                    break;
-                case 'j':
-                    e.preventDefault();
-                    go(order[Math.min(order.length - 1, currentIndex() + 1)]);
-                    break;
-                case 'k':
-                    e.preventDefault();
-                    var at = currentIndex();
-                    // From the first section, k goes back up to the hero.
-                    if (at <= 0) window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-                    else go(order[at - 1]);
-                    break;
-                case '/':
-                    e.preventDefault();
-                    go('projects');
-                    var first = $('.filter-btn');
-                    if (first) setTimeout(function () { first.focus(); }, reduceMotion ? 0 : 420);
-                    break;
-            }
-        });
     }());
 
     /* ----------------------------------------------------------------------
@@ -555,6 +347,41 @@
         var grid = $('#project-grid');
         if (!buttons.length || !cards.length) return;
 
+        var slicer = $('#slicer');
+        var summary = $('#slicer-summary');
+
+        function matches(card, want) {
+            return want === 'all' ||
+                (' ' + card.getAttribute('data-category') + ' ').indexOf(' ' + want + ' ') !== -1;
+        }
+
+        // The slicer is a bar chart of the cards themselves: each bar's count
+        // and length are worked out from the page, so they cannot drift from
+        // what is actually listed. The longest bar fills the track.
+        var counts = {};
+        var most = 0;
+        buttons.forEach(function (b) {
+            var want = b.getAttribute('data-filter');
+            counts[want] = cards.filter(function (c) { return matches(c, want); }).length;
+            if (want !== 'all' && counts[want] > most) most = counts[want];
+        });
+        buttons.forEach(function (b) {
+            var want = b.getAttribute('data-filter');
+            var num = $('.slicer-count', b);
+            var bar = $('.slicer-bar', b);
+            if (num) num.textContent = counts[want];
+            if (bar && most) bar.style.width = (counts[want] / most * 100) + '%';
+        });
+        $$('[data-project-count]').forEach(function (el) { el.textContent = cards.length; });
+
+        function describe(want, shown, label) {
+            if (!summary) return;
+            summary.textContent = want === 'all'
+                ? 'Showing all ' + cards.length + ' projects'
+                : 'Showing ' + shown + ' of ' + cards.length + ': ' + label;
+        }
+        describe('all', cards.length);
+
         buttons.forEach(function (b) {
             b.setAttribute('aria-pressed', String(b.classList.contains('is-active')));
         });
@@ -571,15 +398,17 @@
                 var want = btn.getAttribute('data-filter');
                 var shown = 0;
                 if (grid) grid.classList.toggle('is-filtered', want !== 'all');
+                if (slicer) slicer.classList.toggle('is-sliced', want !== 'all');
 
                 cards.forEach(function (card) {
-                    var match = want === 'all' ||
-                        (' ' + card.getAttribute('data-category') + ' ').indexOf(' ' + want + ' ') !== -1;
+                    var match = matches(card, want);
                     card.hidden = !match;
                     if (match) shown++;
                 });
 
                 if (empty) empty.hidden = shown !== 0;
+                var name = $('.slicer-label', btn);
+                describe(want, shown, name ? name.textContent : '');
             });
         });
     }());
