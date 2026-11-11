@@ -43,6 +43,16 @@
 
     --on-accent:  #16130f;
 
+    /* One colour per tool, the way a report colours a category. Used on
+       marks only (bars, strips, dots, icons), never as text. This order and
+       these steps pass the colour-blind separation and 3:1 checks on the
+       panel surface in each theme; re-run the check before changing one. */
+    --c-sql:      #3987e5;
+    --c-bi:       #c98500;
+    --c-excel:    #199e70;
+    --c-python:   #9085e9;
+    --c-app:      #d55181;
+
     --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -83,6 +93,12 @@
     --line-2:     #c9c0ae;
 
     --on-accent:  #fdf8f0;
+
+    --c-sql:      #2a78d6;
+    --c-bi:       #c98500;
+    --c-excel:    #17996b;
+    --c-python:   #6250d6;
+    --c-app:      #d55181;
 
     --shadow: 0 1px 2px rgba(60, 40, 20, .06), 0 8px 24px -14px rgba(60, 40, 20, .22);
 }
@@ -899,6 +915,62 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; }
 }
 
 .m-foot { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+
+/* --------------------------------------------------------------------------
+   12b. Category colour
+   Each tool has one colour (tokens in section 1) and keeps it everywhere:
+   its bar in the slicer, the strip and dot on its project cards, and its
+   skill icon. A card that uses two tools splits its strip between them.
+   -------------------------------------------------------------------------- */
+[data-filter="sql"],    .project-card[data-category~="sql"]    { --cat: var(--c-sql); }
+[data-filter="bi"],     .project-card[data-category~="bi"]     { --cat: var(--c-bi); }
+[data-filter="excel"],  .project-card[data-category~="excel"]  { --cat: var(--c-excel); }
+[data-filter="python"], .project-card[data-category~="python"] { --cat: var(--c-python); }
+[data-filter="app"],    .project-card[data-category~="app"]    { --cat: var(--c-app); }
+.project-card[data-category="sql bi"] { --cat: var(--c-sql); --cat2: var(--c-bi); }
+
+.slicer-bar { background: var(--cat, var(--accent)); }
+
+.project-card::before {
+    content: "";
+    flex: none;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cat, var(--accent)) 50%, var(--cat2, var(--cat, var(--accent))) 50%);
+}
+.project-card[data-project]:hover { border-color: var(--cat, var(--accent)); }
+
+/* The label keeps text ink; the square beside it carries the colour. */
+.project-kind { color: var(--fg-dim); }
+.project-kind::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    margin-right: .5rem;
+    border-radius: 2px;
+    background: var(--cat, var(--accent));
+}
+
+/* KPI tiles: SQL and Power BI wear their tool's colour */
+.kpi:nth-child(2) { border-top-color: var(--c-sql); }
+.kpi:nth-child(3) { border-top-color: var(--c-excel); }
+.kpi:nth-child(4) { border-top-color: var(--c-bi); }
+
+/* Skill icons, in card order: SQL, cleaning, BI, Excel, Python, writing, AI */
+.skill-card:nth-child(1) { --cat: var(--c-sql); }
+.skill-card:nth-child(2) { --cat: var(--c-excel); }
+.skill-card:nth-child(3) { --cat: var(--c-bi); }
+.skill-card:nth-child(4) { --cat: var(--c-excel); }
+.skill-card:nth-child(5) { --cat: var(--c-python); }
+.skill-card:nth-child(7) { --cat: var(--c-app); }
+.skill-icon {
+    background: color-mix(in srgb, var(--cat, var(--accent)) 16%, transparent);
+    color: var(--cat, var(--accent));
+}
+
+/* The current role's dot stays coral; earlier roles and study take a hue */
+.timeline-item:nth-child(2) .timeline-marker { border-color: var(--c-sql); }
+.timeline-item:nth-child(3) .timeline-marker { border-color: var(--c-python); }
+.timeline-item:nth-child(4) .timeline-marker { border-color: var(--c-excel); }
 
 /* --------------------------------------------------------------------------
    13. Footer

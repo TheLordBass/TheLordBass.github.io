@@ -131,7 +131,7 @@
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area       | count' },
             { t: 'out',  v: ' SQL        |     5' },
-            { t: 'out',  v: ' Power BI   |     3' },
+            { t: 'out',  v: ' Power BI   |     4' },
             { t: 'out',  v: ' Python     |     1' },
             { t: 'out',  v: ' Excel      |     1' },
             { t: 'out',  v: ' TypeScript |     1' },
