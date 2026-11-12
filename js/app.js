@@ -347,17 +347,30 @@
         var grid = $('#project-grid');
         if (!buttons.length || !cards.length) return;
 
-        var slicer = $('#slicer');
-        var summary = $('#slicer-summary');
+        var TOOLS = [
+            { key: 'sql',    label: 'SQL' },
+            { key: 'bi',     label: 'Power BI' },
+            { key: 'excel',  label: 'Excel' },
+            { key: 'python', label: 'Python' },
+            { key: 'app',    label: 'TypeScript' }
+        ];
+
+        function esc(s) {
+            return String(s).replace(/[&<>"]/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
 
         function matches(card, want) {
             return want === 'all' ||
                 (' ' + card.getAttribute('data-category') + ' ').indexOf(' ' + want + ' ') !== -1;
         }
 
-        // The slicer is a bar chart of the cards themselves: each bar's count
-        // and length are worked out from the page, so they cannot drift from
-        // what is actually listed. The longest bar fills the track.
+        // Every figure on the report page is worked out from the project
+        // cards further down, so the charts and the table cannot drift from
+        // what is actually listed.
+
+        // Bars and filter-pane counts. The longest bar fills its track.
         var counts = {};
         var most = 0;
         buttons.forEach(function (b) {
@@ -374,43 +387,106 @@
         });
         $$('[data-project-count]').forEach(function (el) { el.textContent = cards.length; });
 
+        // Table: one row per card, taken from the card's own text.
+        var tbody = $('#report-table tbody');
+        var rows = [];
+        if (tbody) {
+            tbody.innerHTML = cards.map(function (card) {
+                var key = card.getAttribute('data-project');
+                var title = $('.project-title', card);
+                var kind = $('.project-kind', card);
+                var fig = $('.project-figure b', card);
+                var what = $('.project-figure span', card);
+                return '<tr data-category="' + esc(card.getAttribute('data-category')) + '">' +
+                    '<th scope="row"><button type="button" class="table-open" data-project="' + esc(key) + '">' +
+                        esc(title ? title.textContent : key) + '</button></th>' +
+                    '<td>' + esc(kind ? kind.textContent : '') + '</td>' +
+                    '<td class="num">' + esc(fig ? fig.textContent : '') + '</td>' +
+                    '<td>' + esc(what ? what.textContent : '') + '</td>' +
+                    '</tr>';
+            }).join('');
+            rows = $$('tr', tbody);
+        }
+
+        // Donut: one slice per main tool (the first one a card lists), so
+        // every project is counted once and the slices add up to the total.
+        var donut = $('#donut');
+        var legend = $('#donut-legend');
+        function drawDonut(shown) {
+            if (!donut) return;
+            var R = 44, C = 2 * Math.PI * R, GAP = 2;
+            var total = shown.length;
+            var parts = TOOLS.map(function (t) {
+                return { tool: t, n: shown.filter(function (c) {
+                    return c.getAttribute('data-category').split(' ')[0] === t.key;
+                }).length };
+            }).filter(function (p) { return p.n > 0; });
+
+            var offset = 0;
+            var svg = '<circle class="donut-ring" cx="60" cy="60" r="' + R + '"></circle>';
+            parts.forEach(function (p) {
+                var len = p.n / total * C;
+                var gap = parts.length > 1 ? GAP : 0;
+                svg += '<circle class="donut-slice" data-filter="' + p.tool.key + '" cx="60" cy="60" r="' + R + '"' +
+                    ' stroke-dasharray="' + Math.max(0, len - gap).toFixed(2) + ' ' + (C - len + gap).toFixed(2) + '"' +
+                    ' stroke-dashoffset="' + (-offset).toFixed(2) + '">' +
+                    '<title>' + esc(p.tool.label) + ': ' + p.n + ' of ' + total + '</title></circle>';
+                offset += len;
+            });
+            svg += '<text class="donut-total" x="60" y="59" text-anchor="middle">' + total + '</text>' +
+                   '<text class="donut-unit" x="60" y="73" text-anchor="middle">' + (total === 1 ? 'project' : 'projects') + '</text>';
+            donut.innerHTML = svg;
+
+            if (legend) {
+                legend.innerHTML = parts.map(function (p) {
+                    return '<li data-filter="' + p.tool.key + '"><span class="pane-swatch"></span>' +
+                        esc(p.tool.label) + '<b>' + p.n + '</b></li>';
+                }).join('');
+            }
+        }
+
+        var summaries = $$('[data-filter-summary]');
         function describe(want, shown, label) {
-            if (!summary) return;
-            summary.textContent = want === 'all'
+            var text = want === 'all'
                 ? 'Showing all ' + cards.length + ' projects'
                 : 'Showing ' + shown + ' of ' + cards.length + ': ' + label;
+            summaries.forEach(function (el) { el.textContent = text; });
         }
-        describe('all', cards.length);
 
-        buttons.forEach(function (b) {
-            b.setAttribute('aria-pressed', String(b.classList.contains('is-active')));
-        });
+        function apply(want) {
+            var shown = [];
+            // The same filter can be picked from the pane, a bar or the
+            // clear buttons, so every button for it is marked together.
+            buttons.forEach(function (b) {
+                var on = b.getAttribute('data-filter') === want;
+                b.classList.toggle('is-active', on);
+                b.setAttribute('aria-pressed', String(on));
+            });
+            if (grid) grid.classList.toggle('is-filtered', want !== 'all');
+            $$('.slicer, .filter-pane').forEach(function (el) {
+                el.classList.toggle('is-sliced', want !== 'all');
+            });
+
+            cards.forEach(function (card) {
+                var match = matches(card, want);
+                card.hidden = !match;
+                if (match) shown.push(card);
+            });
+            rows.forEach(function (row) { row.hidden = !matches(row, want); });
+
+            if (empty) empty.hidden = shown.length !== 0;
+            drawDonut(shown);
+            var tool = TOOLS.filter(function (t) { return t.key === want; })[0];
+            describe(want, shown.length, tool ? tool.label : '');
+        }
 
         buttons.forEach(function (btn) {
             btn.addEventListener('click', function () {
-                buttons.forEach(function (b) {
-                    b.classList.remove('is-active');
-                    b.setAttribute('aria-pressed', 'false');
-                });
-                btn.classList.add('is-active');
-                btn.setAttribute('aria-pressed', 'true');
-
-                var want = btn.getAttribute('data-filter');
-                var shown = 0;
-                if (grid) grid.classList.toggle('is-filtered', want !== 'all');
-                if (slicer) slicer.classList.toggle('is-sliced', want !== 'all');
-
-                cards.forEach(function (card) {
-                    var match = matches(card, want);
-                    card.hidden = !match;
-                    if (match) shown++;
-                });
-
-                if (empty) empty.hidden = shown !== 0;
-                var name = $('.slicer-label', btn);
-                describe(want, shown, name ? name.textContent : '');
+                apply(btn.getAttribute('data-filter'));
             });
         });
+
+        apply('all');
     }());
 
     /* ----------------------------------------------------------------------

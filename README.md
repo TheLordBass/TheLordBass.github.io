@@ -131,7 +131,12 @@ https://www.linkedin.com/post-inspector/ to refresh.
 
 ## The design
 
-It is laid out like a report dashboard, since that is the work it shows.
+It is laid out like a BI report, since that is the work it shows. The top of
+the page is a report page: a filter pane, KPI cards, a bar chart, a donut and a
+table, with page tabs fixed along the bottom of the window. `js/app.js` § 5
+builds every one of those from the project cards, so a new card updates them
+all. The main colour is magenta; each tool has its own colour (`--c-*` tokens),
+used on marks only.
 
 - **Palette** shares its ground and accent with
   [QueryCafe](https://ibomenobasiekanem.com/databites/), so moving between the

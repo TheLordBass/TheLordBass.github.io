@@ -29,8 +29,8 @@
     --fg-dim:     #a89f92;
     --fg-faint:   #8f8579;  /* clears 4.5:1 on bg, bg-1 and bg-2, not just bg */
 
-    --accent:     #f07050;
-    --accent-2:   #d9573c;
+    --accent:     #f277b0;
+    --accent-2:   #f79cc6;
     --yellow:     #d9a874;
     --green:      #adbd84;
     --aqua:       #83c39c;
@@ -51,7 +51,7 @@
     --c-bi:       #c98500;
     --c-excel:    #199e70;
     --c-python:   #9085e9;
-    --c-app:      #d55181;
+    --c-app:      #d95926;
 
     --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -78,8 +78,8 @@
     --fg-dim:     #524b44;
     --fg-faint:   #6e655a;  /* clears 4.5:1 on bg through bg-3, not just bg */
 
-    --accent:     #b23a26;
-    --accent-2:   #8e2d1e;
+    --accent:     #b0246a;
+    --accent-2:   #8a1750;
     /* These are used as text, so every one is darkened until it clears 4.5:1
        on --bg while staying the same hue as its QueryCafe counterpart. */
     --yellow:     #6b4f34;
@@ -98,7 +98,7 @@
     --c-bi:       #c98500;
     --c-excel:    #17996b;
     --c-python:   #6250d6;
-    --c-app:      #d55181;
+    --c-app:      #e0602c;
 
     --shadow: 0 1px 2px rgba(60, 40, 20, .06), 0 8px 24px -14px rgba(60, 40, 20, .22);
 }
@@ -255,7 +255,6 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; }
 
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
 .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: var(--on-accent); }
-[data-theme="dark"] .btn-primary:hover { background: #f58a6e; border-color: #f58a6e; }
 
 .btn-small { padding: .35rem .75rem; font-size: .84rem; }
 .btn-block { width: 100%; justify-content: center; }
@@ -1050,3 +1049,230 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; }
     /* Real addresses only: in-page links printed as "(#)" and "(#about)". */
     a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; }
 }
+
+/* ==========================================================================
+   16. Report page
+   The top of the site is laid out like a BI report: a filter pane down the
+   side, a canvas of visuals (title, the typed SQL, KPI cards, a bar chart,
+   a donut and a table), and page tabs along the bottom of the window.
+   Everything the visuals show is worked out from the project cards by
+   app.js section 5.
+   ========================================================================== */
+body { padding-bottom: 2.7rem; }   /* clears the fixed page tabs */
+
+.report { padding-block: clamp(1.25rem, 3vw, 2rem) clamp(2rem, 4vw, 3rem); }
+
+.report-frame {
+    display: grid;
+    grid-template-columns: 13.5rem minmax(0, 1fr);
+    background: var(--bg-1);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Filter pane ------------------------------------------------------------ */
+.filter-pane {
+    background: var(--bg-2);
+    border-right: 1px solid var(--line-2);
+    padding: 1rem .8rem 1.1rem;
+}
+.pane-title-bar {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: 0 .4rem .8rem;
+    margin-bottom: .9rem;
+    border-bottom: 1px solid var(--line-2);
+    font-size: .95rem;
+    font-weight: 600;
+}
+.pane-title-bar svg { color: var(--accent); }
+.pane-field {
+    padding-inline: .4rem;
+    margin-bottom: .4rem;
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+}
+.pane-options { display: grid; gap: .1rem; }
+.pane-opt {
+    display: grid;
+    grid-template-columns: 10px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .55rem;
+    width: 100%;
+    padding: .42rem .45rem;
+    border-radius: var(--r-s);
+    font-size: .9rem;
+    color: var(--fg-dim);
+    text-align: left;
+    transition: background-color var(--t), color var(--t);
+}
+.pane-opt:hover { background: var(--bg-3); color: var(--fg); }
+.pane-opt.is-active { background: var(--bg-sel); color: var(--fg); font-weight: 600; }
+.pane-opt .slicer-label { font-size: inherit; color: inherit; }
+.pane-opt .slicer-count { font-size: .8rem; font-weight: 500; color: var(--fg-dim); }
+.pane-swatch {
+    display: inline-block;
+    flex: none;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    background: var(--cat, var(--fg-faint));
+}
+.pane-note { margin-top: 1rem; padding-inline: .4rem; font-size: .78rem; line-height: 1.45; color: var(--fg-faint); }
+
+/* Canvas and visuals ----------------------------------------------------- */
+.canvas {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: .8rem;
+    padding: .9rem;
+    align-items: stretch;
+}
+.visual {
+    min-width: 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+}
+.v-title    { grid-column: span 7; padding: clamp(1.1rem, 2vw, 1.6rem); }
+.v-terminal { grid-column: span 5; padding: 0; box-shadow: none; }
+.canvas > .kpi-row { grid-column: 1 / -1; margin-top: 0; gap: .8rem; }
+.v-bar      { grid-column: span 7; }
+.v-donut    { grid-column: span 5; }
+.v-table    { grid-column: 1 / -1; }
+
+.canvas .kpi { background: var(--bg); box-shadow: none; border-radius: 8px; }
+.v-bar.slicer { margin-bottom: 0; }
+
+.visual-head { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1rem; margin-bottom: .75rem; }
+.visual-title { font-size: .86rem; font-weight: 600; color: var(--fg-dim); }
+.visual-head .slicer-all, .visual-head .slicer-summary { margin-left: auto; }
+
+.v-title .hero-title { font-size: clamp(2rem, 3.6vw, 3rem); }
+.v-title .hero-lede { font-size: .95rem; margin-bottom: 1.4rem; }
+.v-terminal .terminal-body { height: 27.5rem; }
+
+/* Donut ------------------------------------------------------------------ */
+.donut-wrap { display: flex; align-items: center; gap: clamp(1rem, 3vw, 1.75rem); }
+.donut { width: clamp(120px, 42%, 168px); flex: none; }
+.donut circle { fill: none; stroke-width: 15; transform: rotate(-90deg); transform-origin: 60px 60px; }
+.donut-ring  { stroke: var(--line); }
+.donut-slice { stroke: var(--cat, var(--accent)); }
+.donut-total { font-family: var(--mono); font-size: 24px; font-weight: 600; fill: var(--fg); }
+.donut-unit  { font-size: 9px; fill: var(--fg-faint); }
+.donut-legend { list-style: none; padding: 0; flex: 1; display: grid; gap: .4rem; font-size: .88rem; color: var(--fg-dim); }
+.donut-legend li { display: flex; align-items: center; gap: .55rem; }
+.donut-legend b { margin-left: auto; font-family: var(--mono); font-weight: 600; color: var(--fg); }
+
+/* Table ------------------------------------------------------------------ */
+.table-scroll { overflow-x: auto; margin-inline: -.3rem; }
+.report-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.report-table thead th {
+    padding: .4rem .7rem .5rem;
+    border-bottom: 1px solid var(--line-2);
+    font-family: var(--mono);
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--fg-faint);
+    white-space: nowrap;
+}
+.report-table td, .report-table tbody th {
+    padding: .5rem .7rem;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    font-weight: 400;
+    color: var(--fg-dim);
+    vertical-align: baseline;
+}
+.report-table tbody tr:last-child td, .report-table tbody tr:last-child th { border-bottom: 0; }
+.report-table tbody tr:hover td, .report-table tbody tr:hover th { background: var(--bg-2); }
+.report-table .num { text-align: right; font-family: var(--mono); font-weight: 600; color: var(--fg); white-space: nowrap; }
+.report-table td:nth-child(2) { font-size: .8rem; }
+.table-open { color: var(--fg); font-weight: 500; text-align: left; }
+.table-open:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Projects section: what the filter is doing, and a way back to it ------- */
+.filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-bottom: 1.1rem; }
+.filter-row .slicer-all { margin-left: 0; }
+.filter-link { font-size: .86rem; }
+
+/* Page tabs: fixed along the bottom of the window ------------------------ */
+.tuibar .tabs, .tabs {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 110;
+    display: block;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-2);
+    border-top: 1px solid var(--line-2);
+    border-bottom: 0;
+}
+.tab-list {
+    flex-direction: row;
+    gap: 0;
+    max-width: var(--wrap);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.tab-list::-webkit-scrollbar { display: none; }
+.tab {
+    padding: 0 1.05rem;
+    line-height: 2.6rem;
+    font-size: .86rem;
+    white-space: nowrap;
+    border-right: 1px solid var(--line);
+    box-shadow: none;
+}
+.tab-list li:first-child .tab { border-left: 1px solid var(--line); }
+.tab:hover { background: var(--bg-3); }
+.tab.is-active { background: var(--bg); color: var(--fg); font-weight: 600; box-shadow: inset 0 3px 0 var(--accent); }
+.tuibar-actions { margin-left: auto; }
+
+@media (max-width: 980px) {
+    .report-frame { grid-template-columns: minmax(0, 1fr); }
+    .filter-pane { border-right: 0; border-bottom: 1px solid var(--line-2); padding-bottom: .9rem; }
+    .pane-title-bar { margin-bottom: .7rem; padding-bottom: .6rem; }
+    .pane-options { display: flex; flex-wrap: wrap; gap: .3rem; }
+    .pane-opt { width: auto; grid-template-columns: 10px auto auto; border: 1px solid var(--line-2); }
+    .pane-note { margin-top: .7rem; }
+    .v-title, .v-terminal, .v-bar, .v-donut { grid-column: 1 / -1; }
+    .v-terminal .terminal-body { height: 16rem; }
+}
+
+@media (max-width: 780px) {
+    .tab { padding: 0 .9rem; line-height: 2.6rem; font-size: .86rem; }
+    .tab.is-active { box-shadow: inset 0 3px 0 var(--accent); }
+}
+
+@media (max-width: 600px) {
+    .canvas { padding: .6rem; gap: .6rem; }
+    .visual { padding: .85rem .9rem; }
+    .report-table th:nth-child(2), .report-table td:nth-child(2), .report-table th:nth-child(4), .report-table td:nth-child(4) { display: none; }
+    .donut-wrap { gap: 1rem; }
+}
+
+@media print {
+    .tabs, .filter-pane { display: none !important; }
+    body { padding-bottom: 0; }
+    .report-frame { display: block; border: 0; box-shadow: none; }
+}
+
+.report-table thead .num { color: var(--fg-faint); font-weight: 500; }
+.report-table { table-layout: fixed; }
+.report-table th:nth-child(1) { width: 30%; }
+.report-table th:nth-child(2) { width: 24%; }
+.report-table th:nth-child(3) { width: 9.5rem; }
+.report-table td, .report-table tbody th { vertical-align: top; }
+@media (max-width: 600px) { .report-table th:nth-child(1) { width: auto; } .report-table th:nth-child(3) { width: 6.5rem; } }

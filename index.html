@@ -17,18 +17,18 @@
     <meta property="og:locale" content="en_GB">
     <!-- Bump ?v= whenever og-image.png changes: LinkedIn caches the image by
          its URL and ignores a new file at the same address. -->
-    <meta property="og:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=9">
+    <meta property="og:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=10">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Ibomeno Basiekanem, data analysis in Manchester. Data hides things. And there's a thrill in finding them, and in explaining how.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=9">
+    <meta name="twitter:image" content="https://ibomenobasiekanem.com/assets/og-image.png?v=10">
 
     <meta name="theme-color" content="#16130f" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
 
     <!-- Inline favicon: three bars, no extra request -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2316130f'/><rect x='20' y='52' width='16' height='30' rx='3' fill='%23f07050'/><rect x='42' y='34' width='16' height='48' rx='3' fill='%23f07050'/><rect x='64' y='18' width='16' height='64' rx='3' fill='%23f07050'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2316130f'/><rect x='20' y='52' width='16' height='30' rx='3' fill='%23f277b0'/><rect x='42' y='34' width='16' height='48' rx='3' fill='%23f277b0'/><rect x='64' y='18' width='16' height='64' rx='3' fill='%23f277b0'/></svg>">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,96 +66,157 @@
             <span class="host-name">Ibomeno Basiekanem</span>
         </a>
 
-        <nav class="tabs" id="nav" aria-label="Primary">
-            <ul class="tab-list">
-                <li><a class="tab" href="#about">About</a></li>
-                <li><a class="tab" href="#skills">Skills</a></li>
-                <li><a class="tab" href="#projects">Projects</a></li>
-                <li><a class="tab" href="#experience">Experience</a></li>
-                <li><a class="tab" href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-
         <div class="tuibar-actions">
             <button type="button" class="keycap" id="theme-toggle" aria-label="Switch to light theme" title="Switch theme">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18" ></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"></path></svg>
                 <span class="keycap-label" id="theme-label">dark</span>
             </button>
-            <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-                <span></span><span></span><span></span>
-            </button>
         </div>
     </div>
 </header>
 
+<!-- Page tabs, fixed along the bottom of the window. Outside the header on
+     purpose: its blur would otherwise pin them to the header itself. -->
+<nav class="tabs" id="nav" aria-label="Report pages">
+    <ul class="tab-list">
+        <li><a class="tab" href="#top">Overview</a></li>
+        <li><a class="tab" href="#about">About</a></li>
+        <li><a class="tab" href="#skills">Skills</a></li>
+        <li><a class="tab" href="#projects">Projects</a></li>
+        <li><a class="tab" href="#experience">Experience</a></li>
+        <li><a class="tab" href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
 <main id="main">
 
 <!-- ==========================================================
-     Hero
+     Report page: filter pane, KPI cards, charts and a table
      ========================================================== -->
-<section id="top" class="hero">
-    <div class="wrap hero-grid">
-        <div class="hero-copy">
-            <p class="eyebrow">Data analysis · Manchester, UK</p>
-
-            <h1 class="hero-title">
-                Data hides things.
-                <span class="hero-sub">And there's a thrill in finding them, and in explaining how.</span>
-            </h1>
-
-            <p class="hero-lede">
-                I'm Ibomeno. I work in airline customer service in Manchester, and I do data analysis
-                on the side. Everything on this page I built in my own time, because when I see some
-                interesting data I can't help digging into it. It isn't all analysis, either: if
-                something piques my interest, or I can build something that makes my day-to-day
-                easier, I'll build it.
-            </p>
-
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="#projects">
-                    See my work
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-                <a class="btn btn-ghost" href="#contact">Get in touch</a>
-                <a class="btn btn-ghost" href="assets/ibomeno-basiekanem-cv.pdf" download>
-                    Download CV
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                </a>
-            </div>
-
-        </div>
-
-        <!-- Terminal: an honest "about me" rendered as a query result -->
-        <div class="terminal" aria-hidden="true">
-            <div class="terminal-bar">
-                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                <span class="terminal-title">ibomeno@basiekanem — psql</span>
-            </div>
-            <div class="terminal-body" id="terminal-body"></div>
-        </div>
-    </div>
-
-    <!-- KPI tiles. Every figure is stated elsewhere on the page or the CV;
-         the project count is filled in from the cards by app.js. -->
+<section id="top" class="report">
     <div class="wrap">
-        <dl class="kpi-row">
-            <div class="kpi">
-                <dt>Projects published</dt>
-                <dd><b data-project-count>11</b><span>each with code and a write-up</span></dd>
+        <div class="report-frame">
+
+            <!-- Filter pane: the buttons filter every visual on this page
+                 and the project cards further down. app.js fills the counts. -->
+            <aside class="filter-pane" id="filter-pane" aria-label="Filters">
+                <h2 class="pane-title-bar">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 4 21 4 14 12 14 19 10 21 10 12 3 4"></polygon></svg>
+                    Filters
+                </h2>
+                <p class="pane-field">Tool</p>
+                <div class="pane-options" role="group" aria-label="Filter by tool">
+                    <button type="button" class="filter-btn pane-opt is-active" data-filter="all"><span class="pane-swatch"></span><span class="slicer-label">All tools</span><span class="slicer-count"></span></button>
+                    <button type="button" class="filter-btn pane-opt" data-filter="sql"><span class="pane-swatch"></span><span class="slicer-label">SQL</span><span class="slicer-count"></span></button>
+                    <button type="button" class="filter-btn pane-opt" data-filter="bi"><span class="pane-swatch"></span><span class="slicer-label">Power BI</span><span class="slicer-count"></span></button>
+                    <button type="button" class="filter-btn pane-opt" data-filter="excel"><span class="pane-swatch"></span><span class="slicer-label">Excel</span><span class="slicer-count"></span></button>
+                    <button type="button" class="filter-btn pane-opt" data-filter="python"><span class="pane-swatch"></span><span class="slicer-label">Python</span><span class="slicer-count"></span></button>
+                    <button type="button" class="filter-btn pane-opt" data-filter="app"><span class="pane-swatch"></span><span class="slicer-label">TypeScript</span><span class="slicer-count"></span></button>
+                </div>
+                <p class="pane-note">Filters the charts, the table and the project cards. A project that uses two tools counts under both.</p>
+            </aside>
+
+            <div class="canvas">
+
+                <!-- Title visual -->
+                <div class="visual v-title hero-copy">
+                    <p class="eyebrow">Portfolio report · Manchester, UK</p>
+                    <h1 class="hero-title">
+                        Data hides things.
+                        <span class="hero-sub">And there's a thrill in finding them, and in explaining how.</span>
+                    </h1>
+                    <p class="hero-lede">
+                        I'm Ibomeno. I work in airline customer service in Manchester, and I do data analysis
+                        on the side. Everything on this page I built in my own time, because when I see some
+                        interesting data I can't help digging into it. It isn't all analysis, either: if
+                        something piques my interest, or I can build something that makes my day-to-day
+                        easier, I'll build it.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#projects">
+                            See my work
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+                        <a class="btn btn-ghost" href="assets/ibomeno-basiekanem-cv.pdf" download>
+                            Download CV
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Terminal: an honest "about me" rendered as a query result -->
+                <div class="visual v-terminal terminal" aria-hidden="true">
+                    <div class="terminal-bar">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                        <span class="terminal-title">ibomeno@basiekanem — psql</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-body"></div>
+                </div>
+
+                <!-- KPI cards. Every figure is stated elsewhere on the page or
+                     the CV; the project count is filled in from the cards. -->
+                <dl class="kpi-row">
+                    <div class="kpi">
+                        <dt>Projects published</dt>
+                        <dd><b data-project-count>11</b><span>each with code and a write-up</span></dd>
+                    </div>
+                    <div class="kpi">
+                        <dt>Writing SQL</dt>
+                        <dd><b>7 yrs</b><span>since university, my strongest skill</span></dd>
+                    </div>
+                    <div class="kpi">
+                        <dt>Degree</dt>
+                        <dd><b>First</b><span>BSc IT &amp; Business Information Systems</span></dd>
+                    </div>
+                    <div class="kpi">
+                        <dt>Power BI dashboards</dt>
+                        <dd><b>4</b><span>punctuality, complaints, EV adoption, game revenue</span></dd>
+                    </div>
+                </dl>
+
+                <!-- Bar chart: each bar is a filter button too -->
+                <div class="visual v-bar slicer" id="slicer" role="group" aria-label="Projects using each tool. Click a bar to filter.">
+                    <div class="visual-head">
+                        <h2 class="visual-title">Projects using each tool</h2>
+                        <button type="button" class="filter-btn slicer-all is-active" data-filter="all">Clear filter</button>
+                    </div>
+                    <div class="slicer-rows">
+                        <button type="button" class="filter-btn slicer-row" data-filter="sql"><span class="slicer-label">SQL</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
+                        <button type="button" class="filter-btn slicer-row" data-filter="bi"><span class="slicer-label">Power BI</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
+                        <button type="button" class="filter-btn slicer-row" data-filter="excel"><span class="slicer-label">Excel</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
+                        <button type="button" class="filter-btn slicer-row" data-filter="python"><span class="slicer-label">Python</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
+                        <button type="button" class="filter-btn slicer-row" data-filter="app"><span class="slicer-label">TypeScript</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
+                    </div>
+                </div>
+
+                <!-- Donut: drawn by app.js from the cards, one slice per main tool -->
+                <div class="visual v-donut">
+                    <div class="visual-head">
+                        <h2 class="visual-title">Projects by main tool</h2>
+                    </div>
+                    <div class="donut-wrap">
+                        <svg class="donut" id="donut" viewBox="0 0 120 120" role="img" aria-label="Donut chart of projects by main tool"></svg>
+                        <ul class="donut-legend" id="donut-legend"></ul>
+                    </div>
+                </div>
+
+                <!-- Table: built by app.js from the cards, so it cannot drift -->
+                <div class="visual v-table">
+                    <div class="visual-head">
+                        <h2 class="visual-title">Projects</h2>
+                        <p class="slicer-summary" data-filter-summary aria-live="polite">Showing all projects</p>
+                    </div>
+                    <div class="table-scroll">
+                        <table class="report-table" id="report-table">
+                            <thead><tr><th scope="col">Project</th><th scope="col">Tools</th><th scope="col" class="num">Figure</th><th scope="col">What it measures</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
-            <div class="kpi">
-                <dt>Writing SQL</dt>
-                <dd><b>7 yrs</b><span>since university, my strongest skill</span></dd>
-            </div>
-            <div class="kpi">
-                <dt>Degree</dt>
-                <dd><b>First</b><span>BSc IT &amp; Business Information Systems</span></dd>
-            </div>
-            <div class="kpi">
-                <dt>Power BI dashboards</dt>
-                <dd><b>4</b><span>punctuality, complaints, EV adoption, game revenue</span></dd>
-            </div>
-        </dl>
+        </div>
     </div>
 </section>
 
@@ -337,22 +398,10 @@
             <p class="section-lede">All of it is public and the code sits on GitHub, so you can go and poke at it. Open a card for the write-up or skip straight to the source.</p>
         </div>
 
-        <!-- The filter is a bar chart: each bar is a button, and app.js sets
-             its count and length from the cards below. -->
-        <div class="card slicer" id="slicer" role="group" aria-label="Filter projects by tool">
-            <div class="slicer-head">
-                <h3 class="panel-title">Projects by tool</h3>
-                <p class="slicer-summary" id="slicer-summary" aria-live="polite">Showing all projects</p>
-                <button type="button" class="filter-btn slicer-all is-active" data-filter="all">Show all</button>
-            </div>
-            <div class="slicer-rows">
-                <button type="button" class="filter-btn slicer-row" data-filter="sql"><span class="slicer-label">SQL</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
-                <button type="button" class="filter-btn slicer-row" data-filter="bi"><span class="slicer-label">Power BI</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
-                <button type="button" class="filter-btn slicer-row" data-filter="excel"><span class="slicer-label">Excel</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
-                <button type="button" class="filter-btn slicer-row" data-filter="python"><span class="slicer-label">Python</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
-                <button type="button" class="filter-btn slicer-row" data-filter="app"><span class="slicer-label">TypeScript</span><span class="slicer-track"><span class="slicer-bar"></span></span><span class="slicer-count"></span></button>
-            </div>
-            <p class="slicer-note">Click a bar to filter. A project that uses two tools counts under both.</p>
+        <div class="filter-row">
+            <p class="slicer-summary" data-filter-summary aria-live="polite">Showing all projects</p>
+            <button type="button" class="filter-btn slicer-all is-active" data-filter="all">Clear filter</button>
+            <a class="filter-link" href="#top">Change filter in the report</a>
         </div>
 
         <noscript>
