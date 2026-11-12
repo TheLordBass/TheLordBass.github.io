@@ -56,7 +56,7 @@
     --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-    --wrap: 1160px;
+    --wrap: clamp(1440px, 88vw, 1800px);   /* grows with big screens, up to 1800px */
     --gutter: clamp(1rem, 3.5vw, 2.25rem);
     --section-y: clamp(3.25rem, 7vw, 5.5rem);
 
@@ -489,7 +489,7 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; }
    -------------------------------------------------------------------------- */
 .skill-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(max(270px, calc((100% - 2rem) / 3)), 1fr));   /* never more than three across */
     gap: 1rem;
     margin-bottom: 1rem;
 }
