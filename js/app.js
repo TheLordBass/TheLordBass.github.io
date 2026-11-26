@@ -132,9 +132,9 @@
             { t: 'head', v: ' area       | count' },
             { t: 'out',  v: ' SQL        |     5' },
             { t: 'out',  v: ' Power BI   |     4' },
+            { t: 'out',  v: ' TypeScript |     2' },
             { t: 'out',  v: ' Python     |     1' },
             { t: 'out',  v: ' Excel      |     1' },
-            { t: 'out',  v: ' TypeScript |     1' },
             { t: 'dim',  v: '(5 rows)' },
             { t: 'dim',  v: '' },
             { t: 'ok',   v: '-- all public. click through any of it.' }
@@ -267,6 +267,7 @@
                     ['Driver Incentive Scheme', 'SQL'],
                     ['Healthcare Claims',       'SQL'],
                     ['JobScratch',              'TypeScript'],
+                    ['PL-300 Studio',           'TypeScript'],
                     ['Mobile Game Revenue',     'Power BI'],
                     ['NBA Trends 1996-2023',    'SQL'],
                     ['Premier League Dashboard','Excel'],
@@ -794,7 +795,7 @@
             ],
             blocks: [
                 { h: 'What it is', p: [
-                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 545 lessons across 22 tracks: 375 in Python (an 80-lesson course for complete beginners, plus pandas, NumPy, messy data, statistics, forecasting, business metrics, machine learning, AI, algorithms and building ETL pipelines), 45 in SQL, 45 in DAX (10 of those on Power BI modelling), 20 in Excel, 35 in R and 25 across four projects, laid out as a numbered path in the order to take them. On top of that are 191 practice problems (56 in Python, 56 in SQL, 28 in DAX, 16 in Excel, 16 in R and 19 algorithms) and a PL-300 prep section with 107 exam-style questions for the Power BI Data Analyst exam.',
+                    'A learning app that runs entirely in the browser. It began as pandas lessons I could do on my phone and kept growing: there are now 575 lessons across 24 tracks: 375 in Python (an 80-lesson course for complete beginners, plus pandas, NumPy, messy data, statistics, forecasting, business metrics, machine learning, AI, algorithms and building ETL pipelines), 60 in SQL (15 of them on cleaning data), 45 in DAX (10 of those on Power BI modelling), 35 in Excel (15 on cleaning), 35 in R and 25 across four projects, laid out in nine stages, one per tool. On top of that are 208 practice problems (61 in Python, 62 in SQL, 28 in DAX, 19 in Excel, 19 in R and 19 algorithms) and a PL-300 prep section with 107 exam-style questions for the Power BI Data Analyst exam.',
                     'Nothing gets installed, and your code stays in the browser. Progress does too, unless you turn on sync: it copies your progress to a small Supabase database under a code, with no name or email attached, so a phone and a work computer can share it. After the first load it works with no connection. That first load pulls down about 25MB of Python runtime, so it is worth doing on wifi once. R is a second download, the first time you open anything in R.'
                 ]},
                 { h: 'Why I built it', p: [
@@ -809,7 +810,8 @@
                 { h: 'The DAX and Excel engines', p: [
                     'You cannot run Microsoft\u2019s DAX engine in a browser, so we built one: about 2,500 lines of Python that handles measures, filter and row context, context transition, CALCULATE with ALL, ALLEXCEPT and KEEPFILTERS, the X iterators, RELATED, RANKX, calculated columns and time intelligence on a marked calendar table. Relationships filter one way from lookup to data, as they do in a default Power BI model.',
                     'Every DAX lesson\u2019s answer was checked against the same numbers worked out separately in pandas. This page used to flag one gap: a whole table used as a CALCULATE filter did not reach the lookup tables behind it. It does now, the way Power BI\u2019s expanded tables do, and it stops at a blank key where Power BI would use the blank row.',
-                    'Excel got the same treatment. The app\u2019s own tables become sheets, with headings in row 1, and about 3,700 lines of Python follow Excel\u2019s rules where a learner would notice: $ locking and filling down, how it rounds, dates stored as numbers, error values like #N/A that carry on until IFERROR catches them, lookups, and lists that spill. The answer is drawn as the sheet itself, and because Excel is visual, every Excel lesson and problem shows the sheet before you type, with the cell your formula goes in outlined and each column\u2019s full range written out, so nobody has to count rows. After it runs, a formula can be stepped through from the inside, the way Excel\u2019s Evaluate Formula does it. The engine is checked against 111 formulas with known answers, with its totals checked against pandas.'
+                    'Excel got the same treatment. The app\u2019s own tables become sheets, with headings in row 1, and about 3,700 lines of Python follow Excel\u2019s rules where a learner would notice: $ locking and filling down, how it rounds, dates stored as numbers, error values like #N/A that carry on until IFERROR catches them, lookups, and lists that spill. The answer is drawn as the sheet itself, and because Excel is visual, every Excel lesson and problem shows the sheet before you type, with the cell your formula goes in outlined and each column\u2019s full range written out, so nobody has to count rows. After it runs, a formula can be stepped through from the inside, the way Excel\u2019s Evaluate Formula does it. The engine is checked against 111 formulas with known answers, with its totals checked against pandas.',
+                    'In November the whole app was audited: every one of the 575 lessons and 208 practice questions run (2,776 checks pass), and 287 Excel formulas and 143 DAX measures checked against known answers, with what was wrong put right.'
                 ]},
                 { h: 'One workspace, five languages', p: [
                     'SQL runs in SQLite through Python\u2019s own sqlite3, and every DataFrame becomes a table of the same name. So the SQL lessons query the very same cafe table the pandas lessons use, and nothing needs keeping in sync. The sandbox has a Python, SQL, Excel, DAX and R switch, and the first four share one workspace: make a DataFrame in Python mode and it is a table in SQL mode and a sheet in Excel mode.',
@@ -871,6 +873,37 @@
             ]
         },
 
+        pl300: {
+            kind: 'React · TypeScript · Pyodide',
+            title: 'PL-300 Studio — Power BI exam prep',
+            live: 'https://ibomenobasiekanem.com/pl300-study-studio/',
+            liveLabel: 'Open PL-300 Studio',
+            repo: 'https://github.com/TheLordBass/pl300-study-studio',
+            gallery: [
+                { src: 'assets/shots/pl300.jpg', cap: 'Home: a simulated exam score out of 1,000 with 700 to pass, weighted by Microsoft’s split of the exam, the weakest area to work on next, and the labs.', alt: 'PL-300 Studio home screen in its dark theme: a simulated exam score of 0 out of 1000 with 700 to pass, counts of 48 skills, 20 MCQs, 22 labs and 24 cards, a recommended next step to strengthen Prepare the Data, and four labs to jump into: building DAX formulas, the Power Query Lab, a case study and matrix drills.' },
+                { src: 'assets/shots/pl300-pqlab.jpg', cap: 'The Power Query Lab: a messy finance export, a brief, and an editor with the ribbon, formula bar, column quality bars and Applied Steps, laid out like Power BI’s own.', alt: 'PL-300 Studio Power Query Lab on the Budget workbook export scenario: a brief to remove title rows, promote headers, remove the total row, unpivot the months and set types, above a Power Query-style editor with Home, Transform and Add Column ribbon tabs, a formula bar showing Excel.Workbook, a grid of the raw rows and an Applied Steps pane.' }
+            ],
+            blocks: [
+                { h: 'What it is', p: [
+                    'A study app for Microsoft’s PL-300 Power BI Data Analyst exam, covering its four areas: preparing the data, modelling it, visualising and analysing it, and managing and securing Power BI. Progress turns into a simulated exam score out of 1,000, weighted the way Microsoft weights each area, and the home screen points at the weakest one.',
+                    'It has multiple-choice questions with a timed mock exam that marks itself when the clock runs out, case studies with exhibits across several tabs, flashcards with a deck of the ones still being learnt, and quick drills on workspace roles, storage modes and row-level security.'
+                ]},
+                { h: 'Power Query you can actually do', p: [
+                    'The exam asks how you would clean data, so the app has its own Power Query editor that runs in the browser: the ribbon, a formula bar, column types and quality bars, Applied Steps, and the M code it generates. It does 24 transformations, including unpivot, merge, append, group by, fill down, split and conditional columns.',
+                    'There are 8 scenarios, each a messy dataset with a brief, hints and a CSV to download. A finished table is checked against the target output, so the answer has to be right, not just look right.'
+                ]},
+                { h: 'DAX that runs', p: [
+                    'DAX questions are built slot by slot, and can be run on a sample model of sales, products, customers, dates and employees. The engine is the one from QueryCafe, running Python in the browser, extended for this with inactive relationships and USERELATIONSHIP, and USERNAME and USERPRINCIPALNAME for row-level security. A measure written by hand is compared with the reference answer cell by cell.'
+                ]},
+                { h: 'Reference', p: [
+                    'A searchable DAX cheat sheet of 54 functions with syntax, examples and exam traps, plus 7 common patterns, and 29 Power Query how-to guides, each with a drawing of the Power Query editor that highlights the button, menu item or dialog for that step.'
+                ]},
+                { h: 'How it is built', p: [
+                    'React and TypeScript with Vite and Tailwind, published to this site by GitHub Actions on every push. The DAX engine runs in a Web Worker on Pyodide and pandas, loaded only when a lab needs it. Progress is saved in the browser and can move between a laptop and a phone through a JSON backup or a private GitHub Gist.'
+                ]}
+            ]
+        },
+
         jobscratch: {
             kind: 'Next.js · TypeScript · Claude API',
             title: 'JobScratch — my job search, as a website',
@@ -883,13 +916,14 @@
             ],
             blocks: [
                 { h: 'What it is', p: [
-                    'The website I use for my own job search. It searches 15 job sources at once, from remote boards like Remotive and Himalayas to Reed, Adzuna, Jooble, NHS Jobs and Google Jobs, plus companies’ own careers pages on Greenhouse, Lever and Ashby. When the same job turns up on several sites, the duplicates are merged and every apply link is kept, so I apply in the right place.',
-                    'A job I have already saved is left out of new search results, and one I mark Not interested stays hidden. Saved jobs are tracked from saved to applied, interviewing and offer, with notes, a CSV export and a Progress page that counts applications per week and where interviews came from.'
+                    'The website I use for my own job search. It searches 16 job sources at once, from remote boards like Remotive and Himalayas to Reed, Adzuna, Jooble, NHS Jobs and Google Jobs, plus companies’ own careers pages on Greenhouse, Lever and Ashby, and the RSS feeds many universities, councils and charities publish of their own vacancies. When the same job turns up on several sites, the duplicates are merged and every apply link is kept, so I apply in the right place.',
+                    'A job I have already saved is left out of new search results, and one I mark Not interested stays hidden. Saved jobs are tracked from saved to applied, interviewing and offer, with notes, a CSV export and a Progress page that counts applications per week and where interviews came from. Before I apply it flags long shots under 60%, postings from agencies or with no named employer, and anything over a month old. A week after applying it reminds me to follow up, with the email and LinkedIn message drafted, and the Progress page shows which match scores and which cover letters actually led to interviews.'
                 ]},
                 { h: 'Matching and tailoring with Claude', p: [
                     'Upload a CV once, or up to six for different kinds of job, which Claude reads together as one record of me, and it can match every job in a list against it, or one job at a time from its page. Each match is a full analysis: a 0 to 100 score, a one-line verdict, the strengths with the evidence for each, the gaps, and which of the job’s keywords the CV has or lacks. Jobs are only matched once they have a full description, because a score worked out from a two-line snippet would not mean much.',
                     'From there it rewrites the CV for that job and writes a cover letter, which download as Word, PDF or Markdown, and drafts answers to the questions application forms ask, like why this company and why this role, ready to copy in. All of it keeps going in the background while I look at other jobs. It is told never to invent anything: employers, titles, dates and numbers have to come from the CV, and anything the job wants that the CV cannot back up goes in the gaps instead.',
-                    'When a match finds skills the job wants that my CV does not show, it asks whether I have that experience, and anything I add goes into the next CV. Notes on a job, like how an interview went, guide the next version too. Across all my saved jobs it picks out the skills that keep coming up, so I can add the ones I have to my profile. Projects can be left out of a CV in one click.'
+                    'When a match finds skills the job wants that my CV does not show, it asks whether I have that experience, and anything I add goes into the next CV. Notes on a job, like how an interview went, guide the next version too. Across all my saved jobs it picks out the skills that keep coming up, so I can add the ones I have to my profile. Projects can be left out of a CV in one click.',
+                    'Each job also gets a Message tab, with a LinkedIn note and an email to the recruiter or hiring manager, a Test prep tab with practice questions and worked answers for the assessment it is likely to set, and once I am at interview stage, an Interview prep pack to read the night before: the likely questions and what each is testing, STAR stories taken from my own CV, the hard questions my background invites, and questions to ask them. A story with no result is flagged for me to fill in, never invented.'
                 ]},
                 { h: 'LinkedIn, Indeed and Glassdoor', p: [
                     'These have no public jobs API, so the website never scrapes them. Their jobs come in through Google Jobs results, one at a time from a bookmark or browser extension that reads the job page I am already looking at, or from JobSpy, an open-source library that runs on my own computer.',
@@ -897,15 +931,15 @@
                 ]},
                 { h: 'Ready before I am up', p: [
                     'Every morning my computer runs the JobSpy search by itself, from lists of job titles each with their own places. It runs at home rather than on the server because LinkedIn and Glassdoor turn away searches from cloud servers.',
-                    'The jobs it finds are matched against my CV as one batch through Anthropic’s Message Batches API, which costs half as much, and the CV is cached between jobs so it is not paid for every time. The best few matches are saved with a tailored CV, cover letter and application answers, and a notification on my phone says they are ready.'
+                    'The jobs it finds are matched against my CV as one batch through Anthropic’s Message Batches API, which costs half as much, and the CV is cached between jobs so it is not paid for every time. It then picks today’s shortlist, the five best fresh jobs from employers that name themselves, saves them with a tailored CV, cover letter and application answers, and a notification on my phone says they are ready.'
                 ]},
                 { h: 'Where the data lives', p: [
                     'Everything personal is kept in the browser’s own database (IndexedDB), which has room for thousands of saved jobs, where the usual browser storage tops out at about 5 MB. Server storage is optional and only switches on behind a password, so a CV is never open to anyone who finds the link. With it on, the same jobs are on my laptop and my phone, and changes made offline are sent when I am back online.',
                     'That is also why there is no live link here: my copy holds my own CV and saved jobs. The screenshots use made-up demo data instead.'
                 ]},
                 { h: 'How it was built', p: [
-                    'With Claude, the same way as QueryCafe. All 51 of its pull requests came from Claude coding sessions, and I directed what it should do and merged the changes. It is Next.js and React in TypeScript, with the Anthropic SDK for Claude, zod schemas to check the structured match results, the docx library for the Word downloads, and Redis for the optional server storage. It works on a laptop and installs on a phone like an app.',
-                    'Every push and pull request runs linting, type checks, 28 files of unit tests and a production build on GitHub.'
+                    'With Claude, the same way as QueryCafe. All 74 of its pull requests came from Claude coding sessions, and I directed what it should do and merged the changes. It is Next.js and React in TypeScript, with the Anthropic SDK for Claude, zod schemas to check the structured match results, the docx library for the Word downloads, and Redis for the optional server storage. It works on a laptop and installs on a phone like an app.',
+                    'Every push and pull request runs linting, type checks, 35 files of unit tests and a production build on GitHub.'
                 ]}
             ]
         }

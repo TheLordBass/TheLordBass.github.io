@@ -326,7 +326,7 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                 </div>
                 <h3>Excel &amp; Microsoft 365</h3>
-                <p>Still where most business analysis really happens, whatever anyone says. I build workbooks assuming somebody else will inherit them, and one did get inherited: the revenue tracker I built at British Airways is now used by agents across the office. The rest of Microsoft 365 is everyday kit too: Outlook, Teams and SharePoint at work, Word for write-ups, PowerPoint for presenting what I found.</p>
+                <p>Still where most business analysis really happens, whatever anyone says. I build workbooks assuming somebody else will inherit them, and one did get inherited: the revenue tracker I built at British Airways is now used by all 18 agents on my team. The rest of Microsoft 365 is everyday kit too: Outlook, Teams and SharePoint at work, Word for write-ups, PowerPoint for presenting what I found.</p>
                 <ul class="tag-list">
                     <li>Power Query</li><li>XLOOKUP</li><li>INDEX/MATCH</li><li>SUMIFS</li><li>COUNTIFS</li><li>Conditional formatting</li><li>Pivot tables</li><li>Dynamic arrays</li><li>Microsoft 365</li>
                 </ul>
@@ -545,9 +545,8 @@
                 </div>
             </article>
 
-            <!-- Airline customer complaints (companion to the punctuality report).
-                 Normal width with a picture, so it, NBA and COVID make a row of three. -->
-            <article class="card project-card has-shot" data-category="bi" data-project="complaints">
+            <!-- Featured: Airline customer complaints (companion to the punctuality report) -->
+            <article class="card project-card is-featured has-shot" data-category="bi" data-project="complaints">
                 <a class="project-shot" href="#" data-project="complaints" aria-label="Open write-up: Airline customer complaints">
                     <img src="assets/shots/airline-complaints.jpg" width="1400" height="782" loading="lazy" decoding="async"
                          alt="Power BI dashboard showing average resolution time of 22.37 days, 977 complaints, delay as the most complained-about category and £172.36K total compensation, above complaint volume and payout by category, a channel breakdown pie, a monthly complaint line and complaints per 1,000 flights ranked by airport.">
@@ -590,29 +589,61 @@
                 </div>
             </article>
 
-            <!-- COVID -->
-            <article class="card project-card" data-category="sql" data-project="covid">
+            <!-- Featured: PL-300 Studio, paired with JobScratch. Screenshots are of
+                 the live app with no progress saved, so they show no personal data. -->
+            <article class="card project-card is-featured has-shot" data-category="app" data-project="pl300">
+                <a class="project-shot" href="#" data-project="pl300" aria-label="Open write-up: PL-300 Studio">
+                    <img src="assets/shots/pl300.jpg" width="1400" height="744" loading="lazy" decoding="async"
+                         alt="PL-300 Studio home screen in its dark theme: a simulated exam score of 0 out of 1000 with 700 to pass, counts of 48 skills, 20 MCQs, 22 labs and 24 cards, a recommended next step to strengthen Prepare the Data, and four labs to jump into: building DAX formulas, the Power Query Lab, a case study and matrix drills.">
+                </a>
                 <div class="project-top">
-                    <span class="project-kind">SQL · Exploratory analysis</span>
-                    <h3 class="project-title">COVID-19 global analysis</h3>
+                    <span class="project-kind">React · TypeScript · Pyodide</span>
+                    <h3 class="project-title">PL-300 Studio — Power BI exam prep</h3>
                 </div>
-                <p class="project-figure"><b>2</b> <span>tables, joined on country and date</span></p>
+                <p class="project-figure"><b>8</b> <span>messy datasets to clean in its own Power Query editor</span></p>
                 <p class="project-desc">
-                    Deaths and vaccinations by country, joined on country and date. The main lesson was
-                    that no single death rate told you much, because the odds of dying if you caught it
-                    kept falling as treatment got better. Running vaccination totals showed how uneven
-                    the rollout was.
+                    A study app for Microsoft's PL-300 Power BI Data Analyst exam. It has
+                    practice questions, case studies and a timed mock exam, a Power Query editor
+                    that runs in the browser, and DAX formulas run for real on a sample model, using the
+                    engine from QueryCafe.
                 </p>
-                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <ul class="tag-list"><li>TypeScript</li><li>React</li><li>Power Query</li><li>DAX</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="pl300">Read the write-up</button>
+                    <a class="project-viz" href="https://ibomenobasiekanem.com/pl300-study-studio/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open PL-300 Studio in the browser</span></a>
+                    <a class="project-repo" href="https://github.com/TheLordBass/pl300-study-studio" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for PL-300 Studio on GitHub</span></a>
                 </div>
             </article>
 
-            <!-- Featured: QueryCafe, paired with JobScratch. Four featured cards each
-                 beside a normal one, plus one row of three normal cards, so every
-                 row of three is full. -->
+            <!-- JobScratch: an app rather than an analysis, so it matches no filter
+                 and only shows under All. No Live link: the live copy sits behind a
+                 sign-in because it holds my CV and saved jobs, so the screenshots are
+                 of a local copy filled with made-up demo data. -->
+            <article class="card project-card has-shot" data-category="app" data-project="jobscratch">
+                <a class="project-shot" href="#" data-project="jobscratch" aria-label="Open write-up: JobScratch">
+                    <img src="assets/shots/jobscratch.jpg" width="1400" height="788" loading="lazy" decoding="async"
+                         alt="Three JobScratch phone screens in its dark theme, with made-up demo data: My jobs sorted by best match, led by a Data Analyst job at 88% marked Interviewing; that job's full description laid out with headings and bullet points; and its match analysis, an 88% score with strengths, gaps and keywords.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Next.js · TypeScript · Claude API</span>
+                    <h3 class="project-title">JobScratch — my job search, as a website</h3>
+                </div>
+                <p class="project-figure"><b>15</b> <span>job sources searched at once</span></p>
+                <p class="project-desc">
+                    Built for my own job hunt. It searches 16 job sources at once, merges the same job
+                    listed on several sites, and uses Claude to score each job against my CV and tailor
+                    a CV and cover letter without inventing anything. Each morning the best new jobs are
+                    ready to apply before I'm up. Built with Claude as my coding partner.
+                </p>
+                <ul class="tag-list"><li>TypeScript</li><li>Next.js</li><li>React</li><li>Claude API</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="jobscratch">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/Jobscratch" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for JobScratch on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- Featured: QueryCafe, paired with COVID. Six featured cards each beside
+                 a normal one, so every row of three is full. -->
             <article class="card project-card is-featured has-shot" data-category="python" data-project="databites">
                 <a class="project-shot" href="#" data-project="databites" aria-label="Open write-up: QueryCafe">
                     <img src="assets/shots/querycafe.jpg" width="1400" height="788" loading="lazy" decoding="async"
@@ -637,30 +668,23 @@
                 </div>
             </article>
 
-            <!-- JobScratch: an app rather than an analysis, so it matches no filter
-                 and only shows under All. No Live link: the live copy sits behind a
-                 sign-in because it holds my CV and saved jobs, so the screenshots are
-                 of a local copy filled with made-up demo data. -->
-            <article class="card project-card has-shot" data-category="app" data-project="jobscratch">
-                <a class="project-shot" href="#" data-project="jobscratch" aria-label="Open write-up: JobScratch">
-                    <img src="assets/shots/jobscratch.jpg" width="1400" height="788" loading="lazy" decoding="async"
-                         alt="Three JobScratch phone screens in its dark theme, with made-up demo data: My jobs sorted by best match, led by a Data Analyst job at 88% marked Interviewing; that job's full description laid out with headings and bullet points; and its match analysis, an 88% score with strengths, gaps and keywords.">
-                </a>
+            <!-- COVID -->
+            <article class="card project-card" data-category="sql" data-project="covid">
                 <div class="project-top">
-                    <span class="project-kind">Next.js · TypeScript · Claude API</span>
-                    <h3 class="project-title">JobScratch — my job search, as a website</h3>
+                    <span class="project-kind">SQL · Exploratory analysis</span>
+                    <h3 class="project-title">COVID-19 global analysis</h3>
                 </div>
-                <p class="project-figure"><b>15</b> <span>job sources searched at once</span></p>
+                <p class="project-figure"><b>2</b> <span>tables, joined on country and date</span></p>
                 <p class="project-desc">
-                    Built for my own job hunt. It searches 15 job sources at once, merges the same job
-                    listed on several sites, and uses Claude to score each job against my CV and tailor
-                    a CV and cover letter without inventing anything. Each morning the best new jobs are
-                    ready to apply before I'm up. Built with Claude as my coding partner.
+                    Deaths and vaccinations by country, joined on country and date. The main lesson was
+                    that no single death rate told you much, because the odds of dying if you caught it
+                    kept falling as treatment got better. Running vaccination totals showed how uneven
+                    the rollout was.
                 </p>
-                <ul class="tag-list"><li>TypeScript</li><li>Next.js</li><li>React</li><li>Claude API</li></ul>
+                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
                 <div class="project-actions">
-                    <button type="button" class="project-open" data-project="jobscratch">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/Jobscratch" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for JobScratch on GitHub</span></a>
+                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
                 </div>
             </article>
 
@@ -697,7 +721,7 @@
                     <p class="timeline-org">British Airways Gold Guest List and Premier team · Manchester, UK</p>
                     <p class="timeline-note">Previously in the Gold and Change Booking teams</p>
                     <ul class="timeline-points">
-                        <li>I built an Excel revenue tracker because the numbers in the background didn't show me what I wanted to know. It tracks bookings, revenue and overtime against sales targets and works out overtime pay and commission by itself, using SUMIFS, COUNTIFS and conditional formatting. Agents across the office use it now.</li>
+                        <li>I built an Excel revenue tracker because the numbers in the background didn't show me what I wanted to know. It tracks bookings, revenue and overtime against sales targets and turns overtime pay and commission, once worked out by hand, into instant results, using SUMIFS, COUNTIFS and conditional formatting. All 18 agents on my team use it now.</li>
                         <li>I sell flights, holidays and hotel bookings, and I've consistently met and beaten monthly sales targets of £60K to £150K.</li>
                         <li>I noticed customers whose flights were cancelled in schedule changes kept getting rebooked onto flights hours earlier or later, even when a new flight had been added at almost the same time. I took it to management, and it led to a new policy letting us rebook those customers onto the closer flight free of charge. Spotting a process that isn't working and getting it changed is the continuous improvement side of the job, and it's the part I enjoy most.</li>
                         <li>I work with the airport, fares, ticketing and refunds teams to sort out complex cases for premium customers, and use SharePoint for the organisation's resources.</li>
@@ -747,6 +771,7 @@
                     <h3 class="timeline-role">BSc (Hons) Information Technology &amp; Business Information Systems</h3>
                     <p class="timeline-org">Middlesex University · First Class Honours</p>
                     <p class="timeline-note">Final-year project: researched YouTube addiction through user workshops, then designed and tested an alternative in Figma.</p>
+                    <p class="timeline-note">Modules included Business Intelligence, Strategic Information Systems Management and UX Design.</p>
                 </div>
             </li>
         </ol>
