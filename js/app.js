@@ -899,7 +899,7 @@
                     'A searchable DAX cheat sheet of 54 functions with syntax, examples and exam traps, plus 7 common patterns, and 29 Power Query how-to guides, each with a drawing of the Power Query editor that highlights the button, menu item or dialog for that step.'
                 ]},
                 { h: 'How it is built', p: [
-                    'React and TypeScript with Vite and Tailwind, published to this site by GitHub Actions on every push. The DAX engine runs in a Web Worker on Pyodide and pandas, loaded only when a lab needs it. Progress is saved in the browser and can move between a laptop and a phone through a JSON backup or a private GitHub Gist.'
+                    'With Claude as my coding partner, the same way as QueryCafe and JobScratch. It is React and TypeScript with Vite and Tailwind, published to this site by GitHub Actions on every push. The DAX engine runs in a Web Worker on Pyodide and pandas, loaded only when a lab needs it. Progress is saved in the browser and can move between a laptop and a phone through a JSON backup or a private GitHub Gist.'
                 ]}
             ]
         },
