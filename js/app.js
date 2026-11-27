@@ -927,11 +927,10 @@
                     'Each job also gets a Message tab, with a LinkedIn note and an email to the recruiter or hiring manager, a Test prep tab with practice questions and worked answers for the assessment it is likely to set, and once I am at interview stage, an Interview prep pack to read the night before: the likely questions and what each is testing, STAR stories taken from my own CV, the hard questions my background invites, and questions to ask them. A story with no result is flagged for me to fill in, never invented.'
                 ]},
                 { h: 'LinkedIn, Indeed and Glassdoor', p: [
-                    'These have no public jobs API, so the website never scrapes them. Their jobs come in through Google Jobs results, one at a time from a bookmark or browser extension that reads the job page I am already looking at, or from JobSpy, an open-source library that runs on my own computer.',
-                    'For JobSpy there is a small Python helper that I switch on and off from the website. It searches up to 50 job titles in one go, keeps LinkedIn searches at least 10 minutes apart so they are not all fired at once, and can save only the jobs that match my CV above a percentage I choose.'
+                    'These have no public jobs API, so the website never scrapes them. Their jobs come in through Google Jobs results, or one at a time from a bookmark or browser extension that reads the job page I am already looking at.'
                 ]},
                 { h: 'Ready before I am up', p: [
-                    'Every morning my computer runs the JobSpy search by itself, from lists of job titles each with their own places. It runs at home rather than on the server because LinkedIn and Glassdoor turn away searches from cloud servers.',
+                    'Every morning a scheduled search runs by itself, from lists of job titles each with their own places.',
                     'The jobs it finds are matched against my CV as one batch through Anthropic’s Message Batches API, which costs half as much, and the CV is cached between jobs so it is not paid for every time. It then picks today’s shortlist, the five best fresh jobs from employers that name themselves, saves them with a tailored CV, cover letter and application answers, and a notification on my phone says they are ready.'
                 ]},
                 { h: 'Where the data lives', p: [
