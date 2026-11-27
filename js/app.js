@@ -880,8 +880,8 @@
             liveLabel: 'Open PL-300 Studio',
             repo: 'https://github.com/TheLordBass/pl300-study-studio',
             gallery: [
-                { src: 'assets/shots/pl300.jpg', cap: 'Home: a simulated exam score out of 1,000 with 700 to pass, weighted by Microsoft’s split of the exam, the weakest area to work on next, and the labs.', alt: 'PL-300 Studio home screen in its dark theme: a simulated exam score of 0 out of 1000 with 700 to pass, counts of 48 skills, 20 MCQs, 22 labs and 24 cards, a recommended next step to strengthen Prepare the Data, and four labs to jump into: building DAX formulas, the Power Query Lab, a case study and matrix drills.' },
-                { src: 'assets/shots/pl300-pqlab.jpg', cap: 'The Power Query Lab: a messy finance export, a brief, and an editor with the ribbon, formula bar, column quality bars and Applied Steps, laid out like Power BI’s own.', alt: 'PL-300 Studio Power Query Lab on the Budget workbook export scenario: a brief to remove title rows, promote headers, remove the total row, unpivot the months and set types, above a Power Query-style editor with Home, Transform and Add Column ribbon tabs, a formula bar showing Excel.Workbook, a grid of the raw rows and an Applied Steps pane.' }
+                { src: 'assets/shots/pl300.jpg', cap: 'Home: exam readiness at a glance, with a simulated exam score out of 1,000 against the 700 pass mark, the weakest area to practise next, mastery by exam domain, and the labs.', alt: 'PL-300 Studio home screen in its dark forest-green theme: exam readiness with a simulated exam score of 0 out of 1000 and a 700 pass mark, tiles for skills checked off, question accuracy, labs completed and cards mastered, the weakest area to practise next, mastery by exam domain against a 70% goal, and the hands-on labs.' },
+                { src: 'assets/shots/pl300-pqlab.jpg', cap: 'The Power Query lab: a messy finance export, a brief, and an editor with the ribbon, formula bar, column quality bars and Applied Steps, laid out like Power BI2019s own.', alt: 'PL-300 Studio Power Query lab on the Budget workbook export scenario: eight scenario buttons, a brief to remove title rows, promote headers, remove the total row, unpivot the months and set types, above a Power Query-style editor with Home, Transform and Add Column ribbon tabs, a formula bar showing Excel.Workbook, a grid of the raw rows and an Applied Steps pane.' }
             ],
             blocks: [
                 { h: 'What it is', p: [
@@ -899,7 +899,8 @@
                     'A searchable DAX cheat sheet of 54 functions with syntax, examples and exam traps, plus 7 common patterns, and 29 Power Query how-to guides, each with a drawing of the Power Query editor that highlights the button, menu item or dialog for that step.'
                 ]},
                 { h: 'How it is built', p: [
-                    'With Claude as my coding partner, the same way as QueryCafe and JobScratch. It is React and TypeScript with Vite and Tailwind, published to this site by GitHub Actions on every push. The DAX engine runs in a Web Worker on Pyodide and pandas, loaded only when a lab needs it. Progress is saved in the browser and can move between a laptop and a phone through a JSON backup or a private GitHub Gist.'
+                    'With Claude as my coding partner, the same way as QueryCafe and JobScratch. It is React and TypeScript with Vite and Tailwind, published to this site by GitHub Actions on every push. The DAX engine runs in a Web Worker on Pyodide and pandas, loaded only when a lab needs it. Progress is saved in the browser first, so it never waits on the network, and a 20-character sync code links a laptop and a phone with no account or email. It uses the same Supabase database as QueryCafe, merges changes made on two devices, and keeps the last 15 versions so an older one can be restored.',
+                    'Each page has a short walkthrough the first time it opens, there is a Help guide that can replay any of them, and each release with something new shows a one-off What2019s new note.'
                 ]}
             ]
         },
