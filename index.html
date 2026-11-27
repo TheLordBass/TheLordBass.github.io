@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Ibomeno Basiekanem — Data analysis portfolio</title>
-    <meta name="description" content="I work in airline customer service in Manchester and do data analysis on the side. Power BI, SQL and Excel projects, each documented end to end.">
+    <meta name="description" content="Aspiring data and reporting analyst in Manchester, working in airline customer service. Power BI, SQL and Excel projects, each documented end to end.">
     <meta name="author" content="Ibomeno Basiekanem">
     <link rel="canonical" href="https://ibomenobasiekanem.com/">
 
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ibomenobasiekanem.com/">
     <meta property="og:title" content="Ibomeno Basiekanem — Data analysis portfolio">
-    <meta property="og:description" content="I work in airline customer service in Manchester and do data analysis on the side. Power BI, SQL and Excel projects, documented end to end, plus things I build because they pique my interest.">
+    <meta property="og:description" content="Aspiring data and reporting analyst in Manchester, working in airline customer service. Power BI, SQL and Excel projects, documented end to end, plus things I build because they pique my interest.">
     <meta property="og:locale" content="en_GB">
     <!-- Bump ?v= whenever og-image.png changes: LinkedIn caches the image by
          its URL and ignores a new file at the same address. -->
@@ -82,7 +82,8 @@
         <li><a class="tab" href="#top">Overview</a></li>
         <li><a class="tab" href="#about">About</a></li>
         <li><a class="tab" href="#skills">Skills</a></li>
-        <li><a class="tab" href="#projects">Projects</a></li>
+        <li><a class="tab" href="#projects">Analysis</a></li>
+        <li><a class="tab" href="#builds">Builds</a></li>
         <li><a class="tab" href="#experience">Experience</a></li>
         <li><a class="tab" href="#contact">Contact</a></li>
     </ul>
@@ -126,8 +127,8 @@
                         <span class="hero-sub">And there's a thrill in finding them, and in explaining how.</span>
                     </h1>
                     <p class="hero-lede">
-                        I'm Ibomeno. I work in airline customer service in Manchester, and I do data analysis
-                        on the side. Everything on this page I built in my own time, because when I see some
+                        I'm Ibomeno, an aspiring data and reporting analyst. I work in airline customer
+                        service in Manchester. Everything on this page I built in my own time, because when I see some
                         interesting data I can't help digging into it. It isn't all analysis, either: if
                         something piques my interest, or I can build something that makes my day-to-day
                         easier, I'll build it.
@@ -388,14 +389,14 @@
 </section>
 
 <!-- ==========================================================
-     Projects
+     Analysis projects
      ========================================================== -->
 <section id="projects" class="section">
     <div class="wrap">
         <div class="section-head">
-            <p class="eyebrow">Projects</p>
-            <h2 class="section-title">Selected work</h2>
-            <p class="section-lede">All of it is public and the code sits on GitHub, so you can go and poke at it. Open a card for the write-up or skip straight to the source.</p>
+            <p class="eyebrow">Analysis</p>
+            <h2 class="section-title">Analysis projects</h2>
+            <p class="section-lede">SQL, Power BI and Excel work, each written up end to end. All of it is public and the code sits on GitHub, so you can go and poke at it. Open a card for the write-up or skip straight to the source.</p>
         </div>
 
         <div class="filter-row">
@@ -545,8 +546,9 @@
                 </div>
             </article>
 
-            <!-- Featured: Airline customer complaints (companion to the punctuality report) -->
-            <article class="card project-card is-featured has-shot" data-category="bi" data-project="complaints">
+            <!-- Airline customer complaints (companion to the punctuality report).
+                 Normal width with a picture, so it, NBA and COVID make a row of three. -->
+            <article class="card project-card has-shot" data-category="bi" data-project="complaints">
                 <a class="project-shot" href="#" data-project="complaints" aria-label="Open write-up: Airline customer complaints">
                     <img src="assets/shots/airline-complaints.jpg" width="1400" height="782" loading="lazy" decoding="async"
                          alt="Power BI dashboard showing average resolution time of 22.37 days, 977 complaints, delay as the most complained-about category and £172.36K total compensation, above complaint volume and payout by category, a channel breakdown pie, a monthly complaint line and complaints per 1,000 flights ranked by airport.">
@@ -589,9 +591,48 @@
                 </div>
             </article>
 
-            <!-- Featured: PL-300 Studio, paired with JobScratch. Screenshots are of
+            <!-- COVID -->
+            <article class="card project-card" data-category="sql" data-project="covid">
+                <div class="project-top">
+                    <span class="project-kind">SQL · Exploratory analysis</span>
+                    <h3 class="project-title">COVID-19 global analysis</h3>
+                </div>
+                <p class="project-figure"><b>2</b> <span>tables, joined on country and date</span></p>
+                <p class="project-desc">
+                    Deaths and vaccinations by country, joined on country and date. The main lesson was
+                    that no single death rate told you much, because the odds of dying if you caught it
+                    kept falling as treatment got better. Running vaccination totals showed how uneven
+                    the rollout was.
+                </p>
+                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
+                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
+                </div>
+            </article>
+
+        </div>
+
+        <p class="grid-empty" id="grid-empty" hidden>None of the analysis projects use this tool. It is in the things I have built, below.</p>
+    </div>
+</section>
+
+<!-- ==========================================================
+     Other things I have built: the apps, kept apart from the analysis
+     ========================================================== -->
+<section id="builds" class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Builds</p>
+            <h2 class="section-title">Other things I've built</h2>
+            <p class="section-lede">Apps I built with Claude as my coding partner, because they make my day-to-day easier: Power BI exam prep, a place to learn and practise SQL, Python, DAX, Excel and R, and my own job search.</p>
+        </div>
+
+        <div class="project-grid" id="builds-grid">
+
+            <!-- PL-300 Studio. Screenshots are of
                  the live app with no progress saved, so they show no personal data. -->
-            <article class="card project-card is-featured has-shot" data-category="app" data-project="pl300">
+            <article class="card project-card has-shot" data-category="app" data-project="pl300">
                 <a class="project-shot" href="#" data-project="pl300" aria-label="Open write-up: PL-300 Studio">
                     <img src="assets/shots/pl300.jpg" width="1400" height="744" loading="lazy" decoding="async"
                          alt="PL-300 Studio home screen in its dark forest-green theme: exam readiness with a simulated exam score of 0 out of 1000 and a 700 pass mark, tiles for skills checked off, question accuracy, labs completed and cards mastered, the weakest area to practise next, mastery by exam domain against a 70% goal, and the hands-on labs.">
@@ -612,6 +653,31 @@
                     <button type="button" class="project-open" data-project="pl300">Read the write-up</button>
                     <a class="project-viz" href="https://ibomenobasiekanem.com/pl300-study-studio/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open PL-300 Studio in the browser</span></a>
                     <a class="project-repo" href="https://github.com/TheLordBass/pl300-study-studio" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for PL-300 Studio on GitHub</span></a>
+                </div>
+            </article>
+
+            <!-- QueryCafe -->
+            <article class="card project-card has-shot" data-category="python" data-project="databites">
+                <a class="project-shot" href="#" data-project="databites" aria-label="Open write-up: QueryCafe">
+                    <img src="assets/shots/querycafe.jpg" width="1400" height="788" loading="lazy" decoding="async"
+                         alt="Three QueryCafe phone screens in its dark matcha and nude theme: the Café home screen with the next lesson, a Continue button and today’s special in points; an Excel lesson whose IF formula is drawn back as the column it fills, under a formula bar; and the Achievements screen, where every achievement earned is a rubber stamp of its own.">
+                </a>
+                <div class="project-top">
+                    <span class="project-kind">Pyodide · webR · SQLite · JavaScript</span>
+                    <h3 class="project-title">QueryCafe — Python, SQL, DAX, Excel and R in small bites</h3>
+                </div>
+                <p class="project-figure"><b>575</b> <span>lessons across five languages</span></p>
+                <p class="project-desc">
+                    Short lessons that run in the browser with nothing to install. It started as pandas
+                    on my phone and is now 575 lessons across Python, SQL, DAX, Excel and R, 208 practice
+                    problems and PL-300 exam prep. I built it with Claude as my coding partner, because most tutorials
+                    assume you can hold an hour of context in your head at once, and some days I can't.
+                </p>
+                <ul class="tag-list"><li>Python</li><li>SQL</li><li>DAX</li><li>Excel</li><li>R</li><li>Pyodide</li></ul>
+                <div class="project-actions">
+                    <button type="button" class="project-open" data-project="databites">Read the write-up</button>
+                    <a class="project-viz" href="https://ibomenobasiekanem.com/databites/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open QueryCafe in the browser</span></a>
+                    <a class="project-repo" href="https://github.com/TheLordBass/databites" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for QueryCafe on GitHub</span></a>
                 </div>
             </article>
 
@@ -642,55 +708,7 @@
                 </div>
             </article>
 
-            <!-- Featured: QueryCafe, paired with COVID. Six featured cards each beside
-                 a normal one, so every row of three is full. -->
-            <article class="card project-card is-featured has-shot" data-category="python" data-project="databites">
-                <a class="project-shot" href="#" data-project="databites" aria-label="Open write-up: QueryCafe">
-                    <img src="assets/shots/querycafe.jpg" width="1400" height="788" loading="lazy" decoding="async"
-                         alt="Three QueryCafe phone screens in its dark matcha and nude theme: the Café home screen with the next lesson, a Continue button and today’s special in points; an Excel lesson whose IF formula is drawn back as the column it fills, under a formula bar; and the Achievements screen, where every achievement earned is a rubber stamp of its own.">
-                </a>
-                <div class="project-top">
-                    <span class="project-kind">Pyodide · webR · SQLite · JavaScript</span>
-                    <h3 class="project-title">QueryCafe — Python, SQL, DAX, Excel and R in small bites</h3>
-                </div>
-                <p class="project-figure"><b>575</b> <span>lessons across five languages</span></p>
-                <p class="project-desc">
-                    Short lessons that run in the browser with nothing to install. It started as pandas
-                    on my phone and is now 575 lessons across Python, SQL, DAX, Excel and R, 208 practice
-                    problems and PL-300 exam prep. I built it with Claude as my coding partner, because most tutorials
-                    assume you can hold an hour of context in your head at once, and some days I can't.
-                </p>
-                <ul class="tag-list"><li>Python</li><li>SQL</li><li>DAX</li><li>Excel</li><li>R</li><li>Pyodide</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="databites">Read the write-up</button>
-                    <a class="project-viz" href="https://ibomenobasiekanem.com/databites/" target="_blank" rel="noopener noreferrer">Live<span class="sr-only">: open QueryCafe in the browser</span></a>
-                    <a class="project-repo" href="https://github.com/TheLordBass/databites" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for QueryCafe on GitHub</span></a>
-                </div>
-            </article>
-
-            <!-- COVID -->
-            <article class="card project-card" data-category="sql" data-project="covid">
-                <div class="project-top">
-                    <span class="project-kind">SQL · Exploratory analysis</span>
-                    <h3 class="project-title">COVID-19 global analysis</h3>
-                </div>
-                <p class="project-figure"><b>2</b> <span>tables, joined on country and date</span></p>
-                <p class="project-desc">
-                    Deaths and vaccinations by country, joined on country and date. The main lesson was
-                    that no single death rate told you much, because the odds of dying if you caught it
-                    kept falling as treatment got better. Running vaccination totals showed how uneven
-                    the rollout was.
-                </p>
-                <ul class="tag-list"><li>SQL</li><li>PARTITION BY</li><li>Joins</li></ul>
-                <div class="project-actions">
-                    <button type="button" class="project-open" data-project="covid">Read the write-up</button>
-                    <a class="project-repo" href="https://github.com/TheLordBass/SqlCovidProject" target="_blank" rel="noopener noreferrer">Code<span class="sr-only"> for COVID-19 SQL analysis on GitHub</span></a>
-                </div>
-            </article>
-
         </div>
-
-        <p class="grid-empty" id="grid-empty" hidden>No projects in that category yet.</p>
 
         <p class="grid-more">
             <a class="btn btn-ghost" href="https://github.com/TheLordBass?tab=repositories" target="_blank" rel="noopener noreferrer">

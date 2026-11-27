@@ -345,7 +345,9 @@
         var buttons = $$('.filter-btn');
         var cards = $$('.project-card');
         var empty = $('#grid-empty');
-        var grid = $('#project-grid');
+        var grid = $('#project-grid');          // the analysis projects
+        var builds = $('#builds');              // the apps, in a section of their own
+        var grids = $$('.project-grid');
         if (!buttons.length || !cards.length) return;
 
         var TOOLS = [
@@ -463,7 +465,7 @@
                 b.classList.toggle('is-active', on);
                 b.setAttribute('aria-pressed', String(on));
             });
-            if (grid) grid.classList.toggle('is-filtered', want !== 'all');
+            grids.forEach(function (g) { g.classList.toggle('is-filtered', want !== 'all'); });
             $$('.slicer, .filter-pane').forEach(function (el) {
                 el.classList.toggle('is-sliced', want !== 'all');
             });
@@ -475,7 +477,12 @@
             });
             rows.forEach(function (row) { row.hidden = !matches(row, want); });
 
-            if (empty) empty.hidden = shown.length !== 0;
+            // Each section says or shows what the filter leaves in it: the analysis
+            // grid gets a note when none of its cards match, and the Builds
+            // section steps out of the way when none of the apps do.
+            var inGrid = function (g) { return shown.filter(function (c) { return g && g.contains(c); }).length; };
+            if (empty) empty.hidden = inGrid(grid) !== 0;
+            if (builds) builds.hidden = inGrid($('#builds-grid')) === 0;
             drawDonut(shown);
             var tool = TOOLS.filter(function (t) { return t.key === want; })[0];
             describe(want, shown.length, tool ? tool.label : '');
