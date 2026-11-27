@@ -242,7 +242,7 @@
                     ['Amadeus',    'Airline bookings at BA'],
                     ['Tableau',    'Dashboards, parameters'],
                     ['Python',     'pandas, still learning'],
-                    ['AI tools',   'Drafting SQL and DAX, then checking it']
+                    ['AI tools',   'Drafting DAX, then checking it']
                 ]
             },
             focus: {
