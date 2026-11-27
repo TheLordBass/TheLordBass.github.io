@@ -130,7 +130,7 @@
             { t: 'cont', v: '  GROUP BY area ORDER BY 2 DESC;' },
             { t: 'dim',  v: '' },
             { t: 'head', v: ' area       | count' },
-            { t: 'out',  v: ' SQL        |     5' },
+            { t: 'out',  v: ' SQL        |     4' },
             { t: 'out',  v: ' Power BI   |     4' },
             { t: 'out',  v: ' TypeScript |     2' },
             { t: 'out',  v: ' Python     |     1' },
@@ -263,7 +263,6 @@
                 rows: [
                     ['Airline Complaints',      'Power BI'],
                     ['Airline Punctuality',     'Power BI'],
-                    ['COVID-19 Analysis',       'SQL'],
                     ['Driver Incentive Scheme', 'SQL'],
                     ['Healthcare Claims',       'SQL'],
                     ['JobScratch',              'TypeScript'],
@@ -653,45 +652,6 @@
             ]
         },
 
-        covid: {
-            kind: 'SQL · Exploratory analysis',
-            title: 'COVID-19 global analysis',
-            repo: 'https://github.com/TheLordBass/SqlCovidProject',
-            blocks: [
-                { h: 'The project', p: [
-                    'Two country-level tables, deaths and vaccinations, tracked over time. I wanted to answer the questions people were genuinely asking each other during the pandemic, and answer them in a way that would survive someone checking.'
-                ]},
-                { h: 'Questions', list: [
-                    'If you caught it in a particular country at a particular time, what were your odds? Deaths against cases, tracked over time instead of collapsed into one figure.',
-                    'How much of each country had actually had it?',
-                    'Which countries carried the highest death tolls, and how much does that change once you adjust for population?',
-                    'How did the vaccine rollout go, measured against the number of people there were to vaccinate?'
-                ]},
-                { h: 'Techniques', list: [
-                    'Joining the two tables on location <em>and</em> date. Getting that composite key right is the whole thing. Get it wrong and your vaccination numbers quietly line up against the wrong days.',
-                    'Window functions with <strong>PARTITION BY</strong> for running vaccination totals per country, without losing the daily rows underneath.',
-                    'Explicit casting, because doing the arithmetic on the raw columns gave me integer division and percentages that were wrong in a way that looked fine.'
-                ]},
-                { h: 'What it showed', p: [
-                    'Mortality moved a lot over time as treatment got better, which is the main reason any single headline death rate was misleading the whole way through. How well countries contained it varied enormously. And vaccination measured against population showed just how uneven the rollout was.'
-                ]},
-                { h: 'Sample approach', code:
-'SELECT\n' +
-'    d.location,\n' +
-'    d.date,\n' +
-'    d.population,\n' +
-'    v.new_vaccinations,\n' +
-'    SUM(CAST(v.new_vaccinations AS bigint))\n' +
-'        OVER (PARTITION BY d.location ORDER BY d.date) AS running_vaccinated\n' +
-'FROM CovidDeaths d\n' +
-'JOIN CovidVaccinations v\n' +
-'  ON d.location = v.location\n' +
-' AND d.date     = v.date\n' +
-'WHERE d.continent IS NOT NULL\n' +
-'ORDER BY d.location, d.date;'
-                }
-            ]
-        },
 
         uber: {
             kind: 'SQL · Business modelling',
